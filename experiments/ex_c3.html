@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-      <title>Sinc 序列</title>
+      <title>第三章 离散时间傅里叶变换</title>
     
       <link rel="stylesheet" href="../_static/pygments.css">
       <link rel="stylesheet" href="../_static/theme.css">
@@ -25,8 +25,8 @@
     
   <link rel="index" title="索引" href="../genindex.html" />
   <link rel="search" title="搜索" href="../search.html" />
-  <link rel="next" title="经典序列的 DTFT 变换" href="dtft_classical_seq.html" />
-  <link rel="prev" title="累加定理证明" href="accumulation.html" /> 
+  <link rel="next" title="DTFT变换" href="dtft_idtft.html" />
+  <link rel="prev" title="时域中的离散时间信号" href="dt_signals.html" /> 
   </head>
 
   <body><div id="app" class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
@@ -49,14 +49,14 @@
   
     <div class="nav-item">
       <a href="../index.html#id1"
-         class="nav-link ">
+         class="nav-link  router-link-active">
          实验内容
       </a>
     </div>
   
     <div class="nav-item">
-      <a href="index.html#id1"
-         class="nav-link  router-link-active">
+      <a href="../appendix/index.html#id1"
+         class="nav-link ">
          定理证明
       </a>
     </div>
@@ -93,14 +93,14 @@
   
     <div class="nav-item">
       <a href="../index.html#id1"
-         class="nav-link ">
+         class="nav-link  router-link-active">
          实验内容
       </a>
     </div>
   
     <div class="nav-item">
-      <a href="index.html#id1"
-         class="nav-link  router-link-active">
+      <a href="../appendix/index.html#id1"
+         class="nav-link ">
          定理证明
       </a>
     </div>
@@ -190,16 +190,22 @@
       <p class="caption">
         <span class="caption-text"><a href="../index.html#id1">实验内容</a></span>
       </p>
-      <ul class="">
+      <ul class="current">
         
-          <li class="toctree-l1 "><a href="../experiments/ex_c2.html" class="reference internal ">第二章 离散时间信号与系统</a>
+          <li class="toctree-l1 "><a href="ex_c2.html" class="reference internal ">第二章 离散时间信号与系统</a>
 
             
           </li>
 
         
-          <li class="toctree-l1 "><a href="../experiments/ex_c3.html" class="reference internal ">第三章 离散时间傅里叶变换</a>
+          <li class="toctree-l1 current"><a href="#" class="reference internal current">第三章 离散时间傅里叶变换</a>
 
+            
+              <ul>
+                
+                  <li class="toctree-l2"><a href="#id1" class="reference internal">第三章 离散时间傅里叶变换</a></li>
+                
+              </ul>
             
           </li>
 
@@ -209,37 +215,29 @@
   
     <div class="sidebar-group">
       <p class="caption">
-        <span class="caption-text"><a href="index.html#id1">定理证明</a></span>
+        <span class="caption-text"><a href="../appendix/index.html#id1">定理证明</a></span>
       </p>
-      <ul class="current">
+      <ul class="">
         
-          <li class="toctree-l1 "><a href="accumulation.html" class="reference internal ">累加定理证明</a>
+          <li class="toctree-l1 "><a href="../appendix/accumulation.html" class="reference internal ">累加定理证明</a>
 
             
           </li>
 
         
-          <li class="toctree-l1 current"><a href="#" class="reference internal current">Sinc 序列</a>
-
-            
-              <ul>
-                
-                  <li class="toctree-l2"><a href="#id1" class="reference internal">1. Sinc 序列不是绝对可和序列</a></li>
-                
-                  <li class="toctree-l2"><a href="#id2" class="reference internal">2. Sinc 序列是平方可和序列</a></li>
-                
-              </ul>
-            
-          </li>
-
-        
-          <li class="toctree-l1 "><a href="dtft_classical_seq.html" class="reference internal ">经典序列的 DTFT 变换</a>
+          <li class="toctree-l1 "><a href="../appendix/sinc_nonabs.html" class="reference internal ">Sinc 序列</a>
 
             
           </li>
 
         
-          <li class="toctree-l1 "><a href="gibbs.html" class="reference internal ">Gibbs效应</a>
+          <li class="toctree-l1 "><a href="../appendix/dtft_classical_seq.html" class="reference internal ">经典序列的 DTFT 变换</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../appendix/gibbs.html" class="reference internal ">Gibbs效应</a>
 
             
           </li>
@@ -278,20 +276,18 @@
   <ul class="breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
     
-      <li><a href="index.html">定理证明</a> &raquo;</li>
-    
-    <li>Sinc 序列</li>
+    <li>第三章 离散时间傅里叶变换</li>
   </ul>
   
 
   <ul class="page-nav">
   <li class="prev">
-    <a href="accumulation.html"
-       title="上一章">← 累加定理证明</a>
+    <a href="dt_signals.html"
+       title="上一章">← 时域中的离散时间信号</a>
   </li>
   <li class="next">
-    <a href="dtft_classical_seq.html"
-       title="下一章">经典序列的 DTFT 变换 →</a>
+    <a href="dtft_idtft.html"
+       title="下一章">DTFT变换 →</a>
   </li>
 </ul>
   
@@ -299,18 +295,35 @@
 <hr>
           <div class="content" role="main">
             
-  <div class="section" id="sinc">
-<h1>Sinc 序列<a class="headerlink" href="#sinc" title="永久链接至标题">¶</a></h1>
-<div class="section" id="id1">
-<h2>1. Sinc 序列不是绝对可和序列<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
-<p>根据 1/𝑥 函数的凸函数性质，</p>
-<div class="math notranslate nohighlight">
-\[\int_0^\infty \left\vert\frac{\sin x}{x}\right\vert \,\mathrm{d}x=\sum_{k=0}^\infty\int_{k\pi}^{(k+1)\pi}\left\vert\frac{\sin x}{x}\right\vert \,\mathrm{d}x&gt;\sum_{k=0}^\infty\int_{k\pi}^{(k+1)\pi}\frac{\left\vert\sin x\right\vert}{(k+1/2)\pi} \,\mathrm{d}x=\frac{2}{\pi}\sum_{k=0}^\infty\frac{1}{k+1/2}\;,\]</div>
-<p>其中，最后一项发散。</p>
-</div>
-<div class="section" id="id2">
-<h2>2. Sinc 序列是平方可和序列<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
-<p>Sinc 序列的傅里叶变换是门函数，能量有限。根据帕赛瓦尔定理（能量守恒），所以 Sinc 序列的能量也是有限值。</p>
+  <div class="section" id="id1">
+<h1>第三章 离散时间傅里叶变换<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>展示实验内容页面。</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dtft_idtft.html">DTFT变换</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dtft_idtft.html#离散时间傅里叶变换的收敛性">离散时间傅里叶变换的收敛性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dtft_idtft.html#离散时间傅里叶变换的性质">离散时间傅里叶变换的性质</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auto_focus.html">基于傅里叶变换的自动对焦算法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="auto_focus.html#原理介绍">原理介绍</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto_focus.html#二维图像傅里叶变换">二维图像傅里叶变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto_focus.html#计算频域中高频成分能量">计算频域中高频成分能量</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_nonbandLim.html">非带限信号的采样与重建</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sampling_nonbandLim.html#分析采样信号频谱">分析采样信号频谱</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sampling_nonbandLim.html#画出频谱图">画出频谱图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sampling_nonbandLim.html#理想带限插值方法重建">理想带限插值方法重建</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="vuvuzela/vuvuzela_denoising.html">如何消除Vuvuzela?</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="vuvuzela/vuvuzela_denoising.html#利用短时傅里叶变换计算语音信号的频谱">利用短时傅里叶变换计算语音信号的频谱</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vuvuzela/vuvuzela_denoising.html#利用信噪比信息去除噪声">利用信噪比信息去除噪声</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vuvuzela/vuvuzela_denoising.html#利用傅里叶逆变换得到时域语音信号">利用傅里叶逆变换得到时域语音信号</a></li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 
@@ -319,12 +332,12 @@
           <div class="page-nav">
             <div class="inner"><ul class="page-nav">
   <li class="prev">
-    <a href="accumulation.html"
-       title="上一章">← 累加定理证明</a>
+    <a href="dt_signals.html"
+       title="上一章">← 时域中的离散时间信号</a>
   </li>
   <li class="next">
-    <a href="dtft_classical_seq.html"
-       title="下一章">经典序列的 DTFT 变换 →</a>
+    <a href="dtft_idtft.html"
+       title="下一章">DTFT变换 →</a>
   </li>
 </ul><div class="footer" role="contentinfo">
       &#169; 版权所有 2019, Lei Yu.

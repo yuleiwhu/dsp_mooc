@@ -6,7 +6,7 @@
 欢迎进入《数字信号处理》课程学习！
 ======================================
 
-本课程配套《数字信号处理》 MOOC 课程，如需要观看视频教程，请移步 MOOC 中国官网[链接](https://www.icourse163.org/course/WHU-1205726806)。
+本课程配套《数字信号处理》 MOOC 课程，如需要观看视频教程，请移步中国大学 MOOC 官网(https://www.icourse163.org/course/WHU-1205726806)。
 
 .. toctree::
    :maxdepth: 2
@@ -24,18 +24,21 @@
 
 
 
-.. toctree::
-   :caption: 附录
-   :maxdepth: 2
 
-   appendix/index
 
 .. toctree::
    :caption: 实验内容
    :maxdepth: 2
 
-   experiments/index
+   experiments/ex_c2
+   experiments/ex_c3
 
+
+.. toctree::
+   :caption: 附录
+   :maxdepth: 2
+
+   appendix/index
 
 .. toctree::
     :caption: 有用资源
