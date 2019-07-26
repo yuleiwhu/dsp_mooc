@@ -38,7 +38,8 @@
    :caption: 附录
    :maxdepth: 2
 
-   appendix/index
+   appendix/index_principles
+   appendix/index_history
 
 .. toctree::
     :caption: 有用资源
