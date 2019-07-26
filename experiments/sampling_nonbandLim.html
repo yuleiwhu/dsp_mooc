@@ -242,8 +242,6 @@
                 
                   <li class="toctree-l2"><a href="#理想带限插值方法重建" class="reference internal">理想带限插值方法重建</a></li>
                 
-                  <li class="toctree-l2"><a href="#抗混叠滤波器" class="reference internal">抗混叠滤波器</a></li>
-                
               </ul>
             
           </li>
@@ -512,7 +510,6 @@ div.rendered_html tbody tr:hover {
 <li><p>求采样信号<span class="math notranslate nohighlight">\(x[n]=x_a(nT)\)</span>的频谱；</p></li>
 <li><p>画出<span class="math notranslate nohighlight">\(T=1/3\)</span>s和<span class="math notranslate nohighlight">\(T=1\)</span>s 的信号<span class="math notranslate nohighlight">\(x_a(t)\)</span>和<span class="math notranslate nohighlight">\(x[n]\)</span>的波形及其频谱图；</p></li>
 <li><p>画出用理想带限插值方法重建后的连续时间信号<span class="math notranslate nohighlight">\( hat x_a(t)\)</span>的波形;</p></li>
-<li><p>设计抗混叠滤波器，对非带限信号进行滤波之后采样。</p></li>
 </ol>
 <div class="section" id="分析采样信号频谱">
 <h2>分析采样信号频谱<a class="headerlink" href="#分析采样信号频谱" title="永久链接至标题">¶</a></h2>
@@ -737,29 +734,6 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="admonition note">
 <p><strong>Note:</strong> 对于非带限信号来说，采样频率越高，重建误差越小。</p>
-</div>
-</div>
-<div class="section" id="抗混叠滤波器">
-<h2>抗混叠滤波器<a class="headerlink" href="#抗混叠滤波器" title="永久链接至标题">¶</a></h2>
-<p>设置采样频率为<span class="math notranslate nohighlight">\( \Omega_T = 2 \pi /T\)</span>时，那么此时抗混叠滤波器的截止频率为<span class="math notranslate nohighlight">\( \Omega_c =  \Omega_T/2 =  \pi/T\)</span>。根据时域卷积定理，频域乘以门函数</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}H_{LP}(j\Omega) = \begin{cases} 1, &amp; \Omega \in [-\Omega_c,\Omega_c] \\
-0, &amp; \text{ else}
-\end{cases}\end{split}\]</div>
-<p>等效于在时域卷积一个 Sinc 函数，</p>
-<div class="math notranslate nohighlight">
-\[h_{LP}(t) = \frac{\sin(\Omega_c t)}{ \pi t}\]</div>
-<p>得到滤波后的信号为</p>
-<div class="math notranslate nohighlight">
-\[\bar x_a (t) = x_a(t) \circledast h_{LP}(t)\]</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-matlab notranslate"><div class="highlight"><pre>
-<span></span>
-</pre></div>
-</div>
 </div>
 </div>
 </div>
