@@ -327,7 +327,8 @@
 <div><p>In <a class="reference external" href="https://en.wikipedia.org/wiki/Mathematics">mathematics</a>, the <strong>Gibbs phenomenon,</strong> discovered by <a class="reference external" href="https://en.wikipedia.org/wiki/Henry_Wilbraham">Henry Wilbraham</a> (<a class="reference external" href="https://en.wikipedia.org/wiki/Gibbs_phenomenon#CITEREFWilbraham1848">1848</a>)[<a class="reference external" href="https://en.wikipedia.org/wiki/Gibbs_phenomenon#cite_note-Hewitt_1979_129%E2%80%93160-1">1]</a> and rediscovered by <a class="reference external" href="https://en.wikipedia.org/wiki/Willard_Gibbs">J. Willard Gibbs</a> (<a class="reference external" href="https://en.wikipedia.org/wiki/Gibbs_phenomenon#CITEREFGibbs1899">1899</a>),[<a class="reference external" href="https://en.wikipedia.org/wiki/Gibbs_phenomenon#cite_note-dimarogonas-2">2]</a> is the peculiar manner in which the <a class="reference external" href="https://en.wikipedia.org/wiki/Fourier_series">Fourier series</a> of a <a class="reference external" href="https://en.wikipedia.org/wiki/Piecewise">piecewise</a> continuously differentiable <a class="reference external" href="https://en.wikipedia.org/wiki/Periodic_function">periodic function</a> behaves at a <a class="reference external" href="https://en.wikipedia.org/wiki/Jump_discontinuity">jump discontinuity</a>. The <em>n</em>th <a class="reference external" href="https://en.wikipedia.org/wiki/Partial_sum">partial sum</a> of the Fourier series has large oscillations near the jump, which might increase the maximum of the partial sum above that of the function itself. The overshoot does not die out as <em>n</em> increases, but approaches a finite limit.[<a class="reference external" href="https://en.wikipedia.org/wiki/Gibbs_phenomenon#cite_note-Carslaw-3">3]</a></p>
 </div></blockquote>
 <p>简单的说，也就是利用<a class="reference external" href="DSP_%E7%A6%BB%E6%95%A3%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2"><strong>傅里叶级数</strong></a>描述分段连续可微周期函数的时候，会在间断点处出现很大的一个振荡，并且这个振荡并不会随着级数的阶数增加而减小，而是趋于一个恒定的值。</p>
-<img src="assets/800px-Gibbs_phenomenon_10.svg.png" width=450px><img src="assets/800px-Gibbs_phenomenon_50.svg.png" width=450px><img src="assets/800px-Gibbs_phenomenon_250.svg.png" width=450px><p>上面三幅图，分别是10、50、250阶傅里叶级数叠加得到波形图，可以发现，随着阶数的增加，振荡始终存在。</p>
+<p><img alt="../_images/gibbs.png" src="../_images/gibbs.png" /></p>
+<p>上面三幅图，分别是10、50、250阶傅里叶级数叠加得到波形图，可以发现，随着阶数的增加，振荡始终存在。</p>
 </div>
 <div class="section" id="id2">
 <h2>历史<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
@@ -400,13 +401,16 @@
 <p>​			- J. Willard Gibbs</p>
 </div></blockquote>
 <p>同时，也为首次发现吉布斯现象的Henry Wilbraham教授和发明了谐波分析器（下图，Michelson谐波分析器还有很详细的<a class="reference external" href="http://www.engineerguy.com/fourier/pdfs/albert-michelsons-harmonic-analyzer.pdf">说明</a>）的Albert Michelson教授表示感谢。不过，值得一提的是，Michelson教授以“发明光学干涉仪并使用其进行光谱学和基本度量学研究”而成为美国第一个<a class="reference external" href="https://zh.wikipedia.org/wiki/%E8%AF%BA%E8%B4%9D%E5%B0%94%E7%89%A9%E7%90%86%E5%AD%A6%E5%A5%96">诺贝尔物理学奖</a>获得者。</p>
-<img src="assets/image-20181114145914370-2178754.png" width=450px><p>讲到这里，大家也许会有所疑问，Gibbs现象到底是怎么产生的？我们能不能消除吉布斯现象呢？那么在解释原理之前，我们先看看Gibbs现象会带来什么问题？从而了解我们要分析Gibbs现象的必要性。</p>
+<p><img alt="../_images/image-20181114145914370-2178754.png" src="../_images/image-20181114145914370-2178754.png" /></p>
+<p>讲到这里，大家也许会有所疑问，Gibbs现象到底是怎么产生的？我们能不能消除吉布斯现象呢？那么在解释原理之前，我们先看看Gibbs现象会带来什么问题？从而了解我们要分析Gibbs现象的必要性。</p>
 </div>
 <div class="section" id="id3">
 <h2>Gibbs现象带来的影响：振荡<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p>在信号处理中，吉布斯现象通常被认为是处理带来的干扰，需要被去除掉。比如，过冲或者由于振荡产生的振铃效应。另外，在滤波器设计中，由于窗函数引入导致的间断点问题，也会引发Gibbs现象，从而引起通带和阻带的振荡。</p>
-<img src="assets/image-20181114162837485-2184117.png" width=450px><p>另外，在MRI成像（一种非侵入式医学成像方法）中，对于邻接区域存在跳变的地方，其频谱分布在整个频域；但是MRI只能采集有限个频率分量，即等效于在频域加了个窗产生了不连续点，这样反变换到时域中，就出现了类似滤波器设计的问题。只不过这里是频域有间断点，滤波器设计是时域有间断点。</p>
-<img src="assets/image-20181114163709558-2184629.png" width=450px><p>所以说，分析Gibbs产生的原理，以及研究消除Gibbs现象的方法，是很有必要的。</p>
+<p><img alt="../_images/image-20181114162837485-2184117.png" src="../_images/image-20181114162837485-2184117.png" /></p>
+<p>另外，在MRI成像（一种非侵入式医学成像方法）中，对于邻接区域存在跳变的地方，其频谱分布在整个频域；但是MRI只能采集有限个频率分量，即等效于在频域加了个窗产生了不连续点，这样反变换到时域中，就出现了类似滤波器设计的问题。只不过这里是频域有间断点，滤波器设计是时域有间断点。</p>
+<p><img alt="../_images/image-20181114163709558-2184629.png" src="../_images/image-20181114163709558-2184629.png" /></p>
+<p>所以说，分析Gibbs产生的原理，以及研究消除Gibbs现象的方法，是很有必要的。</p>
 <!-- ## 吉布斯现象产生的原因：间断点的问题
 
 本节将出现非常多的数学公式，阅读前清醒大脑。

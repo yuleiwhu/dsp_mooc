@@ -6,11 +6,9 @@
 
 简单的说，也就是利用[**傅里叶级数**](DSP_离散傅里叶变换.md)描述分段连续可微周期函数的时候，会在间断点处出现很大的一个振荡，并且这个振荡并不会随着级数的阶数增加而减小，而是趋于一个恒定的值。
 
-<img src="assets/800px-Gibbs_phenomenon_10.svg.png" width=450px>
+![](assets/gibbs.png)
 
-<img src="assets/800px-Gibbs_phenomenon_50.svg.png" width=450px>
 
-<img src="assets/800px-Gibbs_phenomenon_250.svg.png" width=450px>
 
 上面三幅图，分别是10、50、250阶傅里叶级数叠加得到波形图，可以发现，随着阶数的增加，振荡始终存在。
 
@@ -46,7 +44,8 @@
 
 同时，也为首次发现吉布斯现象的Henry Wilbraham教授和发明了谐波分析器（下图，Michelson谐波分析器还有很详细的[说明](http://www.engineerguy.com/fourier/pdfs/albert-michelsons-harmonic-analyzer.pdf)）的Albert Michelson教授表示感谢。不过，值得一提的是，Michelson教授以“发明光学干涉仪并使用其进行光谱学和基本度量学研究”而成为美国第一个[诺贝尔物理学奖](https://zh.wikipedia.org/wiki/%E8%AF%BA%E8%B4%9D%E5%B0%94%E7%89%A9%E7%90%86%E5%AD%A6%E5%A5%96)获得者。
 
-<img src="assets/image-20181114145914370-2178754.png" width=450px>
+![](assets/image-20181114145914370-2178754.png)
+
 
 讲到这里，大家也许会有所疑问，Gibbs现象到底是怎么产生的？我们能不能消除吉布斯现象呢？那么在解释原理之前，我们先看看Gibbs现象会带来什么问题？从而了解我们要分析Gibbs现象的必要性。
 
@@ -54,13 +53,14 @@
 
 在信号处理中，吉布斯现象通常被认为是处理带来的干扰，需要被去除掉。比如，过冲或者由于振荡产生的振铃效应。另外，在滤波器设计中，由于窗函数引入导致的间断点问题，也会引发Gibbs现象，从而引起通带和阻带的振荡。
 
-<img src="assets/image-20181114162837485-2184117.png" width=450px>
+![](assets/image-20181114162837485-2184117.png)
 
 另外，在MRI成像（一种非侵入式医学成像方法）中，对于邻接区域存在跳变的地方，其频谱分布在整个频域；但是MRI只能采集有限个频率分量，即等效于在频域加了个窗产生了不连续点，这样反变换到时域中，就出现了类似滤波器设计的问题。只不过这里是频域有间断点，滤波器设计是时域有间断点。
 
-<img src="assets/image-20181114163709558-2184629.png" width=450px>
+![](assets/image-20181114163709558-2184629.png)
 
-所以说，分析Gibbs产生的原理，以及研究消除Gibbs现象的方法，是很有必要的。
+
+所以说，分析Gibbs产生的原理，以及研究消除Gibbs现象的方法，是很有必要的。 
 
 <!-- ## 吉布斯现象产生的原因：间断点的问题
 
