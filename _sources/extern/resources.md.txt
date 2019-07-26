@@ -1,0 +1,4 @@
+# 国外经典DSP课程
+
+1. [斯坦福课程: The Fourier Transform and its Applications](https://see.stanford.edu/Course/EE261)
+2. [华盛顿大学课程：数字信号处理](http://melodi.ee.washington.edu/courses/ee518/notes/)

@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html  lang="zh_CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>非带限信号的采样与重建</title>
+    
+      <link rel="stylesheet" href="../_static/pygments.css">
+      <link rel="stylesheet" href="../_static/theme.css">
+      
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+
+      <!-- sphinx script_files -->
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"extensions": ["tex2jax.js"], "jax": ["input/TeX", "output/HTML-CSS"], "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEscapes": true}, "HTML-CSS": {"fonts": ["TeX"]}, "TeX": {"equationNumbers": {"autoNumber": "AMS"}}})</script>
+
+      
+      <script src="../_static/theme-vendors.js"></script>
+      <script src="../_static/theme.js" defer></script>
+    
+  <link rel="index" title="索引" href="../genindex.html" />
+  <link rel="search" title="搜索" href="../search.html" />
+  <link rel="next" title="DSP 课程相关" href="../extern/index.html" />
+  <link rel="prev" title="基于傅里叶变换的自动对焦算法" href="auto_focus.html" /> 
+  </head>
+
+  <body><div id="app" class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="../index.html" class="home-link">
+    
+      <span class="site-name">DSP_Course</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+  
+    <div class="nav-item">
+      <a href="../index.html#id1"
+         class="nav-link ">
+         章节目录
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="../appendix/index.html#id1"
+         class="nav-link ">
+         附录
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="index.html#id1"
+         class="nav-link  router-link-active">
+         实验内容
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="../extern/index.html#dsp"
+         class="nav-link ">
+         DSP 课程相关
+      </a>
+    </div>
+  
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+  
+    <div class="nav-item">
+      <a href="../index.html#id1"
+         class="nav-link ">
+         章节目录
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="../appendix/index.html#id1"
+         class="nav-link ">
+         附录
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="index.html#id1"
+         class="nav-link  router-link-active">
+         实验内容
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="../extern/index.html#dsp"
+         class="nav-link ">
+         DSP 课程相关
+      </a>
+    </div>
+  
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">快速搜索</span>
+    <div class="searchformwrapper">
+      <form class="search" action="../search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="搜索" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../index.html#id1">章节目录</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 "><a href="../ch1.html" class="reference internal ">引言</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../ch2.html" class="reference internal ">时域中的离散时间信号和系统</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../ch3.html" class="reference internal ">离散时间傅里叶变换</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../ch4.html" class="reference internal ">离散傅里叶变换</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../ch5.html" class="reference internal ">Z变换</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../ch6.html" class="reference internal ">变换域中的离散时间系统</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../ch7.html" class="reference internal ">滤波器设计</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../ch8.html" class="reference internal ">滤波器实现</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../appendix/index.html#id1">附录</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 "><a href="../appendix/accumulation.html" class="reference internal ">累加定理证明</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../appendix/sinc_nonabs.html" class="reference internal ">Sinc 序列</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../appendix/dtft_classical_seq.html" class="reference internal ">经典序列的 DTFT 变换</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="index.html#id1">实验内容</a></span>
+      </p>
+      <ul class="current">
+        
+          <li class="toctree-l1 "><a href="test.html" class="reference internal ">时域中的离散时间信号</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="auto_focus.html" class="reference internal ">基于傅里叶变换的自动对焦算法</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 current"><a href="#" class="reference internal current">非带限信号的采样与重建</a>
+
+            
+              <ul>
+                
+                  <li class="toctree-l2"><a href="#分析采样信号频谱" class="reference internal">分析采样信号频谱</a></li>
+                
+                  <li class="toctree-l2"><a href="#画出频谱图" class="reference internal">画出频谱图</a></li>
+                
+                  <li class="toctree-l2"><a href="#理想带限插值方法重建" class="reference internal">理想带限插值方法重建</a></li>
+                
+                  <li class="toctree-l2"><a href="#抗混叠滤波器" class="reference internal">抗混叠滤波器</a></li>
+                
+              </ul>
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../extern/index.html#dsp">DSP 课程相关</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 "><a href="../extern/resources.html" class="reference internal ">国外经典DSP课程</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../extern/matlab_tools.html" class="reference internal ">Matlab 工具</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      <li><a href="index.html">实验内容</a> &raquo;</li>
+    
+    <li>非带限信号的采样与重建</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="auto_focus.html"
+       title="上一章">← 基于傅里叶变换的自动对焦算法</a>
+  </li>
+  <li class="next">
+    <a href="../extern/index.html"
+       title="下一章">DSP 课程相关 →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 7ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="非带限信号的采样与重建">
+<h1>非带限信号的采样与重建<a class="headerlink" href="#非带限信号的采样与重建" title="永久链接至标题">¶</a></h1>
+<p>考虑如下的连续时间双边指数信号</p>
+<div class="math notranslate nohighlight">
+\[x_a(t) = e^{-A|t|} \longleftrightarrow X_a(j\Omega) = \frac{2A}{A^2 + (\Omega)^2}\]</div>
+<ol class="arabic simple">
+<li><p>求采样信号<span class="math notranslate nohighlight">\(x[n]=x_a(nT)\)</span>的频谱；</p></li>
+<li><p>画出<span class="math notranslate nohighlight">\(T=1/3\)</span>s和<span class="math notranslate nohighlight">\(T=1\)</span>s 的信号<span class="math notranslate nohighlight">\(x_a(t)\)</span>和<span class="math notranslate nohighlight">\(x[n]\)</span>的波形及其频谱图；</p></li>
+<li><p>画出用理想带限插值方法重建后的连续时间信号<span class="math notranslate nohighlight">\( hat x_a(t)\)</span>的波形;</p></li>
+<li><p>设计抗混叠滤波器，对非带限信号进行滤波之后采样。</p></li>
+</ol>
+<div class="section" id="分析采样信号频谱">
+<h2>分析采样信号频谱<a class="headerlink" href="#分析采样信号频谱" title="永久链接至标题">¶</a></h2>
+<p>如果以采样频率<span class="math notranslate nohighlight">\(1/T\)</span>采样，得到</p>
+<div class="math notranslate nohighlight">
+\[x[n]=x_{a}(n T)=\mathrm{e}^{-A T|n|}\]</div>
+<p>直接计算离散时间傅里叶变换，那么就很容易得到<span class="math notranslate nohighlight">\(x[n]\)</span>的频谱</p>
+<div class="math notranslate nohighlight">
+\[X(j\Omega)=\frac{1-a^{2}}{1-2 a \cos \left(\Omega T\right)+a^{2}}, \quad a = \mathrm{e}^{-A T}\]</div>
+<p>显然，<span class="math notranslate nohighlight">\(X(j \Omega)\)</span>是周期函数。</p>
+</div>
+<div class="section" id="画出频谱图">
+<h2>画出频谱图<a class="headerlink" href="#画出频谱图" title="永久链接至标题">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-matlab notranslate"><div class="highlight"><pre>
+<span></span><span class="c">% 模拟信号 x_a(t)</span>
+<span class="n">A</span> <span class="p">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
+<span class="n">fplot</span><span class="p">(@(</span><span class="n">t</span><span class="p">)(</span><span class="nb">exp</span><span class="p">(</span><span class="o">-</span><span class="n">A</span><span class="o">*</span><span class="nb">abs</span><span class="p">(</span><span class="n">t</span><span class="p">))))</span>
+<span class="n">axis</span><span class="p">([</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.1</span><span class="p">])</span>
+<span class="n">title</span><span class="p">(</span><span class="s">&#39;x_a(t)&#39;</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;t(s)&#39;</span><span class="p">)</span>
+
+<span class="n">subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">)</span>
+<span class="n">fplot</span><span class="p">(@(</span><span class="n">w</span><span class="p">)(</span><span class="mi">2</span><span class="o">*</span><span class="n">A</span><span class="o">./</span><span class="p">(</span><span class="n">A</span><span class="o">.^</span><span class="mi">2</span><span class="o">+</span><span class="n">w</span><span class="o">.^</span><span class="mi">2</span><span class="p">)),[</span><span class="o">-</span><span class="mi">8</span><span class="o">*</span><span class="nb">pi</span> <span class="mi">8</span><span class="o">*</span><span class="nb">pi</span><span class="p">])</span>
+<span class="n">axis</span><span class="p">([</span><span class="o">-</span><span class="mi">8</span><span class="o">*</span><span class="nb">pi</span> <span class="mi">8</span><span class="o">*</span><span class="nb">pi</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">2.2</span><span class="p">])</span>
+<span class="n">title</span><span class="p">(</span><span class="s">&#39;X_a(j\Omega)&#39;</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;\Omega(rad/s)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/experiments_sampling_nonbandLim_4_0.png" src="../_images/experiments_sampling_nonbandLim_4_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-matlab notranslate"><div class="highlight"><pre>
+<span></span><span class="c">% t=1/3s 时，采样信号频谱</span>
+<span class="n">A</span> <span class="p">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">T</span> <span class="p">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">;</span>
+<span class="n">a</span> <span class="p">=</span> <span class="nb">exp</span><span class="p">(</span><span class="o">-</span><span class="n">A</span><span class="o">*</span><span class="n">T</span><span class="p">);</span>
+<span class="n">t</span> <span class="p">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="n">T</span><span class="p">:</span><span class="mi">5</span><span class="p">;</span>
+<span class="n">xn</span> <span class="p">=</span> <span class="nb">exp</span><span class="p">(</span><span class="o">-</span><span class="n">A</span><span class="o">*</span><span class="nb">abs</span><span class="p">(</span><span class="n">t</span><span class="p">));</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
+<span class="n">stem</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">xn</span><span class="p">,</span><span class="s">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">axis</span><span class="p">([</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.1</span><span class="p">])</span>
+<span class="n">title</span><span class="p">(</span><span class="s">&#39;x[n], with T=1/3 s&#39;</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;t(s)&#39;</span><span class="p">)</span>
+
+<span class="n">subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">);</span><span class="n">hold</span> <span class="n">on</span><span class="p">;</span> <span class="n">box</span> <span class="n">on</span>
+<span class="n">fplot</span><span class="p">(@(</span><span class="n">w</span><span class="p">)(</span><span class="n">T</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span>^<span class="mi">2</span><span class="p">)</span><span class="o">./</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="nb">cos</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">T</span><span class="p">)</span><span class="o">+</span><span class="n">a</span>^<span class="mi">2</span><span class="p">)),[</span><span class="o">-</span><span class="mi">8</span><span class="o">*</span><span class="nb">pi</span> <span class="mi">8</span><span class="o">*</span><span class="nb">pi</span><span class="p">])</span>
+<span class="n">fplot</span><span class="p">(@(</span><span class="n">w</span><span class="p">)(</span><span class="mi">2</span><span class="o">*</span><span class="n">A</span><span class="o">./</span><span class="p">(</span><span class="n">A</span><span class="o">.^</span><span class="mi">2</span><span class="o">+</span><span class="n">w</span><span class="o">.^</span><span class="mi">2</span><span class="p">)),[</span><span class="o">-</span><span class="mi">8</span><span class="o">*</span><span class="nb">pi</span> <span class="mi">8</span><span class="o">*</span><span class="nb">pi</span><span class="p">])</span>
+<span class="n">axis</span><span class="p">([</span><span class="o">-</span><span class="mi">8</span><span class="o">*</span><span class="nb">pi</span> <span class="mi">8</span><span class="o">*</span><span class="nb">pi</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">2.2</span><span class="p">])</span>
+<span class="n">title</span><span class="p">(</span><span class="s">&#39;X(j\Omega)&#39;</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;\Omega(rad/s)&#39;</span><span class="p">)</span>
+<span class="n">legend</span><span class="p">(</span><span class="s">&#39;X(j\Omega)&#39;</span><span class="p">,</span><span class="s">&#39;X_a(j\Omega)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/experiments_sampling_nonbandLim_5_0.png" src="../_images/experiments_sampling_nonbandLim_5_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-matlab notranslate"><div class="highlight"><pre>
+<span></span><span class="c">% t=1/3s 时，采样信号频谱</span>
+<span class="n">A</span> <span class="p">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">T</span> <span class="p">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">a</span> <span class="p">=</span> <span class="nb">exp</span><span class="p">(</span><span class="o">-</span><span class="n">A</span><span class="o">*</span><span class="n">T</span><span class="p">);</span>
+<span class="n">t</span> <span class="p">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="n">T</span><span class="p">:</span><span class="mi">5</span><span class="p">;</span>
+<span class="n">xn</span> <span class="p">=</span> <span class="nb">exp</span><span class="p">(</span><span class="o">-</span><span class="n">A</span><span class="o">*</span><span class="nb">abs</span><span class="p">(</span><span class="n">t</span><span class="p">));</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
+<span class="n">stem</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">xn</span><span class="p">,</span><span class="s">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">axis</span><span class="p">([</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.1</span><span class="p">])</span>
+<span class="n">title</span><span class="p">(</span><span class="s">&#39;x[n], with T=1 s&#39;</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;t(s)&#39;</span><span class="p">)</span>
+
+<span class="n">subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">),</span><span class="n">hold</span> <span class="n">on</span>
+<span class="n">fplot</span><span class="p">(@(</span><span class="n">w</span><span class="p">)(</span><span class="n">T</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span>^<span class="mi">2</span><span class="p">)</span><span class="o">./</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="nb">cos</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">T</span><span class="p">)</span><span class="o">+</span><span class="n">a</span>^<span class="mi">2</span><span class="p">)),[</span><span class="o">-</span><span class="mi">8</span><span class="o">*</span><span class="nb">pi</span> <span class="mi">8</span><span class="o">*</span><span class="nb">pi</span><span class="p">])</span>
+<span class="n">fplot</span><span class="p">(@(</span><span class="n">w</span><span class="p">)(</span><span class="mi">2</span><span class="o">*</span><span class="n">A</span><span class="o">./</span><span class="p">(</span><span class="n">A</span><span class="o">.^</span><span class="mi">2</span><span class="o">+</span><span class="n">w</span><span class="o">.^</span><span class="mi">2</span><span class="p">)),[</span><span class="o">-</span><span class="mi">8</span><span class="o">*</span><span class="nb">pi</span> <span class="mi">8</span><span class="o">*</span><span class="nb">pi</span><span class="p">])</span>
+<span class="n">box</span> <span class="n">on</span>
+<span class="n">axis</span><span class="p">([</span><span class="o">-</span><span class="mi">8</span><span class="o">*</span><span class="nb">pi</span> <span class="mi">8</span><span class="o">*</span><span class="nb">pi</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">2.2</span><span class="p">])</span>
+<span class="c">% title(&#39;X(j\Omega)&#39;)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;\Omega(rad/s)&#39;</span><span class="p">)</span>
+<span class="n">legend</span><span class="p">(</span><span class="s">&#39;X(j\Omega)&#39;</span><span class="p">,</span><span class="s">&#39;X_a(j\Omega)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/experiments_sampling_nonbandLim_6_0.png" src="../_images/experiments_sampling_nonbandLim_6_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="理想带限插值方法重建">
+<h2>理想带限插值方法重建<a class="headerlink" href="#理想带限插值方法重建" title="永久链接至标题">¶</a></h2>
+<ol class="arabic simple">
+<li><p>当采样频率为 3 Hz 时</p></li>
+</ol>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-matlab notranslate"><div class="highlight"><pre>
+<span></span><span class="n">A</span> <span class="p">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">T</span> <span class="p">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">;</span>
+<span class="n">a</span> <span class="p">=</span> <span class="nb">exp</span><span class="p">(</span><span class="o">-</span><span class="n">A</span><span class="o">*</span><span class="n">T</span><span class="p">);</span>
+<span class="n">tn</span> <span class="p">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="n">T</span><span class="p">:</span><span class="mi">5</span><span class="p">;</span>
+<span class="n">xn</span> <span class="p">=</span> <span class="nb">exp</span><span class="p">(</span><span class="o">-</span><span class="n">A</span><span class="o">*</span><span class="nb">abs</span><span class="p">(</span><span class="n">tn</span><span class="p">));</span>
+
+<span class="n">xahat</span> <span class="p">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">t</span> <span class="p">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mf">0.001</span><span class="p">:</span><span class="mi">5</span><span class="p">;</span>
+<span class="n">sinc</span> <span class="p">=</span> <span class="p">@(</span><span class="n">t</span><span class="p">,</span><span class="n">n</span><span class="p">)</span> <span class="p">(</span><span class="nb">sin</span><span class="p">(</span><span class="nb">pi</span><span class="o">/</span><span class="n">T</span><span class="o">*</span><span class="p">(</span><span class="n">t</span><span class="o">-</span><span class="n">n</span><span class="o">*</span><span class="n">T</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="nb">pi</span><span class="o">/</span><span class="n">T</span><span class="p">)</span><span class="o">./</span><span class="p">(</span><span class="n">t</span><span class="o">-</span><span class="n">n</span><span class="o">*</span><span class="n">T</span><span class="p">));</span>
+<span class="k">for</span> <span class="nb">i</span> <span class="p">=</span> <span class="mi">1</span><span class="p">:</span><span class="nb">length</span><span class="p">(</span><span class="n">xn</span><span class="p">)</span>
+    <span class="n">xahat</span> <span class="p">=</span> <span class="n">xahat</span> <span class="o">+</span> <span class="n">xn</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span><span class="o">*</span><span class="n">sinc</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="nb">round</span><span class="p">(</span><span class="n">tn</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span><span class="o">/</span><span class="n">T</span><span class="p">));</span>
+<span class="k">end</span>
+
+<span class="n">subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
+<span class="n">xat</span> <span class="p">=</span> <span class="p">@(</span><span class="n">t</span><span class="p">)(</span><span class="nb">exp</span><span class="p">(</span><span class="o">-</span><span class="n">A</span><span class="o">*</span><span class="nb">abs</span><span class="p">(</span><span class="n">t</span><span class="p">)));</span>
+<span class="n">fplot</span><span class="p">(</span><span class="n">xat</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">hold</span> <span class="n">on</span><span class="p">;</span>
+<span class="n">stem</span><span class="p">(</span><span class="n">tn</span><span class="p">,</span><span class="n">xn</span><span class="p">,</span><span class="s">&#39;go&#39;</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">xahat</span><span class="p">,</span><span class="s">&#39;r&#39;</span><span class="p">)</span>
+
+<span class="n">axis</span><span class="p">([</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.1</span><span class="p">])</span>
+<span class="n">legend</span><span class="p">(</span><span class="s">&#39;Original&#39;</span><span class="p">,</span><span class="s">&#39;Sampled&#39;</span><span class="p">,</span><span class="s">&#39;Reconstructed&#39;</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s">&#39;采样频率为 3Hz 时重建效果&#39;</span><span class="p">)</span>
+
+<span class="n">subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">)</span>
+<span class="n">error1</span> <span class="p">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">xat</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="n">xahat</span><span class="p">);</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">error1</span><span class="p">);</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/experiments_sampling_nonbandLim_9_0.png" src="../_images/experiments_sampling_nonbandLim_9_0.png" />
+</div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>当采样频率为 1 Hz 时</p></li>
+</ol>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-matlab notranslate"><div class="highlight"><pre>
+<span></span><span class="n">A</span> <span class="p">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">T</span> <span class="p">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">a</span> <span class="p">=</span> <span class="nb">exp</span><span class="p">(</span><span class="o">-</span><span class="n">A</span><span class="o">*</span><span class="n">T</span><span class="p">);</span>
+<span class="n">tn</span> <span class="p">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="n">T</span><span class="p">:</span><span class="mi">5</span><span class="p">;</span>
+<span class="n">xn</span> <span class="p">=</span> <span class="nb">exp</span><span class="p">(</span><span class="o">-</span><span class="n">A</span><span class="o">*</span><span class="nb">abs</span><span class="p">(</span><span class="n">tn</span><span class="p">));</span>
+
+<span class="n">xahat</span> <span class="p">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">t</span> <span class="p">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mf">0.001</span><span class="p">:</span><span class="mi">5</span><span class="p">;</span>
+<span class="n">sinc</span> <span class="p">=</span> <span class="p">@(</span><span class="n">t</span><span class="p">,</span><span class="n">n</span><span class="p">)</span> <span class="p">(</span><span class="nb">sin</span><span class="p">(</span><span class="nb">pi</span><span class="o">/</span><span class="n">T</span><span class="o">*</span><span class="p">(</span><span class="n">t</span><span class="o">-</span><span class="n">n</span><span class="o">*</span><span class="n">T</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="nb">pi</span><span class="o">/</span><span class="n">T</span><span class="p">)</span><span class="o">./</span><span class="p">(</span><span class="n">t</span><span class="o">-</span><span class="n">n</span><span class="o">*</span><span class="n">T</span><span class="p">));</span>
+<span class="k">for</span> <span class="nb">i</span> <span class="p">=</span> <span class="mi">1</span><span class="p">:</span><span class="nb">length</span><span class="p">(</span><span class="n">xn</span><span class="p">)</span>
+    <span class="n">xahat</span> <span class="p">=</span> <span class="n">xahat</span> <span class="o">+</span> <span class="n">xn</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span><span class="o">*</span><span class="n">sinc</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="nb">round</span><span class="p">(</span><span class="n">tn</span><span class="p">(</span><span class="nb">i</span><span class="p">)</span><span class="o">/</span><span class="n">T</span><span class="p">));</span>
+<span class="k">end</span>
+
+<span class="n">subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
+<span class="n">xat</span> <span class="p">=</span> <span class="p">@(</span><span class="n">t</span><span class="p">)(</span><span class="nb">exp</span><span class="p">(</span><span class="o">-</span><span class="n">A</span><span class="o">*</span><span class="nb">abs</span><span class="p">(</span><span class="n">t</span><span class="p">)));</span>
+<span class="n">fplot</span><span class="p">(</span><span class="n">xat</span><span class="p">,</span><span class="s">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">hold</span> <span class="n">on</span><span class="p">;</span>
+<span class="n">stem</span><span class="p">(</span><span class="n">tn</span><span class="p">,</span><span class="n">xn</span><span class="p">,</span><span class="s">&#39;go&#39;</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">xahat</span><span class="p">,</span><span class="s">&#39;r&#39;</span><span class="p">)</span>
+
+<span class="n">axis</span><span class="p">([</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.1</span><span class="p">])</span>
+<span class="n">legend</span><span class="p">(</span><span class="s">&#39;Original&#39;</span><span class="p">,</span><span class="s">&#39;Sampled&#39;</span><span class="p">,</span><span class="s">&#39;Reconstructed&#39;</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s">&#39;采样频率为 1Hz 时重建&#39;</span><span class="p">)</span>
+
+<span class="n">subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">)</span>
+<span class="n">error2</span> <span class="p">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">xat</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">-</span> <span class="n">xahat</span><span class="p">);</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">error2</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/experiments_sampling_nonbandLim_11_0.png" src="../_images/experiments_sampling_nonbandLim_11_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-matlab notranslate"><div class="highlight"><pre>
+<span></span><span class="c">% Compare errors</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">error1</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">error2</span><span class="p">)</span>
+<span class="n">legend</span><span class="p">(</span><span class="s">&#39;3Hz 采样重建误差&#39;</span><span class="p">,</span><span class="s">&#39;1Hz 采样重建误差&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/experiments_sampling_nonbandLim_12_0.png" src="../_images/experiments_sampling_nonbandLim_12_0.png" />
+</div>
+</div>
+<div class="admonition note">
+<p><strong>Note:</strong> 对于非带限信号来说，采样频率越高，重建误差越小。</p>
+</div>
+</div>
+<div class="section" id="抗混叠滤波器">
+<h2>抗混叠滤波器<a class="headerlink" href="#抗混叠滤波器" title="永久链接至标题">¶</a></h2>
+<p>设置采样频率为<span class="math notranslate nohighlight">\( \Omega_T = 2 \pi /T\)</span>时，那么此时抗混叠滤波器的截止频率为<span class="math notranslate nohighlight">\( \Omega_c =  \Omega_T/2 =  \pi/T\)</span>。根据时域卷积定理，频域乘以门函数</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}H_{LP}(j\Omega) = \begin{cases} 1, &amp; \Omega \in [-\Omega_c,\Omega_c] \\
+0, &amp; \text{ else}
+\end{cases}\end{split}\]</div>
+<p>等效于在时域卷积一个 Sinc 函数，</p>
+<div class="math notranslate nohighlight">
+\[h_{LP}(t) = \frac{\sin(\Omega_c t)}{ \pi t}\]</div>
+<p>得到滤波后的信号为</p>
+<div class="math notranslate nohighlight">
+\[\bar x_a (t) = x_a(t) \circledast h_{LP}(t)\]</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-matlab notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="auto_focus.html"
+       title="上一章">← 基于傅里叶变换的自动对焦算法</a>
+  </li>
+  <li class="next">
+    <a href="../extern/index.html"
+       title="下一章">DSP 课程相关 →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; 版权所有 2019, Lei Yu.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a>.
+</div>
+            </div>
+          </div>
+      </page>
+  </div></body>
+</html>

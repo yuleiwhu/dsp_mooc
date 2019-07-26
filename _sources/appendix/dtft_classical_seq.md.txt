@@ -1,0 +1,109 @@
+# 经典序列的 DTFT 变换
+
+## 常数序列
+
+考虑序列
+
+```math
+x[n]=1, \quad \forall n
+```
+
+其 DTFT 变换为 $X\left(e^{j \omega}\right)=\sum_{k=-\infty}^{\infty} 2 \pi \delta(\omega+2 \pi k)$。
+
+我们只需要证明$X\left(e^{j \omega}\right)$的 IDTFT 变换为常数
+
+```math
+\begin{aligned} \operatorname{IDTFT}\left[X\left(e^{j \omega}\right)\right] &=\frac{1}{2 \pi} \int_{-\pi}^{\pi} X\left(e^{j \omega}\right) e^{j \omega n} d \omega \\ &=\int_{-\pi}^{\pi} \sum_{k=-\infty}^{\infty} \delta(\omega+2 \pi k) e^{j \omega n} d \omega \\ &=\sum_{k=-\infty}^{\infty} \int_{-\pi}^{\pi} \delta(\omega+2 \pi k) e^{j \omega n} d \omega \\ &=e^{-j 2 \pi 0 n}=1 \end{aligned}
+```
+ 
+最后一个等式成立的原因是，只有当$k=0$时，后面的积分部分才不等于 0。
+
+## 阶跃序列
+
+考虑序列
+
+```math
+x[n]=\mu[n]
+```
+
+首先将序列分解为直流分量和符号函数之和
+
+```math
+\mu[n]=\frac{1}{2}(1+\operatorname{sgn}[n])
+```
+
+对于符号函数来说，我们有如下条件
+
+```math
+\operatorname{sgn}[n]-\operatorname{sgn}[n-1]=2 \delta[n]
+```
+
+根据 DTFT 的线性和时移定理可以得到
+
+```math
+\begin{aligned} & \operatorname{DTFT}(\operatorname{sgn}[n])-\operatorname{DTFT}(\operatorname{sgn}[n-1])=2 \\ \Rightarrow & \operatorname{DTFT}(\operatorname{sgn}[n])\left(1-e^{-j \omega}\right)=2 \\ \Rightarrow & \operatorname{DTFT}(\operatorname{sgn}[n])=\frac{2}{1-e^{-j \omega}} \end{aligned}
+```
+
+最后，我们可以得到阶跃序列的 DTFT 变换
+
+```math
+\operatorname{DTFT}(\mu[n])=\pi \sum_{k=-\infty}^{\infty} \delta(\omega+2 \pi k)+\frac{1}{1-e^{-j \omega}}
+```
+
+## 正弦指数序列
+
+考虑序列
+
+```math
+x[n]=\cos \left(\omega_{0} n\right)
+```
+
+首先，我们考虑指数序列$e^{ \pm j \omega_{0} n}$的 DTFT 变换（根据频移定理）：
+
+```math
+\operatorname{DTFT}\left(e^{j \omega_{0} n} \cdot 1\right)=\sum_{k=-\infty}^{\infty} 2 \pi \delta\left(\omega+\omega_{0}+2 \pi k\right)
+```
+
+```math
+\operatorname{DTFT}\left(e^{-j \omega_{0} n} \cdot 1\right)=\sum_{k=-\infty}^{\infty} 2 \pi \delta\left(\omega-\omega_{0}+2 \pi k\right)
+```
+
+最后，根据欧拉公式和DTFT 的线性定理可以得到
+
+```math
+\operatorname{DTFT}(x[n])=\sum_{k=-\infty}^{\infty} \pi\left[\delta\left(\omega-\omega_{0}+2 \pi k\right)+\delta\left(\omega+\omega_{0}+2 \pi k\right)\right]
+```
+
+## Sinc序列
+
+考虑序列
+
+```math
+h_{L P}[n]=\frac{\sin \omega_{c} n}{\pi n}
+```
+
+这里需要证明$h_{L P}[n]$的 DTFT 变换为
+
+```math
+H_{L P}\left(e^{j \omega}\right)=\left\{\begin{array}{ll}{1,} & {0 \leq|\omega| \leq \omega_{c}} \\ {0,} & {\omega_{c} \leq|\omega| \leq \pi}\end{array}\right.
+```
+
+通过 IDTFT 来证明：
+
+当$n\neq 0$的时候，
+
+```math
+\begin{aligned} h_{L P}[n] &=\frac{1}{2 \pi} \int_{-\pi}^{\pi} H_{L P}\left(e^{j \omega}\right) e^{j \omega n} d \omega=\frac{1}{2 \pi} \int_{-\omega_{t}}^{\omega_{c}} e^{j \omega n} d \omega \\ &=\frac{\sin \omega_{c} n}{\pi n}, \quad n \neq 0 \end{aligned}
+```
+
+当 $n=0$的时候
+
+```math
+h_{L P}[0]=\frac{1}{2 \pi} \int_{-\pi}^{\pi} H_{L P}\left(e^{j \omega}\right) d \omega=\frac{1}{2 \pi} \int_{-\omega_{t}}^{\omega_{c}} d \omega=\frac{\omega_{c}}{\pi}
+```
+
+所以
+
+```math
+h_{L P}[n]=\frac{\sin \omega_{c} n}{\pi n} \longleftrightarrow H_{L P}\left(e^{j \omega}\right)=\left\{\begin{array}{ll}{1,} & {0 \leq|\omega| \leq \omega_{c}} \\ {0,} & {\omega_{c} \leq|\omega| \leq \pi}\end{array}\right.
+```

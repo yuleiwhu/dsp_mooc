@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html  lang="zh_CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>经典序列的 DTFT 变换</title>
+    
+      <link rel="stylesheet" href="../_static/pygments.css">
+      <link rel="stylesheet" href="../_static/theme.css">
+      
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+
+      <!-- sphinx script_files -->
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"extensions": ["tex2jax.js"], "jax": ["input/TeX", "output/HTML-CSS"], "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEscapes": true}, "HTML-CSS": {"fonts": ["TeX"]}, "TeX": {"equationNumbers": {"autoNumber": "AMS"}}})</script>
+
+      
+      <script src="../_static/theme-vendors.js"></script>
+      <script src="../_static/theme.js" defer></script>
+    
+  <link rel="index" title="索引" href="../genindex.html" />
+  <link rel="search" title="搜索" href="../search.html" />
+  <link rel="next" title="实验内容" href="../experiments/index.html" />
+  <link rel="prev" title="Sinc 序列" href="sinc_nonabs.html" /> 
+  </head>
+
+  <body><div id="app" class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="../index.html" class="home-link">
+    
+      <span class="site-name">DSP_Course</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+  
+    <div class="nav-item">
+      <a href="../index.html#id1"
+         class="nav-link ">
+         章节目录
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="index.html#id1"
+         class="nav-link  router-link-active">
+         附录
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="../experiments/index.html#id1"
+         class="nav-link ">
+         实验内容
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="../extern/index.html#dsp"
+         class="nav-link ">
+         DSP 课程相关
+      </a>
+    </div>
+  
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+  
+    <div class="nav-item">
+      <a href="../index.html#id1"
+         class="nav-link ">
+         章节目录
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="index.html#id1"
+         class="nav-link  router-link-active">
+         附录
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="../experiments/index.html#id1"
+         class="nav-link ">
+         实验内容
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="../extern/index.html#dsp"
+         class="nav-link ">
+         DSP 课程相关
+      </a>
+    </div>
+  
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">快速搜索</span>
+    <div class="searchformwrapper">
+      <form class="search" action="../search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="搜索" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../index.html#id1">章节目录</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 "><a href="../ch1.html" class="reference internal ">引言</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../ch2.html" class="reference internal ">时域中的离散时间信号和系统</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../ch3.html" class="reference internal ">离散时间傅里叶变换</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../ch4.html" class="reference internal ">离散傅里叶变换</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../ch5.html" class="reference internal ">Z变换</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../ch6.html" class="reference internal ">变换域中的离散时间系统</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../ch7.html" class="reference internal ">滤波器设计</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../ch8.html" class="reference internal ">滤波器实现</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="index.html#id1">附录</a></span>
+      </p>
+      <ul class="current">
+        
+          <li class="toctree-l1 "><a href="accumulation.html" class="reference internal ">累加定理证明</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="sinc_nonabs.html" class="reference internal ">Sinc 序列</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 current"><a href="#" class="reference internal current">经典序列的 DTFT 变换</a>
+
+            
+              <ul>
+                
+                  <li class="toctree-l2"><a href="#id1" class="reference internal">常数序列</a></li>
+                
+                  <li class="toctree-l2"><a href="#id2" class="reference internal">阶跃序列</a></li>
+                
+                  <li class="toctree-l2"><a href="#id3" class="reference internal">正弦指数序列</a></li>
+                
+                  <li class="toctree-l2"><a href="#sinc" class="reference internal">Sinc序列</a></li>
+                
+              </ul>
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../experiments/index.html#id1">实验内容</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 "><a href="../experiments/test.html" class="reference internal ">时域中的离散时间信号</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../experiments/auto_focus.html" class="reference internal ">基于傅里叶变换的自动对焦算法</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../experiments/sampling_nonbandLim.html" class="reference internal ">非带限信号的采样与重建</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../extern/index.html#dsp">DSP 课程相关</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 "><a href="../extern/resources.html" class="reference internal ">国外经典DSP课程</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../extern/matlab_tools.html" class="reference internal ">Matlab 工具</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      <li><a href="index.html">附录</a> &raquo;</li>
+    
+    <li>经典序列的 DTFT 变换</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="sinc_nonabs.html"
+       title="上一章">← Sinc 序列</a>
+  </li>
+  <li class="next">
+    <a href="../experiments/index.html"
+       title="下一章">实验内容 →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main">
+            
+  <div class="section" id="dtft">
+<h1>经典序列的 DTFT 变换<a class="headerlink" href="#dtft" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id1">
+<h2>常数序列<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>考虑序列</p>
+<div class="math notranslate nohighlight">
+\[x[n]=1, \quad \forall n\]</div>
+<p>其 DTFT 变换为 $X\left(e^{j \omega}\right)=\sum_{k=-\infty}^{\infty} 2 \pi \delta(\omega+2 \pi k)$。</p>
+<p>我们只需要证明$X\left(e^{j \omega}\right)$的 IDTFT 变换为常数</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned} \operatorname{IDTFT}\left[X\left(e^{j \omega}\right)\right] &amp;=\frac{1}{2 \pi} \int_{-\pi}^{\pi} X\left(e^{j \omega}\right) e^{j \omega n} d \omega \\ &amp;=\int_{-\pi}^{\pi} \sum_{k=-\infty}^{\infty} \delta(\omega+2 \pi k) e^{j \omega n} d \omega \\ &amp;=\sum_{k=-\infty}^{\infty} \int_{-\pi}^{\pi} \delta(\omega+2 \pi k) e^{j \omega n} d \omega \\ &amp;=e^{-j 2 \pi 0 n}=1 \end{aligned}\end{split}\]</div>
+<p>最后一个等式成立的原因是，只有当$k=0$时，后面的积分部分才不等于 0。</p>
+</div>
+<div class="section" id="id2">
+<h2>阶跃序列<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>考虑序列</p>
+<div class="math notranslate nohighlight">
+\[x[n]=\mu[n]\]</div>
+<p>首先将序列分解为直流分量和符号函数之和</p>
+<div class="math notranslate nohighlight">
+\[\mu[n]=\frac{1}{2}(1+\operatorname{sgn}[n])\]</div>
+<p>对于符号函数来说，我们有如下条件</p>
+<div class="math notranslate nohighlight">
+\[\operatorname{sgn}[n]-\operatorname{sgn}[n-1]=2 \delta[n]\]</div>
+<p>根据 DTFT 的线性和时移定理可以得到</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned} &amp; \operatorname{DTFT}(\operatorname{sgn}[n])-\operatorname{DTFT}(\operatorname{sgn}[n-1])=2 \\ \Rightarrow &amp; \operatorname{DTFT}(\operatorname{sgn}[n])\left(1-e^{-j \omega}\right)=2 \\ \Rightarrow &amp; \operatorname{DTFT}(\operatorname{sgn}[n])=\frac{2}{1-e^{-j \omega}} \end{aligned}\end{split}\]</div>
+<p>最后，我们可以得到阶跃序列的 DTFT 变换</p>
+<div class="math notranslate nohighlight">
+\[\operatorname{DTFT}(\mu[n])=\pi \sum_{k=-\infty}^{\infty} \delta(\omega+2 \pi k)+\frac{1}{1-e^{-j \omega}}\]</div>
+</div>
+<div class="section" id="id3">
+<h2>正弦指数序列<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>考虑序列</p>
+<div class="math notranslate nohighlight">
+\[x[n]=\cos \left(\omega_{0} n\right)\]</div>
+<p>首先，我们考虑指数序列$e^{ \pm j \omega_{0} n}$的 DTFT 变换（根据频移定理）：</p>
+<div class="math notranslate nohighlight">
+\[\operatorname{DTFT}\left(e^{j \omega_{0} n} \cdot 1\right)=\sum_{k=-\infty}^{\infty} 2 \pi \delta\left(\omega+\omega_{0}+2 \pi k\right)\]</div>
+<div class="math notranslate nohighlight">
+\[\operatorname{DTFT}\left(e^{-j \omega_{0} n} \cdot 1\right)=\sum_{k=-\infty}^{\infty} 2 \pi \delta\left(\omega-\omega_{0}+2 \pi k\right)\]</div>
+<p>最后，根据欧拉公式和DTFT 的线性定理可以得到</p>
+<div class="math notranslate nohighlight">
+\[\operatorname{DTFT}(x[n])=\sum_{k=-\infty}^{\infty} \pi\left[\delta\left(\omega-\omega_{0}+2 \pi k\right)+\delta\left(\omega+\omega_{0}+2 \pi k\right)\right]\]</div>
+</div>
+<div class="section" id="sinc">
+<h2>Sinc序列<a class="headerlink" href="#sinc" title="永久链接至标题">¶</a></h2>
+<p>考虑序列</p>
+<div class="math notranslate nohighlight">
+\[h_{L P}[n]=\frac{\sin \omega_{c} n}{\pi n}\]</div>
+<p>这里需要证明$h_{L P}[n]$的 DTFT 变换为</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}H_{L P}\left(e^{j \omega}\right)=\left\{\begin{array}{ll}{1,} &amp; {0 \leq|\omega| \leq \omega_{c}} \\ {0,} &amp; {\omega_{c} \leq|\omega| \leq \pi}\end{array}\right.\end{split}\]</div>
+<p>通过 IDTFT 来证明：</p>
+<p>当$n\neq 0$的时候，</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned} h_{L P}[n] &amp;=\frac{1}{2 \pi} \int_{-\pi}^{\pi} H_{L P}\left(e^{j \omega}\right) e^{j \omega n} d \omega=\frac{1}{2 \pi} \int_{-\omega_{t}}^{\omega_{c}} e^{j \omega n} d \omega \\ &amp;=\frac{\sin \omega_{c} n}{\pi n}, \quad n \neq 0 \end{aligned}\end{split}\]</div>
+<p>当 $n=0$的时候</p>
+<div class="math notranslate nohighlight">
+\[h_{L P}[0]=\frac{1}{2 \pi} \int_{-\pi}^{\pi} H_{L P}\left(e^{j \omega}\right) d \omega=\frac{1}{2 \pi} \int_{-\omega_{t}}^{\omega_{c}} d \omega=\frac{\omega_{c}}{\pi}\]</div>
+<p>所以</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}h_{L P}[n]=\frac{\sin \omega_{c} n}{\pi n} \longleftrightarrow H_{L P}\left(e^{j \omega}\right)=\left\{\begin{array}{ll}{1,} &amp; {0 \leq|\omega| \leq \omega_{c}} \\ {0,} &amp; {\omega_{c} \leq|\omega| \leq \pi}\end{array}\right.\end{split}\]</div>
+</div>
+</div>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="sinc_nonabs.html"
+       title="上一章">← Sinc 序列</a>
+  </li>
+  <li class="next">
+    <a href="../experiments/index.html"
+       title="下一章">实验内容 →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; 版权所有 2019, Lei Yu.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a>.
+</div>
+            </div>
+          </div>
+      </page>
+  </div></body>
+</html>

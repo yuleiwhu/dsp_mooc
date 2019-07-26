@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html  lang="zh_CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>3. 离散时间傅里叶变换</title>
+    
+      <link rel="stylesheet" href="_static/pygments.css">
+      <link rel="stylesheet" href="_static/theme.css">
+      
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+
+      <!-- sphinx script_files -->
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/translations.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"extensions": ["tex2jax.js"], "jax": ["input/TeX", "output/HTML-CSS"], "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEscapes": true}, "HTML-CSS": {"fonts": ["TeX"]}, "TeX": {"equationNumbers": {"autoNumber": "AMS"}}})</script>
+
+      
+      <script src="_static/theme-vendors.js"></script>
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="索引" href="genindex.html" />
+  <link rel="search" title="搜索" href="search.html" />
+  <link rel="next" title="4. 离散傅里叶变换" href="ch4.html" />
+  <link rel="prev" title="2. 时域中的离散时间信号和系统" href="ch2.html" /> 
+  </head>
+
+  <body><div id="app" class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <span class="site-name">DSP_Course</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+  
+    <div class="nav-item">
+      <a href="index.html#id1"
+         class="nav-link  router-link-active">
+         章节目录
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="appendix/index.html#id1"
+         class="nav-link ">
+         附录
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="experiments/index.html#id1"
+         class="nav-link ">
+         实验内容
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="extern/index.html#dsp"
+         class="nav-link ">
+         DSP 课程相关
+      </a>
+    </div>
+  
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+  
+    <div class="nav-item">
+      <a href="index.html#id1"
+         class="nav-link  router-link-active">
+         章节目录
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="appendix/index.html#id1"
+         class="nav-link ">
+         附录
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="experiments/index.html#id1"
+         class="nav-link ">
+         实验内容
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="extern/index.html#dsp"
+         class="nav-link ">
+         DSP 课程相关
+      </a>
+    </div>
+  
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">快速搜索</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="搜索" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="index.html#id1">章节目录</a></span>
+      </p>
+      <ul class="current">
+        
+          <li class="toctree-l1 "><a href="ch1.html" class="reference internal ">引言</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="ch2.html" class="reference internal ">时域中的离散时间信号和系统</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 current"><a href="#" class="reference internal current">离散时间傅里叶变换</a>
+
+            
+              <ul>
+                
+                  <li class="toctree-l2"><a href="#ctftdtft" class="reference internal">从CTFT到DTFT</a></li>
+                
+                  <li class="toctree-l2"><a href="#id7" class="reference internal">逆 DTFT 变换及收敛性</a></li>
+                
+                  <li class="toctree-l2"><a href="#id19" class="reference internal">DTFT 变换的性质和定理</a></li>
+                
+                  <li class="toctree-l2"><a href="#id24" class="reference internal">典型序列的 DTFT 变换</a></li>
+                
+                  <li class="toctree-l2"><a href="#id25" class="reference internal">采样与重建</a></li>
+                
+              </ul>
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="ch4.html" class="reference internal ">离散傅里叶变换</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="ch5.html" class="reference internal ">Z变换</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="ch6.html" class="reference internal ">变换域中的离散时间系统</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="ch7.html" class="reference internal ">滤波器设计</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="ch8.html" class="reference internal ">滤波器实现</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="appendix/index.html#id1">附录</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 "><a href="appendix/accumulation.html" class="reference internal ">累加定理证明</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="appendix/sinc_nonabs.html" class="reference internal ">Sinc 序列</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="appendix/dtft_classical_seq.html" class="reference internal ">经典序列的 DTFT 变换</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="experiments/index.html#id1">实验内容</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 "><a href="experiments/test.html" class="reference internal ">时域中的离散时间信号</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="experiments/auto_focus.html" class="reference internal ">基于傅里叶变换的自动对焦算法</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="experiments/sampling_nonbandLim.html" class="reference internal ">非带限信号的采样与重建</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="extern/index.html#dsp">DSP 课程相关</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 "><a href="extern/resources.html" class="reference internal ">国外经典DSP课程</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="extern/matlab_tools.html" class="reference internal ">Matlab 工具</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+    <li>3. 离散时间傅里叶变换</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="ch2.html"
+       title="上一章">← 2. 时域中的离散时间信号和系统</a>
+  </li>
+  <li class="next">
+    <a href="ch4.html"
+       title="下一章">4. 离散傅里叶变换 →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main">
+            
+  <div class="section" id="id1">
+<h1>3. 离散时间傅里叶变换<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>前面的一章中，我们学习了离散时间信号和系统在时域中的表示和分析方法。这一章，我们将开始学习离散时间信号在频域中的表示和分析方法。</p>
+<div class="section" id="ctftdtft">
+<h2>3.1. 从CTFT到DTFT<a class="headerlink" href="#ctftdtft" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id2">
+<h3>3.1.1. 傅里叶变换的作用<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
+<p>2010年南非世界杯上，<a class="reference external" href="https://baike.baidu.com/item/%E5%91%9C%E5%91%9C%E6%8B%89%E7%A5%96">“呜呜拉祖”</a>被主场球迷用来作为助威的工具。它可以发出超过一百分贝的噪音，最高可达到一百二十分贝，因此在比赛过程中，特别是比赛转播过程中，呜呜拉祖的声音往往会掩盖住现场解说的声音。所以，对于听解说的球迷来说，呜呜拉祖的助威声音往往就是噪音。我们可以听一听带有呜呜拉祖噪音的语音。</p>
+<p><img alt="_images/2019-07-15-17-18-08.png" src="_images/2019-07-15-17-18-08.png" /></p>
+<p><audio src="audio/Vuvuzela.mp3" controls>Vuvuzela</audio></p>
+<p>那么，我们如何去除这样的噪音呢？</p>
+<p>先给大家听一下一种去除呜呜拉祖噪声算法的结果。</p>
+<p><audio src="audio/anti_vuvuzela.mp3" controls>anti_vuvuzela</audio></p>
+<p>呜呜拉祖噪音的消除是一个复杂的问题，但是基本思路是将时域信号变换到频域，然后从频域将呜呜拉祖噪音去除，然后反变换到时域，从而得到去除呜呜拉祖噪音的语音。</p>
+<p><img alt="_images/2019-07-15-17-58-28.png" src="_images/2019-07-15-17-58-28.png" /></p>
+<p>为什么我们可以从频域上将呜呜拉祖噪音去除呢？这是因为原始语音的频率和呜呜拉祖的频率是不同的，人说话的频率主要分布在50~500Hz，而呜呜拉祖的频率<a class="reference external" href="https://www.newscientist.com/article/dn19041-what-makes-the-sound-of-vuvuzelas-so-annoying/">一般不同于这个频率</a>。因此，频域中呜呜拉祖噪声和原始的语音信号是可以分离的。基于这个原理，所以一般我们将信号变换到频域，在频域中滤除噪声信号。</p>
+<p>本章最后，我们将给大家详细介绍这个算法，敬请期待。</p>
+</div>
+<div class="section" id="id3">
+<h3>3.1.2. 连续时间傅里叶变换<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<p>在介绍离散时间傅里叶变换之前，我们首先来回顾一下连续时间傅里叶变换的概念。Joseph Fourier（1768-2830）是法国伟大的数学家、物理学家。从某种意义上来说，傅里叶也可以被称为我们信号处理领域的鼻祖，因为大家所学的《信号与系统》、《数字信号处理》等等课程，从某种以上来说都与傅里叶变换紧密相关。不仅仅如此，傅里叶变换也是研究光学工程、医疗成像、地震预测等等领域中的必备工具。</p>
+<p>我们有必要瞻仰一下这位伟大的科学家——Joseph Fourier</p>
+<p><img alt="_images/2019-07-15-19-18-31.png" src="_images/2019-07-15-19-18-31.png" /></p>
+<p>傅里叶变换通过这个公式将时域信号<span class="math notranslate nohighlight">\(f(t)\)</span>变换到频域</p>
+<div class="math notranslate nohighlight">
+\[F(j \Omega)=\int_{-\infty}^{+\infty} f(t) e^{-j \Omega t} d t\]</div>
+<p>相信大家对这个公式既熟悉又陌生。之所以熟悉，因为这个公式在《数学分析》、《电路分析》和《信号与系统》中都学到过，也将在未来的专业课学习过程中继续学习，并将贯穿大家整个职业生涯（如果同学们继续从事信息工程领域的话）。而之所以陌生，是因为这个看似简单的傅里叶变换（线性）过程，在不同的应用场合，其内涵是不同的（参考斯坦福课程<a class="reference external" href="https://see.stanford.edu/Course/EE261">EE261</a>）。</p>
+<p>从信号处理的角度来说，傅里叶变换的一种物理解释为：任意连续且周期的信号都能表示为一系列正弦信号的叠加。</p>
+<p><img alt="_images/myimage.gif" src="_images/myimage.gif" /></p>
+</div>
+<div class="section" id="id4">
+<h3>3.1.3. 从连续时间傅里叶变换到离散时间傅里叶变换<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p>连续时间信号的傅里叶变换，可以发现时间自变量<span class="math notranslate nohighlight">\(t\)</span>的定义是连续的，</p>
+<div class="math notranslate nohighlight">
+\[X(j \Omega)=\int_{-\infty}^{+\infty} x_{a}(t) e^{-j \Omega t} d t\]</div>
+<p>那对离散时间信号来说，其傅里叶变换如何定义呢？首先，我们来回顾一下离散时间信号和连续时间信号之间的关系。</p>
+<p><img alt="_images/2019-07-15-20-00-04.png" src="_images/2019-07-15-20-00-04.png" /></p>
+<p>从图中可以看出，离散时间信号是对连续时间信号<span class="math notranslate nohighlight">\(x_a(t)\)</span>的等间隔抽样，数学表达式为</p>
+<div class="math notranslate nohighlight">
+\[x_{p}(t)=\sum_{n=-\infty}^{\infty} x_{a}(t) \delta(t-n T)\]</div>
+<p>其中，<span class="math notranslate nohighlight">\(T\)</span>为抽样间隔，<span class="math notranslate nohighlight">\(\delta(t)\)</span>为抽样函数。然后，根据傅里叶变换的定义得到抽样后信号的傅里叶变换为</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+X_{p}(j \Omega) &amp;=\int_{-\infty}^{\infty} x_{p}(t) e^{-j \Omega t} d t=\int_{-\infty}^{\infty}\left(\sum_{n=-\infty}^{\infty} x[n] \delta(t-n T)\right) e^{-j \Omega t} d t \\ &amp;=\sum_{n=-\infty}^{\infty} x[n]\left(\int_{-\infty}^{\infty} \delta(t-n T) e^{-j \Omega t} d t\right) \\ 
+&amp;=\sum_{n=-\infty}^{\infty} x[n] e^{-j \Omega T n}
+\end{aligned}\end{split}\]</div>
+<p>如果定义</p>
+<div class="math notranslate nohighlight">
+\[\omega = \Omega T\]</div>
+<p>带入上面的推导中，可以得到</p>
+<div class="math notranslate nohighlight">
+\[X\left(e^{j \omega}\right) \triangleq  X_{p}(j \Omega) = \sum_{n=-\infty}^{+\infty} x[n] e^{-j w n}\]</div>
+<p>离散时间傅里叶变换（Discrete-time Fourier Transform DTFT）定义如下：</p>
+<div class="math notranslate nohighlight">
+\[X\left(e^{j \omega}\right) \triangleq  \sum_{n=-\infty}^{+\infty} x[n] e^{-j w n}\]</div>
+<div class="admonition hint">
+<p class="admonition-title">提示</p>
+<p>DTFT变换是对离散时间信号$x[n]$进行的，这里$x[n]$表示$x_a(t)$在$nT$时刻的样本值。</p>
+</div>
+<div class="section" id="id5">
+<h4>CTFT和DTFT的区别<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h4>
+<p>连续时间傅里叶变换和离散时间傅里叶变换的区别主要是以下几点：</p>
+<ol class="simple">
+<li><p><strong>计算过程</strong>：CTFT是积分运算，DTFT是求和运算；</p></li>
+<li><p><strong>时域信号</strong>：CTFT一般针对连续非周期信号，DTFT一般针对离散非周期信号；</p></li>
+<li><p><strong>频域表示</strong>：CTFT一般频域变换是连续非周期的，DTFT变换是连续且周期的；</p></li>
+<li><p><strong>参数</strong>：CTFT变换的变量是<span class="math notranslate nohighlight">\(\Omega\)</span>，单位是弧度每秒，DTFT变换的变量是<span class="math notranslate nohighlight">\(\omega\)</span>，单位是弧度每样本，二者之间的关系是<span class="math notranslate nohighlight">\(\Omega T = \omega\)</span>。</p></li>
+</ol>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>特点</th>
+<th align="center">连续时间傅里叶变换</th>
+<th align="center">离散时间傅里叶变换</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>计算</strong></td>
+<td align="center">积分运算</td>
+<td align="center">求和运算</td>
+</tr>
+<tr>
+<td><strong>时域</strong></td>
+<td align="center">连续非周期</td>
+<td align="center"><strong>离散</strong>非周期</td>
+</tr>
+<tr>
+<td><strong>频域</strong></td>
+<td align="center">连续非周期</td>
+<td align="center">连续<strong>周期</strong></td>
+</tr>
+<tr>
+<td><strong>参数</strong></td>
+<td align="center">$\Omega$</td>
+<td align="center">$\omega$</td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="dtft">
+<h4>例子：实指数序列的 DTFT<a class="headerlink" href="#dtft" title="永久链接至标题">¶</a></h4>
+<p>考虑实指数序列</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x[n]=\left\{\begin{array}{ll}{\alpha^{n},} &amp; {n \geq 0} \\ {0,} &amp; {n&lt;0}\end{array}\right.\end{split}\]</div>
+<p><img alt="_images/2019-07-18-20-35-14.png" src="_images/2019-07-18-20-35-14.png" /></p>
+<p>其 DTFT 变换为</p>
+<div class="math notranslate nohighlight">
+\[X\left(e^{j \omega}\right)=\sum_{n=-\infty}^{\infty} \alpha^{n} u[n] e^{-j \omega n}=\sum_{n=0}^{\infty} \alpha^{n} e^{-j \omega n}\]</div>
+<p>当参数<span class="math notranslate nohighlight">\(\alpha\in (0,1)\)</span>时，经过化简得到</p>
+<div class="math notranslate nohighlight">
+\[X\left(e^{j \omega}\right)=\frac{1}{1-\alpha e^{-j \omega}}\]</div>
+<p>可以将该序列DTFT 变换的实部、虚部，幅度、相位关于频率之间的关系画出来，如下图所示。
+<img alt="_images/2019-07-16-19-55-03.png" src="_images/2019-07-16-19-55-03.png" /></p>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>3.1.4. <a class="reference internal" href="experiments/auto_focus.html"><span class="doc">例子：相机自动对焦算法</span></a><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<p>几乎所有的数码相机都具有自动对焦功能，它能帮助我们自动的调整焦距，从而使得画面更加清晰。基于傅里叶变换，我们也可以设计一个很简单的自动对焦算法。
+<img alt="_images/2019-07-16-14-18-21.png" src="_images/2019-07-16-14-18-21.png" /></p>
+<p>图像信号，我们可以将其看成是一个二维的离散时间信号。相对应，二维离散时间信号的频域表示也是一个二维图像，如下图所示。中心位置附近是对应低频部分（图中红色圈中区域），主要来自于原始图像的平滑区域；而远离中心位置为高频部分，主要来自于尖锐的边缘和复杂的纹理。</p>
+<p><img alt="_images/2019-07-16-14-30-42.png" src="_images/2019-07-16-14-30-42.png" /></p>
+<p>拍摄过程中，如果对焦成功，那么所拍的照片会更清晰，边缘更尖锐，也就是高频成分会比较多。相反，如果对焦不成功，那么所拍的照片就会很模糊，边缘更平滑，也就是低频成分偏多。根据这个原理，我们可以设计一个算法，通过判断拍摄照片的傅里叶变换（频域）中高频成分能量是否最大，来调整相机的焦距。</p>
+<p><img alt="_images/myimage1.gif" src="_images/myimage1.gif" /></p>
+<p>通过上图，我们可以发现当焦距设置为40毫米的时候，高频成分能量最大，此时成像最清晰。</p>
+<!-- <video src="https://example.org/video.ogv" controls>alternative text</video>
+
+<iframe height=498 width=510 src='http://player.youku.com/embed/XMTQxMTI3NjM5Ng==' frameborder=0 'allowfullscreen'></iframe>
+```python
+import numpy as np
+```
+
+``` note:: Its a note! in markdown!
+```
+
+```sidebar:: Line numbers and highlights
+
+     注释:
+       highlights the lines.
+     linenos:
+       shows the line numbers as well.
+     caption:
+       shown at the top of the code block.
+     name:
+       may be referenced with `:ref:` later.
+```
+
+```code-block:: python
+     :linenos:
+     :emphasize-lines: 1,3,5
+     :caption: An example code-block with everything turned on.
+     :name: Full code-block example
+
+     # Comment line
+     import System
+     System.run_emphasis_line
+     # Long lines in code blocks create a auto horizontal scrollbar
+     System.exit!
+```
+ --></div>
+</div>
+<div class="section" id="id7">
+<h2>3.2. 逆 DTFT 变换及收敛性<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
+<div class="section" id="inverse-dtft">
+<h3>3.2.1. Inverse DTFT<a class="headerlink" href="#inverse-dtft" title="永久链接至标题">¶</a></h3>
+<p>离散时间傅里叶变换是将序列从时域变换到频域，变换公式为：</p>
+<div class="math notranslate nohighlight">
+\[X\left(e^{j \omega}\right)=\sum_{n=-\infty}^{\infty} x[n] e^{-j \omega n}\]</div>
+<p>逆离散时间傅里叶变换（IDTFT）则是将频域变换为时域序列，与 DTFT 是反过程，变换公式为：</p>
+<div class="math notranslate nohighlight">
+\[x[n]=\frac{1}{2 \pi} \int_{-\pi}^{\pi} X\left(e^{j \omega}\right) e^{j \omega n} d \omega\]</div>
+<div class="section" id="id8">
+<h4>正交变换对<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h4>
+<p><em>证明 IDTFT 变换和 DTFT 变换是一对正交变换对。</em></p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \begin{aligned} x[n] &amp;=\frac{1}{2 \pi} \int_{-\pi}^{\pi}\left(\sum_{l=-\infty}^{\infty} x[l] e^{-j \omega l}\right) e^{j \omega n} d \omega \\ &amp;=\sum_{l=-\infty}^{\infty} x[l]\left(\frac{1}{2 \pi} \int_{-\pi}^{\pi} e^{j \omega(n-l)} d \omega\right) \\ &amp;=\sum_{l=-\infty}^{\infty} x[l] \frac{\sin \pi(n-l)}{\pi(n-l)}=x[n] \end{aligned}\end{split}\]</div>
+<p>最后一个等式成立的原因是</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \frac{\sin \pi(n-l)}{\pi(n-l)} =\left\{\begin{array}{ll}{1,} &amp; {n=l} \\ {0,} &amp; {n \neq l}\end{array}\right.\end{split}\]</div>
+<p>上述证明表示DTFT 变换和 IDTFT 变换是一对正交变换对。</p>
+</div>
+</div>
+<div class="section" id="id9">
+<h3>3.2.2. DTFT 变换的收敛性<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
+<p>DTFT 变换是一个无限求和的公式，因此某些序列的 DTFT 可能不收敛。为了保证收敛性，即</p>
+<div class="math notranslate nohighlight">
+\[|X(e^{j\omega})|&lt;\infty, \ \forall \omega\]</div>
+<p>根据 DTFT 变换定义，进一步得到如下结论</p>
+<div class="math notranslate nohighlight">
+\[\left|X\left(e^{j \omega}\right)\right|=\left|\sum_{n=-\infty}^{\infty} x[n] e^{-j \omega n}\right| \leq \sum_{n=-\infty}^{\infty}|x[n]|\left|e^{-j \omega n}\right| \leq \sum_{n=-\infty}^{\infty}|x[n]|&lt;\infty\]</div>
+<p>最后一个不等式称为序列的<a class="reference external" href="#%E7%BB%9D%E5%AF%B9%E5%8F%AF%E5%92%8C%E5%BA%8F%E5%88%97">绝对可和</a>性质。</p>
+<div class="section" id="id10">
+<h4>例子：绝对可和序列<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h4>
+<p>考虑如下序列（指数序列）</p>
+<div class="math notranslate nohighlight">
+\[x[n]=a^{n} u[n]\]</div>
+<p>其DTFT 变换为</p>
+<div class="math notranslate nohighlight">
+\[X\left(e^{j \omega}\right)=\sum_{n=-\infty}^{\infty} a^{n} u[n] e^{-j \omega n}=\sum_{n=0}^{\infty}\left(a e^{-j \omega}\right)^{n}=\frac{1}{1-a e^{-j \omega}} \quad \text { if }\left|a e^{-j \omega}\right|=|a|&lt;1\]</div>
+<p>上述等式成立的条件为</p>
+<div class="math notranslate nohighlight">
+\[\sum_{n=0}^{\infty}|a|^{n}=\frac{1}{1-|a|}&lt;\infty\]</div>
+<p>也就是说序列<span class="math notranslate nohighlight">\(x[n]\)</span>满足绝对可和条件。</p>
+</div>
+<div class="section" id="id11">
+<h4>DTFT 变换收敛性定义<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h4>
+<p>定义<span class="math notranslate nohighlight">\(K\)</span>阶 DTFT 变换逼近如下</p>
+<div class="math notranslate nohighlight">
+\[X_K(e^{j\omega}) = \sum_{n=-K}^K x[n]e^{-j\omega n}\]</div>
+<p>那么 DTFT 变换收敛性有一致收敛和均方收敛两种。</p>
+<div class="section" id="id12">
+<h5>一致收敛<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h5>
+<p>一致收敛表示：当<span class="math notranslate nohighlight">\(K\)</span>趋近无穷大时，<span class="math notranslate nohighlight">\(K\)</span>阶 DTFT 变换逼近与 DTFT 变换每个频率点都相等，即</p>
+<div class="math notranslate nohighlight">
+\[\lim_{K\to \infty} X_K(e^{j\omega}) = X(e^{j\omega})\]</div>
+</div>
+<div class="section" id="id13">
+<h5>均方收敛<a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h5>
+<p>均方收敛表示：当<span class="math notranslate nohighlight">\(K\)</span>趋近无穷大时，<span class="math notranslate nohighlight">\(K\)</span>阶 DTFT 变换逼近与 DTFT 变换的<strong>均方误差</strong>趋近于 0，即</p>
+<div class="math notranslate nohighlight">
+\[\lim_{K\to \infty} \int_{-\pi}^\pi \left\vert X(e^{j\omega}) - X_K(e^{j\omega})\right\vert^2d\omega = 0\]</div>
+<p>DTFT 变换的一致收敛和均方收敛关系可以表示如下：</p>
+<p><img alt="_images/2019-07-16-20-47-05.png" src="_images/2019-07-16-20-47-05.png" /></p>
+</div>
+</div>
+<div class="section" id="id14">
+<h4>序列的类型与 DTFT 收敛性<a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h4>
+<p>根据序列的可和性质，可以将序列分为：绝对可和序列、平方可和序列和非可和序列。序列的可和性质与其 DTFT 变换的收敛性有关。</p>
+<div class="section" id="id15">
+<h5>绝对可和序列<a class="headerlink" href="#id15" title="永久链接至标题">¶</a></h5>
+</div>
+<div class="section" id="id16">
+<h5>平方可和序列<a class="headerlink" href="#id16" title="永久链接至标题">¶</a></h5>
+</div>
+<div class="section" id="id17">
+<h5>非可和序列<a class="headerlink" href="#id17" title="永久链接至标题">¶</a></h5>
+<p>绝对可和序列的 DTFT 变换一定存在，且满足一致收敛条件，同时也满足均方收敛条件。对于有些序列，不满足绝对可和条件，但是满足平方可和条件，它的 DTFT 变换也存在，例如 Sinc 序列。另外，对于一些非可和序列，例如常数序列、正弦序列等等，它们既不满足绝对可和，也不满足平方可和条件，但是我们仍然可以通过狄拉克函数引入这些序列的 DTFT 变换。这在工程上有非常重要的意义。</p>
+<p>下面的表格给出了序列的可和性与其 DTFT 变换收敛性之间的关系。</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th>序列类型</th>
+<th align="center">一致收敛</th>
+<th align="center">均方收敛</th>
+<th align="center">狄拉克函数引入</th>
+<th align="center">举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>绝对可和序列</strong></td>
+<td align="center">满足</td>
+<td align="center">满足</td>
+<td align="center">-</td>
+<td align="center">指数序列</td>
+</tr>
+<tr>
+<td><strong>平方可和序列</strong></td>
+<td align="center">不满足</td>
+<td align="center">满足</td>
+<td align="center">-</td>
+<td align="center">Sinc序列</td>
+</tr>
+<tr>
+<td><strong>非可和序列</strong></td>
+<td align="center">不满足</td>
+<td align="center">不满足</td>
+<td align="center">满足</td>
+<td align="center">正弦序列</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="section" id="sinc-dtft">
+<h4>Sinc 序列的 DTFT 变换<a class="headerlink" href="#sinc-dtft" title="永久链接至标题">¶</a></h4>
+<p>Sinc 序列是一个特殊的重要序列，它是我们后面要学习的理想低通滤波器的时域形式（其频域形式为门函数）</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}h_{L P}[n]=\frac{\sin \omega_{c} n}{\pi n} \longleftrightarrow H_{L P}\left(e^{j \omega}\right)=\left\{\begin{array}{ll}{1,} &amp; {0 \leq|\omega| \leq \omega_{c}} \\ {0,} &amp; {\omega_{c} \leq|\omega| \leq \pi}\end{array}\right.\end{split}\]</div>
+<p>Sinc 序列不是绝对可和序列，但是是平方可和序列。【参考：<a class="reference internal" href="appendix/sinc_nonabs.html"><span class="doc">Sinc 序列非绝对可和证明</span></a>】所以，直接根据 DTFT 公式计算</p>
+<div class="math notranslate nohighlight">
+\[\sum_{n=-\infty}^{\infty} \frac{\sin \omega_{c} n}{\pi n} e^{-j \omega n}\]</div>
+<p>上述求和公式会发散，但是</p>
+<div class="math notranslate nohighlight">
+\[\sum_{n=-\infty}^{\infty}\left(\frac{\sin \omega_{c} n}{\pi n}\right)^{2} e^{-j \omega n} &lt; \infty\]</div>
+<p>收敛。
+令<span class="math notranslate nohighlight">\(y[n]=\left\{\begin{array}{ll}{1} &amp; {-K \leq n \leq K} \\ {0} &amp; {\text { else }}\end{array}\right.\)</span>，那么可以得到</p>
+<div class="math notranslate nohighlight">
+\[H_{LP,K}\left(e^{j \omega}\right)=\sum_{n=-K}^{K} \frac{\sin \omega_{c} n}{\pi n} e^{-j \omega n}= DTF T\left\{\frac{\sin \omega_{c} n}{\pi n} y[n]\right\}=\frac{1}{2 \pi} \int_{-\omega_{c}}^{\omega_{c}} \frac{\sin [(2 K+1)(\omega-\theta) / 2]}{\sin [(\omega-\theta) / 2]} d \theta\]</div>
+<p>下图展示了<span class="math notranslate nohighlight">\(H_{LP,K}\left(e^{j \omega}\right)\)</span>的波形图。可以发现，随着 K 的值增大（图中为 N），<span class="math notranslate nohighlight">\(H_{LP,K}\left(e^{j \omega}\right)\)</span>会逐渐逼近<span class="math notranslate nohighlight">\(H_{LP}\left(e^{j \omega}\right)\)</span>。但是二者并不相等，始终存在一些不相等的位置。由于<span class="math notranslate nohighlight">\(h_{LP}[n]\)</span>为平方可和序列，即</p>
+<div class="math notranslate nohighlight">
+\[|H_{LP,K}(e^{j\omega})-H_{LP}(e^{j\omega})|^2\to  0, \text{ as } K\to \infty\]</div>
+<p>满足均方收敛条件。</p>
+<p><img alt="_images/gibbs.gif" src="_images/gibbs.gif" /></p>
+</div>
+<div class="section" id="id18">
+<h4>非可和序列的 DTFT 变换<a class="headerlink" href="#id18" title="永久链接至标题">¶</a></h4>
+<p>非可和序列既不满足绝对可和条件，也不满足均方可和条件。例如：</p>
+<ol class="simple">
+<li><p>常数序列</p></li>
+<li><p>阶跃序列</p></li>
+<li><p>正弦序列</p></li>
+</ol>
+<p>这三种序列在工程应用中会经常用到，例如阶跃序列实际上描述了开关的性质，正弦序列是一个 LTI 系统的本征函数。所以，这一类型的序列的离散时间傅里叶变换的定义是非常重要的。工程上，我们一般利用狄拉克函数<span class="math notranslate nohighlight">\(\delta(\omega)\)</span>来引入:</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p><strong>狄拉克函数定义</strong>
+狄拉克函数满足如下两个条件：</p>
+<ol class="arabic simple">
+<li><p>$\delta(\omega)=0, \forall \omega \neq 0$</p></li>
+<li><p>$\int_{-\pi}^{\pi} \delta(\omega) d \omega=1$</p></li>
+</ol>
+</div>
+<p>利用狄拉克函数，我们可以定义上述三种特殊序列的 DTFT 变换如下：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned} 1 &amp; \longleftrightarrow \sum_{k=-\infty}^{\infty} 2 \pi \delta(\omega+2 \pi k) \\ \mu[n] &amp; \longleftrightarrow \frac{1}{1-e^{-j \omega}}+\sum_{k=-\infty}^{\infty} \pi \delta(\omega+2 \pi k) \\ \cos \left(\omega_{0} n\right) &amp; \longleftrightarrow \sum_{k=-\infty}^{\infty} \pi\left[\delta\left(\omega-\omega_{0}+2 \pi k\right)+\delta\left(\omega+\omega_{0}+2 \pi k\right)\right] \end{aligned}\end{split}\]</div>
+</div>
+</div>
+</div>
+<div class="section" id="id19">
+<h2>3.3. DTFT 变换的性质和定理<a class="headerlink" href="#id19" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id20">
+<h3>3.3.1. DTFT 变换的性质<a class="headerlink" href="#id20" title="永久链接至标题">¶</a></h3>
+<p>一般来说，序列的 DTFT 变换<span class="math notranslate nohighlight">\(X\left(e^{j \omega}\right)\)</span>一般是关于实数变量<span class="math notranslate nohighlight">\(\omega\)</span>的复数函数。那么，根据复数的两种表达形式：笛卡儿坐标和极坐标形式。</p>
+<p><strong>笛卡尔坐标形式</strong>：<span class="math notranslate nohighlight">\(X\left(e^{j \omega}\right)\)</span>可以分成实部和虚部两个部分</p>
+<div class="math notranslate nohighlight">
+\[X\left(e^{j \omega}\right)=X_{r e}\left(e^{j \omega}\right)+j X_{i m}\left(e^{j \omega}\right)\]</div>
+<p>其中<span class="math notranslate nohighlight">\(X_{re}\left(e^{j \omega}\right)\)</span> 为实部，<span class="math notranslate nohighlight">\(X_{im}\left(e^{j \omega}\right)\)</span>为虚部。</p>
+<p><strong>极坐标形式</strong>：<span class="math notranslate nohighlight">\(X\left(e^{j \omega}\right)\)</span>可以分解为幅度部分和相位部分</p>
+<div class="math notranslate nohighlight">
+\[X\left(e^{j \omega}\right)=\left|X\left(e^{j \omega}\right)\right| e^{j \theta(\omega)}\]</div>
+<p>其中<span class="math notranslate nohighlight">\(|X\left(e^{j \omega}\right)|\)</span> 为幅度，<span class="math notranslate nohighlight">\(\theta(\omega)\)</span>为相位。</p>
+<p>前面的章节，我们已经计算出来指数序列<span class="math notranslate nohighlight">\(x[n]=\alpha^{n} \mu[n]\)</span>的傅里叶变换为</p>
+<div class="math notranslate nohighlight">
+\[X\left(e^{j \omega}\right)=\sum_{n=-\infty}^{\infty} \alpha^{n} u[n] e^{-j \omega n}=\sum_{n=0}^{\infty}\left(\alpha e^{-j \omega}\right)^{n}=\frac{1}{1-\alpha e^{-j \omega}} \quad \text { if }\left|a e^{-j \omega}\right|=|\alpha|&lt;1\]</div>
+<p>然后通过<a class="reference external" href="https://zh.wikipedia.org/zh-hans/%E6%AC%A7%E6%8B%89%E5%85%AC%E5%BC%8F">欧拉公式</a>，很容易计算得到该序列的傅里叶变换的实部和虚部，以及幅度和相位，它们的波形图如下图所示。通常，我们称序列在频域的幅度波形为<strong>幅度谱</strong>，而其相位波形为<strong>相位谱</strong>。</p>
+<p><img alt="_images/2019-07-16-19-55-03.png" src="_images/2019-07-16-19-55-03.png" /></p>
+<p>两种形式的表示可以通过下面的公式进行转换：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{c}{X_{r e}=|X| \cdot \cos (\theta) \quad X_{i m}=|X| \cdot \sin (\theta)} \\ {|X|=\sqrt{X_{r e}^{2}+X_{i m}^{2}} \quad \theta=\arctan \frac{X_{i m}}{X_{r e}}}\end{array}\end{split}\]</div>
+<div class="section" id="id21">
+<h4>基本性质<a class="headerlink" href="#id21" title="永久链接至标题">¶</a></h4>
+<ul class="simple">
+<li><p><strong>连续性</strong>：离散时间傅里叶变换是关于归一化频率<span class="math notranslate nohighlight">\(\omega\)</span>的连续函数。</p></li>
+<li><p><strong>周期性</strong>：离散时间傅里叶变换是关于<span class="math notranslate nohighlight">\(\omega\)</span>的周期函数，重复周期为<span class="math notranslate nohighlight">\(2\pi\)</span></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned} X(\omega+2 \pi k) &amp;=\sum_{n=-\infty}^{\infty} x[n] e^{-j(\omega+2 \pi k) n} \\ &amp;=\sum_{n=-\infty}^{\infty} x[n] e^{-j \omega n} \underbrace{e^{-j 2 \pi k n}}_{=1} \\ &amp;=\sum_{n=-\infty}^{\infty} x[n] e^{-j \omega n} \\ X(\omega+2 \pi k) &amp;=X(\omega) \end{aligned}\end{split}\]</div>
+<div class="admonition hint">
+<p class="admonition-title">提示</p>
+<p>这也就是为什么我们将 DTFT 变换一般写成$X(e^{j \omega })$形式，而不写成$X(\omega)$。</p>
+</div>
+</div>
+<div class="section" id="id22">
+<h4>对称性质<a class="headerlink" href="#id22" title="永久链接至标题">¶</a></h4>
+<ul class="simple">
+<li><p><strong>实序列的对称性</strong>：实序列的傅里叶变换是共轭对称的。</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[X^{*}\left(e^{j \omega}\right)=\left(\sum_{n=-\infty}^{\infty} x[n] e^{-j \omega n}\right)^{*}=\sum_{n=-\infty}^{\infty} x[n] e^{j \omega n}=X\left(e^{-j \omega}\right)\]</div>
+<p>根据这个性质，我们可以总结出如下结论：</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="center">DTFT 变换性质</th>
+<th align="center">DTFT 对称性质公式描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">$x[n] \in \mathbb{R}$</td>
+<td align="center">$X\left(e^{j \omega}\right)=X_{r e}\left(e^{j \omega}\right)+j X_{i m}\left(e^{j \omega}\right)$</td>
+</tr>
+<tr>
+<td align="center"><strong>共轭对称</strong></td>
+<td align="center">$X\left(e^{j \omega}\right)=X^{*}\left(e^{-j \omega}\right)$</td>
+</tr>
+<tr>
+<td align="center"><strong>实部偶对称</strong></td>
+<td align="center">$X_{r e}\left(e^{j \omega}\right)=X_{r e}\left(e^{-j \omega}\right)$</td>
+</tr>
+<tr>
+<td align="center"><strong>实部奇对称</strong></td>
+<td align="center">$X_{i m}\left(e^{j \omega}\right)=-X_{i m}\left(e^{-j \omega}\right)$</td>
+</tr>
+<tr>
+<td align="center"><strong>幅度偶对称</strong></td>
+<td align="center">$ \left\vert X\left(e^{j \omega}\right)\right\vert=\left\vert X\left(e^{-j \omega}\right)\right\vert $</td>
+</tr>
+<tr>
+<td align="center"><strong>相位奇对称</strong></td>
+<td align="center">$\theta(\omega)=-\theta(-\omega)$</td>
+</tr>
+</tbody>
+</table><ul class="simple">
+<li><p><strong>复序列的对称性</strong></p></li>
+</ul>
+<p>复序列DTFT 变换的对称性较为复杂，令序列$x[n]\in \mathbb{C}$是复序列，其 DTFT 变换表示为$X(e^{j\omega})$，下面给出序列$x[n]$的对称、共轭对称、实部、虚部序列的傅里叶变换和$X(e^{j\omega})$的关系。</p>
+<div class="admonition important">
+<p class="admonition-title">重要</p>
+<ol class="arabic simple">
+<li><p><strong>$x[n]$的对称序列</strong>：$x[-n] \leftrightarrow X(e^{-j\omega})$</p></li>
+<li><p><strong>$x[n]$的共轭对称序列</strong>：$x^*[-n] \leftrightarrow X^*(e^{j\omega})$</p></li>
+<li><p><strong>$x[n]$的实部</strong>：$x_{r e}[n]=\frac{1}{2}\left(x[n]+x^{*}[n]\right)  \leftrightarrow X_{c s}\left(e^{j \omega}\right)=\frac{1}{2}\left\{X\left(e^{j \omega}\right)+X^{*}\left(e^{-j \omega}\right)\right\}$</p></li>
+<li><p><strong>$x[n]$的实部</strong>：$j x_{i m}[n]=\frac{1}{2}\left(x[n]-x^{*}[n]\right) \leftrightarrow X_{c a}\left(e^{j \omega}\right)=\frac{1}{2}\left\{X\left(e^{j \omega}\right)-X^{*}\left(e^{-j \omega}\right)\right\} $</p></li>
+</ol>
+</div>
+<p>基于上述四个复序列的对称性质，可以很容易归纳出共轭对称和共轭反对称序列的傅里叶变换的对称性质。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p><strong>共轭（反）对称序列</strong></p>
+<ol class="arabic simple">
+<li><p>共轭对称序列满足：$ x_{cs}[n] = x^*_{cs}[-n]  $</p></li>
+<li><p>共轭反对称序列满足：$ x_{as}[n] = -x^*_{as}[-n]  $</p></li>
+</ol>
+</div>
+<p>任意的共轭对称序列都可以分解为</p>
+<div class="math notranslate nohighlight">
+\[x_{c s}[n]=\frac{1}{2}\left(x[n]+x^{*}[-n]\right)\]</div>
+<p>那么根据共轭对称序列$x^*[-n]$的性质可以得到$x_{c s}[n]$的DTFT 变换为$x[n]$DTFT 变换的<strong>实部</strong>，即$x_{c s}[n] \leftrightarrow X_{re}(e^{j\omega})$。</p>
+<p>任意的共轭反对称序列都可以分解为</p>
+<div class="math notranslate nohighlight">
+\[x_{ a s}[n]=\frac{1}{2}\left(x[n]-x^{*}[-n]\right)\]</div>
+<p>那么根据共轭对称序列$x^*[-n]$的性质可以得到$x_{c s}[n]$的DTFT 变换为$x[n]$DTFT 变换的<strong>虚部</strong>，即$x_{c s}[n] \leftrightarrow jX_{im}(e^{j\omega})$。</p>
+</div>
+</div>
+<div class="section" id="id23">
+<h3>3.3.2. DTFT 变换的定理<a class="headerlink" href="#id23" title="永久链接至标题">¶</a></h3>
+<p>令序列$x[n]$和$y[n]$都是任意的复序列，他们的DTFT 变换分别为$X(e^{j\omega})$和$Y(e^{j\omega})$，那么 DTFT 变换的定理可以归纳如下表</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="center">定理</th>
+<th align="center">序列</th>
+<th align="center">DTFT 变换</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><strong>线性定理</strong></td>
+<td align="center">$ax[n]+ by[n]$</td>
+<td align="center">$a X\left(e^{j \omega}\right)+b Y\left(e^{j \omega}\right)$</td>
+</tr>
+<tr>
+<td align="center"><strong>时移定理</strong></td>
+<td align="center">$x[n-n_0]$</td>
+<td align="center">$e^{-j \omega n_{0}} X\left(e^{j \omega}\right)$</td>
+</tr>
+<tr>
+<td align="center"><strong>时间翻转定理</strong></td>
+<td align="center">$x[-n]$</td>
+<td align="center">$X\left(e^{-j \omega}\right)$</td>
+</tr>
+<tr>
+<td align="center"><strong>频移定理</strong></td>
+<td align="center">$e^{j\omega_0n}x[n]$</td>
+<td align="center">$X\left(e^{j\left(\omega-\omega_{0}\right)}\right)$</td>
+</tr>
+<tr>
+<td align="center"><strong>共轭定理</strong></td>
+<td align="center">$x^*[n]$</td>
+<td align="center">$ X^{*}\left(e^{-j \omega}\right)$</td>
+</tr>
+<tr>
+<td align="center"><strong>卷积定理</strong></td>
+<td align="center">$x[n]\circledast y[n]$</td>
+<td align="center">$X\left(e^{j \omega}\right) Y\left(e^{j \omega}\right)$</td>
+</tr>
+<tr>
+<td align="center"><strong>频率微分定理</strong></td>
+<td align="center">$nx[n]$</td>
+<td align="center">$j \frac{d X\left(e^{j \omega}\right)}{d \omega}$</td>
+</tr>
+<tr>
+<td align="center"><strong>Parseval 定理</strong></td>
+<td align="center">$\sum_{n=-\infty}^{\infty} x[n] y^{*}[n]$</td>
+<td align="center">$\frac{1}{2 \pi} \int_{-\pi}^{\pi} Y^{*}\left(e^{j \omega}\right) X\left(e^{j \omega}\right) d \omega$</td>
+</tr>
+<tr>
+<td align="center"><strong>差分定理</strong></td>
+<td align="center">$x[n]-x[n-1]$</td>
+<td align="center">$\left(1-e^{-j \omega}\right) X\left(e^{j \omega}\right)$</td>
+</tr>
+<tr>
+<td align="center"><strong><a href="ch3/accumulation.html">累加定理</a></strong></td>
+<td align="center">$\sum_{k=-\infty}^{n} x[k]$</td>
+<td align="center">$\frac{X\left(e^{j \omega}\right)}{1-e^{-j \omega}}+\pi X\left(e^{j 0}\right) \sum_{k=-\infty}^{\infty} \delta(\omega+2 \pi k) $</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div class="section" id="id24">
+<h2>3.4. 典型序列的 DTFT 变换<a class="headerlink" href="#id24" title="永久链接至标题">¶</a></h2>
+<p>典型序列的 DTFT 变换在工程应用中会经常使用，这里我们给出这些常用序列的 DTFT 变换。</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="center">序列名称</th>
+<th align="center">序列表达式</th>
+<th align="center">序列 DTFT 变换</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><strong><a href="appendix/dtft_classical_seq.html#dirac">狄拉克（抽样）序列</a></strong></td>
+<td align="center">$\delta[n]$</td>
+<td align="center">1</td>
+</tr>
+<tr>
+<td align="center"><strong><a href="appendix/dtft_classical_seq.html#constant">常数序列</a></strong></td>
+<td align="center">$1,(-\infty&lt;n&lt;\infty)$</td>
+<td align="center">$\sum_{k=-\infty}^{\infty} 2 \pi \delta(\omega+2 \pi k)$</td>
+</tr>
+<tr>
+<td align="center"><strong><a href="appendix/dtft_classical_seq.html#step">阶跃序列</a></strong></td>
+<td align="center">$\mu[n]$</td>
+<td align="center">$\frac{1}{1-e^{-j \omega}}+\sum_{k=-\infty}^{\infty} \pi \delta(\omega+2 \pi k)$</td>
+</tr>
+<tr>
+<td align="center"><strong><a href="appendix/dtft_classical_seq.html#sin">指数正弦序列</a></strong></td>
+<td align="center">$e^{j \omega_{0} n}$</td>
+<td align="center">$\sum_{k=-\infty}^{\infty} 2 \pi \delta\left(\omega-\omega_{0}+2 \pi k\right)$</td>
+</tr>
+<tr>
+<td align="center"><strong><a href="appendix/dtft_classical_seq.html#causal">因果指数序列</a></strong></td>
+<td align="center">$\alpha^{n} \mu[n],(\vert \alpha\vert&lt;1)$</td>
+<td align="center">$\frac{1}{1-\alpha e^{-j \omega}}$</td>
+</tr>
+<tr>
+<td align="center"><strong><a href="appendix/dtft_classical_seq.html#sinc">Sinc 序列</a></strong></td>
+<td align="center">$h_{L P}[n]=\frac{\sin \omega_{c} n}{\pi n}$</td>
+<td align="center">$H_{L P}\left(e^{j \omega}\right)=\begin{cases} {1,} &amp; {0 \leq\vert\omega\vert \leq \omega_{c}} \\ 0, &amp; {\omega_{c} \leq\vert\omega\vert \leq \pi}\end{cases}$</td>
+</tr>
+</tbody>
+</table><div class="admonition hint">
+<p class="admonition-title">提示</p>
+<p>点击序列名称可以查看对应序列 DTFT 变换的计算过程.</p>
+</div>
+</div>
+<div class="section" id="id25">
+<h2>3.5. 采样与重建<a class="headerlink" href="#id25" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id26">
+<h3>3.5.1. 采样过程的数学描述<a class="headerlink" href="#id26" title="永久链接至标题">¶</a></h3>
+<p>连续时间信号通过等间隔采样可以得到离散时间信号，那么这个过程可以用下图来描述。</p>
+<p><img alt="_images/2019-07-18-22-54-51.png" src="_images/2019-07-18-22-54-51.png" /></p>
+<p>从图中可以看出，采样过程可以表示为连续时间信号和脉冲序列的乘积，即</p>
+<div class="math notranslate nohighlight">
+\[g_p(t) = g_a(t) \cdot p(t) = g_{a}(t) \cdot \sum_{n=-\infty}^{\infty} \delta(t-n T)\]</div>
+<p>其中，$g_a(t)$为连续时间信号，$g_p(t)$为离散时间信号，$p(t)$为脉冲序列。</p>
+<p>因为采样序列是周期信号，那么可以通过傅里叶级数展开</p>
+<div class="math notranslate nohighlight">
+\[p(t)=\sum_{k=-\infty}^{\infty} c_{k} \cdot e^{j\left(\frac{2 \pi}{T}\right) k t}\]</div>
+<p>其中系数</p>
+<div class="math notranslate nohighlight">
+\[c_{k}=\frac{1}{T} \int_{-T / 2}^{T / 2} p(t) e^{-j\left(\frac{2 \pi}{T}\right) k t} d t=\frac{1}{T}\]</div>
+<p>时间$T$为采样周期。从而得到采样信号$p(t)$实际上是多个正弦指数信号的线性叠加</p>
+<div class="math notranslate nohighlight">
+\[p(t) =\frac{1}{T} \sum_{k=-\infty}^{\infty} e^{j\left(\frac{2 \pi}{T}\right) k t}\]</div>
+<p>带入采样后信号$g_p(t)$的表达式可以得到</p>
+<div class="math notranslate nohighlight">
+\[g_{p}(t)=g_{a}(t) \cdot \frac{1}{T} \sum_{k=-\infty}^{\infty} e^{j\left(\frac{2 \pi}{T}\right) k t} = \frac{1}{T} \sum_{k=-\infty}^{\infty} g_{a}(t)  e^{j\left(\frac{2 \pi}{T}\right) k t}\]</div>
+<p>根据频移定理和线性定理可以得到采样后信号$g_p(t)$的傅里叶变换</p>
+<p><img alt="_images/2019-07-19-15-40-38.png" src="_images/2019-07-19-15-40-38.png" /></p>
+<p>通过上面的公式，我们可以发现采样后信号$g_p(t)$的频谱实际上是采样前信号$g_a(t)$频谱的周期延拓，如下图所示。</p>
+<p><img alt="_images/2019-07-19-15-44-46.png" src="_images/2019-07-19-15-44-46.png" /></p>
+<p>原始连续信号经过周期采样后，得到的信号的频谱实际上就是将原始信号频谱以$\Omega_{samp}$（采样角频率）为间隔，周期搬移，然后叠加而成。这是一个非常重要性质。</p>
+<p>不难发现，频谱周期搬移的距离依赖于采样角频率$\Omega_{samp} = \frac{2\pi}{T}$。也就是说，采样周期越大（采样频率越低），搬移的距离$\Omega_{samp}$越小；反之，采样周期越小（采样频率越高），搬移的距离$\Omega_{samp}$越大，频谱之间间隔越分散。</p>
+</div>
+<div class="section" id="id27">
+<h3>3.5.2. 采样定理<a class="headerlink" href="#id27" title="永久链接至标题">¶</a></h3>
+<p>假设一个模拟信号$g_a(t)$的频谱是带限的，如下图所示。也就是说，当$|\Omega|&gt;\Omega_M$时，频谱为 0。</p>
+<p><img alt="_images/2019-07-19-16-06-17.png" src="_images/2019-07-19-16-06-17.png" /></p>
+<p>现在如果选择的采样频率$\Omega_{samp}&gt;2\Omega_M$，那么采样后得到的离散时间信号的频谱$X(e^{j\omega})$看起来就如下图所示。</p>
+<p><img alt="_images/2019-07-19-16-08-45.png" src="_images/2019-07-19-16-08-45.png" /></p>
+<p>这种情况下，我们有如下关系式</p>
+<div class="math notranslate nohighlight">
+\[G_p(j\Omega) = \frac{1}{T} G_a(j\Omega) , \quad |\Omega| \leq \frac{\Omega_{samp}}{2}\]</div>
+<p>这时离散时间信号的频谱在频率区间$ |\Omega| \leq \frac{\Omega_{samp}}{2}$内，和模拟信号的频谱相同，只不过多了一个尺度因子$\frac{1}{T}$。这种情况下，如果我们想从离散时间信号中恢复出原始模拟信号，就只需要将$ |\Omega| \leq \frac{\Omega_{samp}}{2}$以外的频率成分滤除掉，就可以无失真的恢复原始模拟信号了。</p>
+<p>另外一种情况，若选择的采样频率$\Omega_{samp}&lt;2\Omega_M$，则对模拟信号$G_a(j\Omega)$的频谱搬移会导致频谱重叠，如下图所示。</p>
+<p><img alt="_images/2019-07-19-16-15-09.png" src="_images/2019-07-19-16-15-09.png" /></p>
+<p>这时，离散时间信号的频谱$X(e^{j\omega})$含有模拟信号频谱$G_a(j\Omega)$的混叠频率成分，由于出现了混叠，结果使得我们无法从样本中恢复出原始信号$g_a(t)$。</p>
+<p>综上所述，采样频率必须满足大于或者等于 2 倍信号带宽（最高频率），才能保证模拟信号唯一的从离散时间信号中重建。过小的采样频率会导致频谱混叠现象的发生，从而无法从离散时间信号中恢复原始模拟信号。我们把 2 倍信号带宽的频率称为 <a class="reference external" href="https://en.wikipedia.org/wiki/Nyquist_frequency">Nyquist 频率</a>。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p><strong>采样定理</strong>: 带限连续时间信号，它的最高频率为$\Omega_{M}$，如果采样频率$\Omega_{samp}\geq 2\Omega_M$，那么就可以从采样后得到的离散时间信号中唯一的恢复出原始信号。</p>
+</div>
+<p>采样过程是将模拟信号转换成离散时间信号，这个过程通常通过 AD 转换器来完成。因此，学习本节内容后，我们应该掌握如何根据模拟信号的性质（带宽）来选择合适的 AD 转换器。例如，我们想进行语音信号的数字采集，并且知道语音信号的频谱范围在 500Hz 到 3.4KHz 范围，所以AD 转换器的采样频率应该至少为 6.8KHz，但是考虑到噪声的影响以及后续重建过程中重建滤波器的设计等因素，通常我们选择 8KHz 作为语音信号采集系统中 AD 转换器的采样频率。</p>
+</div>
+<div class="section" id="id28">
+<h3>3.5.3. 模拟信号重建<a class="headerlink" href="#id28" title="永久链接至标题">¶</a></h3>
+<p>重建过程是将离散时间信号转换成模拟信号。要保证无失真重建出原始模拟信号，采样频率需要满足 Nyquist 频率，保证其采样过程不发生频谱混叠现象。根据上一节的分析，若不存在混叠，我们就可以从样本中重建原始模拟信号，</p>
+<p>\begin{equation}
+\hat G_a(j\Omega) =\begin{cases}
+T G_p(j\Omega) , &amp; |\Omega| \leq \frac{\Omega_{samp}}{2} \\
+0, &amp; |\Omega| &gt; \frac{\Omega_{samp}}{2}
+\end{cases}
+\label{eq:x}
+\end{equation}</p>
+<div class="admonition hint">
+<p class="admonition-title">提示</p>
+<p>公式\eqref{eq:x}可以看做是一个理想低通滤波器的处理，截止频率为$\frac{\Omega_{samp}}{2}$。</p>
+</div>
+<p>通过傅里叶逆变换得到$g_a(t)$</p>
+<p>\begin{equation}\label{eq:gat}
+\hat g_a(t) = \frac{T}{2\pi}\int_{-\Omega_{samp}/2}^{\Omega_{samp}/2} G_p(j\Omega) e^{j\Omega t} d\Omega
+\end{equation}</p>
+<p>若已知样本值$x[n]$，那么$G_p(j\Omega)$可以通过 CTFT 和 DTFT 的关系计算出来</p>
+<p>\begin{equation}
+\hat G_p(j\Omega) = \sum_{n=-\infty}^{\infty} x[n] e^{-j \Omega n T } \label{eq:gpdtft}
+\end{equation}</p>
+<p>那么将\eqref{eq:gpdtft}带入到公式\eqref{eq:gat}，可以得到$g_a(t)$的重建公式</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{split}
+\hat{g}_a(t) &amp;= \frac{T}{2\pi}\int_{-\Omega_{samp}/2}^{+\Omega_{samp}/2} \left[\sum_{n=-\infty}^{\infty} x[n] e^{-j \Omega n T } \right] e^{j\Omega t} d\Omega \\
+&amp;= \frac{T}{2\pi}\sum_{n=-\infty}^{\infty} x[n]   \int_{-\Omega_{samp}/2}^{\Omega_{samp}/2}  e^{j\Omega (t-nT)} d\Omega \\
+&amp;= \sum_{-\infty}^\infty x[n] \frac{\sin\left[(\pi/T)(t-nT)\right]}{(\pi/T)(t-nT)} \\
+&amp;= \sum_{-\infty}^\infty x[n] \cdot \text{Sinc}\left(\frac{\pi}{T}(t-nT)\right)
+\end{split}\end{split}\]</div>
+<p>从最后一个公式可以看出，模拟信号的重建过程实际上是将 Sinc 函数经过适当的平移$nT$，$n\in \mathbb{Z}$，并与相应信号样本$x[n]$相乘或加权得到。所以说，可以将重建过程看做是一个<strong>插值过程</strong>，其中插值函数为Sinc 函数。这个过程可以通过下图来描述。</p>
+<p><img alt="_images/interpo_recon.gif" src="_images/interpo_recon.gif" /></p>
+<div class="admonition hint">
+<p class="admonition-title">提示</p>
+<p><strong>非带限信号采样</strong>：对于非带限信号，其最大频率成分$\Omega_M \to \infty$，采用本节所描述的方法是不可能从离散时间信号中无失真的恢复原始模拟信号的。因此，我们只能尽量恢复出最接近原始模拟信号的重建。这也就是下一节”抗混叠滤波器“的作用。</p>
+</div>
+</div>
+<div class="section" id="id29">
+<h3>3.5.4. 抗混叠滤波器<a class="headerlink" href="#id29" title="永久链接至标题">¶</a></h3>
+<p>抗混叠滤波器的作用主要是用来将非带限信号转换成带限信号，从而使得最后重建的信号更接近原始模拟信号。假设$g_a(t)$的频谱$G_a(j\Omega)$是非带限的，当我们用频率为$\Omega_T$的采样序列将其转换成离散时间信号$g_p(t)$或者$x[n]$，然后重建，得到$\hat g_a(t)$。从公式\eqref{eq:x}中可以知道，重建过程实际上就是将频带$\Omega_T/2$外的频谱去除，即</p>
+<div class="math notranslate nohighlight">
+\[\hat G_a(j\Omega) = 0, \quad \forall |\Omega| &gt; \Omega_T/2\]</div>
+<p>此时，可以分析重建误差为</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{ll}{\left\|g_{a}-\hat{g}_{a}\right\|^{2}} &amp; {=\frac{1}{2 \pi} \int_{-\infty}^{\infty}\left|G_{a}-\hat{G}_{a}\right|^{2} d \Omega} \\ &amp;{=\frac{1}{2 \pi} \int_{|\Omega|&gt;\Omega_{T}/2}\left|G_{a}-\hat{G}_{a}\right|^{2} d \Omega+\frac{1}{2 \pi} \int_{-\Omega_{T}/2}^{\Omega_{T}/2}\left|G_{a}-\hat{G}_{a}\right|^{2} d \Omega} \\
+&amp;= \frac{1}{2 \pi} \int_{|\Omega|&gt;\Omega_{T}/2}\left|G_{a}\right|^{2} d \Omega+\frac{1}{2 \pi} \int_{-\Omega_{T}/2}^{\Omega_{T}/2}\left|G_{a}-\hat{G}_{a}\right|^{2} d \Omega
+\end{array}\end{split}\]</div>
+<p>上式第一项为带外误差，可以发现这一项与重建结果是不相关的；第二项为带内误差，这个误差与重建结果$\hat G_a$相关，并且当$\hat G_a = G_a$在带内$[{-\Omega_{T}/2},{\Omega_{T}/2}]$成立时，可以使得带内误差为 0，达到最小。为了达到这个目的，我只需要在对非带限信号在采样之前，进行滤波处理，将其频带限制在$[{-\Omega_{T}/2},{\Omega_{T}/2}]$内。在采样时，通过这个滤波处理也能避免频谱混叠的问题，也正是这个原因，我们称这种在信号采样之前进行的低通或者带通滤波器为<strong>抗混叠滤波器</strong>。</p>
+<p>所以，一个完整的采样和重建系统应该包含如下几个步骤：</p>
+<p><img alt="_images/2019-07-19-22-47-19.png" src="_images/2019-07-19-22-47-19.png" /></p>
+</div>
+<div class="section" id="id30">
+<h3>3.5.5. <a class="reference internal" href="experiments/sampling_nonbandLim.html"><span class="doc">例子</span></a><a class="headerlink" href="#id30" title="永久链接至标题">¶</a></h3>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="ch2.html"
+       title="上一章">← 2. 时域中的离散时间信号和系统</a>
+  </li>
+  <li class="next">
+    <a href="ch4.html"
+       title="下一章">4. 离散傅里叶变换 →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; 版权所有 2019, Lei Yu.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a>.
+</div>
+            </div>
+          </div>
+      </page>
+  </div></body>
+</html>

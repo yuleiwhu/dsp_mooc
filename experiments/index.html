@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html  lang="zh_CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>实验内容</title>
+    
+      <link rel="stylesheet" href="../_static/pygments.css">
+      <link rel="stylesheet" href="../_static/theme.css">
+      
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+
+      <!-- sphinx script_files -->
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"extensions": ["tex2jax.js"], "jax": ["input/TeX", "output/HTML-CSS"], "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEscapes": true}, "HTML-CSS": {"fonts": ["TeX"]}, "TeX": {"equationNumbers": {"autoNumber": "AMS"}}})</script>
+
+      
+      <script src="../_static/theme-vendors.js"></script>
+      <script src="../_static/theme.js" defer></script>
+    
+  <link rel="index" title="索引" href="../genindex.html" />
+  <link rel="search" title="搜索" href="../search.html" />
+  <link rel="next" title="时域中的离散时间信号" href="test.html" />
+  <link rel="prev" title="经典序列的 DTFT 变换" href="../appendix/dtft_classical_seq.html" /> 
+  </head>
+
+  <body><div id="app" class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="../index.html" class="home-link">
+    
+      <span class="site-name">DSP_Course</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+  
+    <div class="nav-item">
+      <a href="../index.html#id1"
+         class="nav-link ">
+         章节目录
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="../appendix/index.html#id1"
+         class="nav-link ">
+         附录
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="##id1"
+         class="nav-link ">
+         实验内容
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="../extern/index.html#dsp"
+         class="nav-link ">
+         DSP 课程相关
+      </a>
+    </div>
+  
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+  
+    <div class="nav-item">
+      <a href="../index.html#id1"
+         class="nav-link ">
+         章节目录
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="../appendix/index.html#id1"
+         class="nav-link ">
+         附录
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="##id1"
+         class="nav-link ">
+         实验内容
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="../extern/index.html#dsp"
+         class="nav-link ">
+         DSP 课程相关
+      </a>
+    </div>
+  
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">快速搜索</span>
+    <div class="searchformwrapper">
+      <form class="search" action="../search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="搜索" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../index.html#id1">章节目录</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 "><a href="../ch1.html" class="reference internal ">引言</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../ch2.html" class="reference internal ">时域中的离散时间信号和系统</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../ch3.html" class="reference internal ">离散时间傅里叶变换</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../ch4.html" class="reference internal ">离散傅里叶变换</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../ch5.html" class="reference internal ">Z变换</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../ch6.html" class="reference internal ">变换域中的离散时间系统</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../ch7.html" class="reference internal ">滤波器设计</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../ch8.html" class="reference internal ">滤波器实现</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../appendix/index.html#id1">附录</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 "><a href="../appendix/accumulation.html" class="reference internal ">累加定理证明</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../appendix/sinc_nonabs.html" class="reference internal ">Sinc 序列</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../appendix/dtft_classical_seq.html" class="reference internal ">经典序列的 DTFT 变换</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="##id1">实验内容</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 "><a href="test.html" class="reference internal ">时域中的离散时间信号</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="auto_focus.html" class="reference internal ">基于傅里叶变换的自动对焦算法</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="sampling_nonbandLim.html" class="reference internal ">非带限信号的采样与重建</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../extern/index.html#dsp">DSP 课程相关</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 "><a href="../extern/resources.html" class="reference internal ">国外经典DSP课程</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../extern/matlab_tools.html" class="reference internal ">Matlab 工具</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+    <li>实验内容</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="../appendix/dtft_classical_seq.html"
+       title="上一章">← 经典序列的 DTFT 变换</a>
+  </li>
+  <li class="next">
+    <a href="test.html"
+       title="下一章">时域中的离散时间信号 →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main">
+            
+  <div class="section" id="id1">
+<h1>实验内容<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>展示实验内容页面。</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="test.html">时域中的离散时间信号</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="test.html#相关Python包">相关Python包</a></li>
+<li class="toctree-l2"><a class="reference internal" href="test.html#离散时间信号">离散时间信号</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="auto_focus.html">基于傅里叶变换的自动对焦算法</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="auto_focus.html#原理介绍">原理介绍</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto_focus.html#二维图像傅里叶变换">二维图像傅里叶变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto_focus.html#计算频域中高频成分能量">计算频域中高频成分能量</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sampling_nonbandLim.html">非带限信号的采样与重建</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sampling_nonbandLim.html#分析采样信号频谱">分析采样信号频谱</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sampling_nonbandLim.html#画出频谱图">画出频谱图</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sampling_nonbandLim.html#理想带限插值方法重建">理想带限插值方法重建</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sampling_nonbandLim.html#抗混叠滤波器">抗混叠滤波器</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="../appendix/dtft_classical_seq.html"
+       title="上一章">← 经典序列的 DTFT 变换</a>
+  </li>
+  <li class="next">
+    <a href="test.html"
+       title="下一章">时域中的离散时间信号 →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; 版权所有 2019, Lei Yu.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a>.
+</div>
+            </div>
+          </div>
+      </page>
+  </div></body>
+</html>

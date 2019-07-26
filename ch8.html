@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html  lang="zh_CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+      <title>8. 滤波器实现</title>
+    
+      <link rel="stylesheet" href="_static/pygments.css">
+      <link rel="stylesheet" href="_static/theme.css">
+      
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+
+      <!-- sphinx script_files -->
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/translations.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"extensions": ["tex2jax.js"], "jax": ["input/TeX", "output/HTML-CSS"], "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEscapes": true}, "HTML-CSS": {"fonts": ["TeX"]}, "TeX": {"equationNumbers": {"autoNumber": "AMS"}}})</script>
+
+      
+      <script src="_static/theme-vendors.js"></script>
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="索引" href="genindex.html" />
+  <link rel="search" title="搜索" href="search.html" />
+  <link rel="next" title="附录" href="appendix/index.html" />
+  <link rel="prev" title="7. 滤波器设计" href="ch7.html" /> 
+  </head>
+
+  <body><div id="app" class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="index.html" class="home-link">
+    
+      <span class="site-name">DSP_Course</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+  
+    <div class="nav-item">
+      <a href="index.html#id1"
+         class="nav-link  router-link-active">
+         章节目录
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="appendix/index.html#id1"
+         class="nav-link ">
+         附录
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="experiments/index.html#id1"
+         class="nav-link ">
+         实验内容
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="extern/index.html#dsp"
+         class="nav-link ">
+         DSP 课程相关
+      </a>
+    </div>
+  
+
+
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+  
+    <div class="nav-item">
+      <a href="index.html#id1"
+         class="nav-link  router-link-active">
+         章节目录
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="appendix/index.html#id1"
+         class="nav-link ">
+         附录
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="experiments/index.html#id1"
+         class="nav-link ">
+         实验内容
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="extern/index.html#dsp"
+         class="nav-link ">
+         DSP 课程相关
+      </a>
+    </div>
+  
+
+
+
+            
+          </navlinks><div id="searchbox" class="searchbox" role="search">
+  <div class="caption"><span class="caption-text">快速搜索</span>
+    <div class="searchformwrapper">
+      <form class="search" action="search.html" method="get">
+        <input type="text" name="q" />
+        <input type="submit" value="搜索" />
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="index.html#id1">章节目录</a></span>
+      </p>
+      <ul class="current">
+        
+          <li class="toctree-l1 "><a href="ch1.html" class="reference internal ">引言</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="ch2.html" class="reference internal ">时域中的离散时间信号和系统</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="ch3.html" class="reference internal ">离散时间傅里叶变换</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="ch4.html" class="reference internal ">离散傅里叶变换</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="ch5.html" class="reference internal ">Z变换</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="ch6.html" class="reference internal ">变换域中的离散时间系统</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="ch7.html" class="reference internal ">滤波器设计</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 current"><a href="#" class="reference internal current">滤波器实现</a>
+
+            
+              <ul>
+                
+                  <li class="toctree-l2"><a href="#id2" class="reference internal"></a></li>
+                
+              </ul>
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="appendix/index.html#id1">附录</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 "><a href="appendix/accumulation.html" class="reference internal ">累加定理证明</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="appendix/sinc_nonabs.html" class="reference internal ">Sinc 序列</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="appendix/dtft_classical_seq.html" class="reference internal ">经典序列的 DTFT 变换</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="experiments/index.html#id1">实验内容</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 "><a href="experiments/test.html" class="reference internal ">时域中的离散时间信号</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="experiments/auto_focus.html" class="reference internal ">基于傅里叶变换的自动对焦算法</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="experiments/sampling_nonbandLim.html" class="reference internal ">非带限信号的采样与重建</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="extern/index.html#dsp">DSP 课程相关</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 "><a href="extern/resources.html" class="reference internal ">国外经典DSP课程</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="extern/matlab_tools.html" class="reference internal ">Matlab 工具</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+    <li>8. 滤波器实现</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="ch7.html"
+       title="上一章">← 7. 滤波器设计</a>
+  </li>
+  <li class="next">
+    <a href="appendix/index.html"
+       title="下一章">附录 →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main">
+            
+  <div class="section" id="id1">
+<h1>8. 滤波器实现<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>8.1. <a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="ch7.html"
+       title="上一章">← 7. 滤波器设计</a>
+  </li>
+  <li class="next">
+    <a href="appendix/index.html"
+       title="下一章">附录 →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; 版权所有 2019, Lei Yu.
+    <br>
+    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a>.
+</div>
+            </div>
+          </div>
+      </page>
+  </div></body>
+</html>

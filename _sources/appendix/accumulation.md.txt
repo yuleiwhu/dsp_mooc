@@ -1,0 +1,21 @@
+# 累加定理证明
+
+下面我们给出累加定理的证明，其他定理的证明可以通过简单代数运算就能完成。
+
+累加序列实际上可以写成阶跃序列与$x[n]$卷积的形式
+
+```math
+y[n] \triangleq \sum_{k=-\infty}^{n} x[k] =\sum_{k=-\infty}^{\infty} x[k] \mu[n-k]= x[n] \circledast \mu[n]
+```
+
+阶跃序列的DTFT 变换为
+
+```math
+\begin{aligned} \operatorname{DTFT}\{\mu[n]\} &=\operatorname{DTFT}\left\{\frac{1}{2} \operatorname{sgn}[n]\right\}+\operatorname{DTFT}\left\{\frac{1}{2}\right\} \\ &=\frac{1}{1-e^{-j \omega}}+\pi \sum_{k=-\infty}^{\infty} \delta(\omega+2 \pi k) \end{aligned}
+```
+
+根据卷积定理，可以得到累加序列的 DTFT 变换
+
+```math
+Y\left(e^{j \omega}\right)=X\left(e^{j \omega}\right) \cdot \operatorname{DTFT}\{\mu[n]\}=\frac{X\left(e^{j \omega}\right)}{1-e^{-j \omega}}+\pi X\left(e^{j 0}\right) \sum_{k=-\infty}^{\infty} \delta(\omega+2 \pi k)
+```

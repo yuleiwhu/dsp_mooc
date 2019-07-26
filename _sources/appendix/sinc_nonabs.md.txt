@@ -1,0 +1,15 @@
+# Sinc 序列
+
+## 1. Sinc 序列不是绝对可和序列
+
+根据 1/𝑥 函数的凸函数性质，
+
+```math
+\int_0^\infty \left\vert\frac{\sin x}{x}\right\vert \,\mathrm{d}x=\sum_{k=0}^\infty\int_{k\pi}^{(k+1)\pi}\left\vert\frac{\sin x}{x}\right\vert \,\mathrm{d}x>\sum_{k=0}^\infty\int_{k\pi}^{(k+1)\pi}\frac{\left\vert\sin x\right\vert}{(k+1/2)\pi} \,\mathrm{d}x=\frac{2}{\pi}\sum_{k=0}^\infty\frac{1}{k+1/2}\;,
+```
+
+其中，最后一项发散。
+
+## 2. Sinc 序列是平方可和序列
+
+Sinc 序列的傅里叶变换是门函数，能量有限。根据帕赛瓦尔定理（能量守恒），所以 Sinc 序列的能量也是有限值。
