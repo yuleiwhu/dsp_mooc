@@ -210,6 +210,12 @@
           </li>
 
         
+          <li class="toctree-l1 "><a href="../appendix/gibbs.html" class="reference internal ">Gibbs效应</a>
+
+            
+          </li>
+
+        
       </ul>
     </div>
   
@@ -514,19 +520,19 @@ div.rendered_html tbody tr:hover {
 <p>这一章开始,我们将从频域分析离散时间信号和系统.</p>
 <div class="section" id="DTFT变换">
 <h1>DTFT变换<a class="headerlink" href="#DTFT变换" title="永久链接至标题">¶</a></h1>
-<p>序列<span class="math notranslate nohighlight">\(x[n]\)</span>的离散时间傅里叶变换(DTFT)<span class="math notranslate nohighlight">\(X(e^{j omega})\)</span></p>
+<p>序列<span class="math notranslate nohighlight">\(x[n]\)</span>的离散时间傅里叶变换(DTFT)<span class="math notranslate nohighlight">\(X(e^{j \omega})\)</span></p>
 <div class="math notranslate nohighlight">
 \[X\left(e^{j \omega}\right)=\sum_{n=-\infty}^{\infty} x[n] e^{-j \omega n}\]</div>
-<p>通常<span class="math notranslate nohighlight">\(X(e^{j omega})\)</span>是实变量<span class="math notranslate nohighlight">\( omega\)</span>的一个复函数,可以写成</p>
+<p>通常<span class="math notranslate nohighlight">\(X(e^{j \omega})\)</span>是实变量<span class="math notranslate nohighlight">\( \omega\)</span>的一个复函数,可以写成</p>
 <div class="math notranslate nohighlight">
 \[X\left(e^{j \omega}\right)=X_{r e}\left(e^{j \omega}\right)+j X_{im}\left(e^{j \omega}\right)\]</div>
-<p>其中<span class="math notranslate nohighlight">\(X_{r e} left(e^{j  omega} right)\)</span>和<span class="math notranslate nohighlight">\(X_{im} left(e^{j  omega} right)\)</span>分别是<span class="math notranslate nohighlight">\(X(e^{j omega})\)</span>的实部和虚部,它们都是<span class="math notranslate nohighlight">\( omega\)</span>的实函数.<span class="math notranslate nohighlight">\(X(e^{j omega})\)</span>也可以表示为</p>
+<p>其中<span class="math notranslate nohighlight">\(X_{r e} \left(e^{j  \omega} \right)\)</span>和<span class="math notranslate nohighlight">\(X_{im} \left( e^{j  \omega} \right)\)</span>分别是<span class="math notranslate nohighlight">\(X(e^{j \omega})\)</span>的实部和虚部,它们都是<span class="math notranslate nohighlight">\( \omega\)</span>的实函数.<span class="math notranslate nohighlight">\(X(e^{j \omega})\)</span>也可以表示为</p>
 <div class="math notranslate nohighlight">
-\[X\left(e^{j \omega}\right)=\left|X\left(e^{j \omega}\right)\right| e^{j \theta(\omega)}\]</div>
+\[X\left(e^{j \omega}\right)=\left\vert X\left(e^{j \omega}\right)\right\vert e^{j \theta(\omega)}\]</div>
 <p>其中,</p>
 <div class="math notranslate nohighlight">
 \[\theta(\omega)=\arg \left\{X\left(e^{j \omega}\right)\right\}\]</div>
-<p>$:nbsphinx-math:<cite>left</cite>|X:nbsphinx-math:<cite>left`(e^{j :nbsphinx-math:</cite>omega`}:nbsphinx-math:<cite>right</cite>):nbsphinx-math:<cite>right</cite>| <span class="math notranslate nohighlight">\(称为幅度函数,\)</span><span class="math">\theta`(:nbsphinx-math:</span>omega`)<span class="math notranslate nohighlight">\(称为相位函数,这两个函数都是\)</span>:nbsphinx-math:<a href="#id1"><span class="problematic" id="id2">`</span></a>omega`$的实函数.</p>
+<p><span class="math notranslate nohighlight">\( \left \vert X \left(e^{j  \omega} \right) \right \vert\)</span>称为幅度函数,<span class="math notranslate nohighlight">\( \theta( \omega)\)</span>称为相位函数,这两个函数都是<span class="math notranslate nohighlight">\( \omega\)</span>的实函数.</p>
 <p>当DTFT变换形式如下类似如下时,可以通过freqz计算DTFT变换</p>
 <div class="math notranslate nohighlight">
 \[X\left(e^{\jmath \omega}\right)=\frac{p_{0}+p_{1} e^{-j \omega}+\cdots+p_{M} e^{-j \omega M}}{d_{0}+d_{1} e^{-j \omega}+\cdots+d_{N} e^{-j \omega N}}\]</div>
@@ -601,7 +607,8 @@ div.rendered_html tbody tr:hover {
 <h3>指数序列<a class="headerlink" href="#指数序列" title="永久链接至标题">¶</a></h3>
 <p>指数序列定义为</p>
 <div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}  x[n] = A \alpha ^n \mu[n]\\其中,\ :math:`A`\ 和\ :math:`\alpha`\ 是任意的实数或者复数,表示为\end{aligned}\end{align} \]</div>
+\[x[n] = A \alpha ^n \mu[n]\]</div>
+<p>其中,<span class="math notranslate nohighlight">\(A\)</span>和<span class="math notranslate nohighlight">\( \alpha\)</span>是任意的实数或者复数,表示为</p>
 <div class="math notranslate nohighlight">
 \[\alpha = e^{\sigma_0+j\omega_0} \quad A = |A|e^{j\phi}\]</div>
 <p>其离散时间傅里叶变换为</p>
