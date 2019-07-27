@@ -35,29 +35,19 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 2,
+   "execution_count": 1,
    "metadata": {},
    "outputs": [
     {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "Notebook initialized with ipy backend.\n"
+     "ename": "ModuleNotFoundError",
+     "evalue": "No module named 'mayavi'",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mModuleNotFoundError\u001b[0m                       Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-1-64484b9af481>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0;32mfrom\u001b[0m \u001b[0mmayavi\u001b[0m \u001b[0;32mimport\u001b[0m \u001b[0mmlab\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      2\u001b[0m \u001b[0mmlab\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0minit_notebook\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      3\u001b[0m \u001b[0ms\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mmlab\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mtest_plot3d\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      4\u001b[0m \u001b[0ms\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;31mModuleNotFoundError\u001b[0m: No module named 'mayavi'"
      ]
-    },
-    {
-     "data": {
-      "application/vnd.jupyter.widget-view+json": {
-       "model_id": "65b76f84cba542fa9760e50ae760e0d8",
-       "version_major": 2,
-       "version_minor": 0
-      },
-      "text/plain": [
-       "Image(value=b'\\x89PNG\\r\\n\\x1a\\n\\x00\\x00\\x00\\rIHDR\\x00\\x00\\x01\\x90\\x00\\x00\\x01^\\x08\\x02\\x00\\x00\\x00$?\\xde_\\x00\\…"
-      ]
-     },
-     "metadata": {},
-     "output_type": "display_data"
     }
    ],
    "source": [
@@ -828,6 +818,7 @@
   }
  ],
  "metadata": {
+  "hide_input": false,
   "kernelspec": {
    "display_name": "Python 3",
    "language": "python",
@@ -843,7 +834,7 @@
    "name": "python",
    "nbconvert_exporter": "python",
    "pygments_lexer": "ipython3",
-   "version": "3.6.8"
+   "version": "3.7.4"
   }
  },
  "nbformat": 4,

@@ -30,6 +30,7 @@
 
 .. toctree::
    :caption: 实验内容
+   :numbered: 1
    :maxdepth: 2
 
    experiments/ex_c1
