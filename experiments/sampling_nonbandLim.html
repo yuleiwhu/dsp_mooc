@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>3.3. 非带限信号的采样与重建 &mdash; DSP_Course  文档</title>
+  <title>非带限信号的采样与重建 &mdash; DSP_Course  文档</title>
   
 
   
@@ -38,8 +38,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
-    <link rel="next" title="3.4. 如何消除Vuvuzela?" href="vuvuzela/vuvuzela_denoising.html" />
-    <link rel="prev" title="3.2. 基于傅里叶变换的自动对焦算法" href="auto_focus.html" /> 
+    <link rel="next" title="如何消除Vuvuzela?" href="vuvuzela/vuvuzela_denoising.html" />
+    <link rel="prev" title="基于傅里叶变换的自动对焦算法" href="auto_focus.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -96,18 +96,18 @@
 </ul>
 <p class="caption"><span class="caption-text">实验内容</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="ex_c1.html">1. 第一章 引言</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ex_c2.html">2. 第二章 离散时间信号与系统</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="ex_c3.html">3. 第三章 离散时间傅里叶变换</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="dtft_idtft.html">3.1. DTFT变换</a></li>
-<li class="toctree-l2"><a class="reference internal" href="auto_focus.html">3.2. 基于傅里叶变换的自动对焦算法</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">3.3. 非带限信号的采样与重建</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="ex_c1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex_c2.html">2. 离散时间信号与系统</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="ex_c3.html">3. 离散时间傅里叶变换</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="dtft_idtft.html">DTFT变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="auto_focus.html">基于傅里叶变换的自动对焦算法</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">非带限信号的采样与重建</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#分析采样信号频谱">分析采样信号频谱</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#画出频谱图">画出频谱图</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#理想带限插值方法重建">理想带限插值方法重建</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="vuvuzela/vuvuzela_denoising.html">3.4. 如何消除Vuvuzela?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vuvuzela/vuvuzela_denoising.html">如何消除Vuvuzela?</a></li>
 </ul>
 </li>
 </ul>
@@ -164,9 +164,9 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="ex_c3.html">3. 第三章 离散时间傅里叶变换</a> &raquo;</li>
+          <li><a href="ex_c3.html">3. 离散时间傅里叶变换</a> &raquo;</li>
         
-      <li>3.3. 非带限信号的采样与重建</li>
+      <li>非带限信号的采样与重建</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -408,7 +408,7 @@ div.rendered_html tbody tr:hover {
 }
 </style>
 <div class="section" id="非带限信号的采样与重建">
-<h1>3.3. 非带限信号的采样与重建<a class="headerlink" href="#非带限信号的采样与重建" title="永久链接至标题">¶</a></h1>
+<h1>非带限信号的采样与重建<a class="headerlink" href="#非带限信号的采样与重建" title="永久链接至标题">¶</a></h1>
 <p>考虑如下的连续时间双边指数信号</p>
 <div class="math notranslate nohighlight">
 \[x_a(t) = e^{-A|t|} \longleftrightarrow X_a(j\Omega) = \frac{2A}{A^2 + (\Omega)^2}\]</div>
@@ -652,10 +652,10 @@ div.rendered_html tbody tr:hover {
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="vuvuzela/vuvuzela_denoising.html" class="btn btn-neutral float-right" title="3.4. 如何消除Vuvuzela?" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="vuvuzela/vuvuzela_denoising.html" class="btn btn-neutral float-right" title="如何消除Vuvuzela?" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="auto_focus.html" class="btn btn-neutral float-left" title="3.2. 基于傅里叶变换的自动对焦算法" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="auto_focus.html" class="btn btn-neutral float-left" title="基于傅里叶变换的自动对焦算法" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

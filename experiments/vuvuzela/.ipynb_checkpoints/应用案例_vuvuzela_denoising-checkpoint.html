@@ -1,16 +1,26 @@
-<!DOCTYPE html>
-<html  lang="zh_CN">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-      <title>如何消除Vuvuzela?</title>
-    
-      <link rel="stylesheet" href="../../../_static/pygments.css">
-      <link rel="stylesheet" href="../../../_static/theme.css">
-      
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
 
-      <!-- sphinx script_files -->
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>如何消除Vuvuzela? &mdash; DSP_Course  文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
         <script type="text/javascript" src="../../../_static/jquery.js"></script>
         <script type="text/javascript" src="../../../_static/underscore.js"></script>
         <script type="text/javascript" src="../../../_static/doctools.js"></script>
@@ -18,272 +28,147 @@
         <script type="text/javascript" src="../../../_static/translations.js"></script>
         <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"extensions": ["tex2jax.js"], "jax": ["input/TeX", "output/HTML-CSS"], "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEscapes": true}, "HTML-CSS": {"fonts": ["TeX"]}, "TeX": {"equationNumbers": {"autoNumber": "AMS"}}})</script>
-
-      
-      <script src="../../../_static/theme-vendors.js"></script>
-      <script src="../../../_static/theme.js" defer></script>
     
-  <link rel="index" title="索引" href="../../../genindex.html" />
-  <link rel="search" title="搜索" href="../../../search.html" /> 
-  </head>
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  <body><div id="app" class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
-  <router-link to="../../../index.html" class="home-link">
     
-      <span class="site-name">DSP_Course</span>
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
     
-  </router-link>
-
-  <div class="links">
-    <navlinks class="can-hide">
-
-  
-    <div class="nav-item">
-      <a href="../../../index.html#id1"
-         class="nav-link ">
-         章节目录
-      </a>
-    </div>
-  
-    <div class="nav-item">
-      <a href="../../../appendix/index.html#id1"
-         class="nav-link ">
-         附录
-      </a>
-    </div>
-  
-    <div class="nav-item">
-      <a href="../../index.html#id1"
-         class="nav-link ">
-         实验内容
-      </a>
-    </div>
-  
-    <div class="nav-item">
-      <a href="../../../extern/index.html#dsp"
-         class="nav-link ">
-         DSP 课程相关
-      </a>
-    </div>
-  
-
-
-
-    </navlinks>
-  </div>
-</navbar>
-
-      
-      <div class="sidebar-mask" @click="toggleSidebar(false)">
-      </div>
-        <sidebar @toggle-sidebar="toggleSidebar">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
           
-          <navlinks>
+
+          
+            <a href="../../../index.html" class="icon icon-home"> DSP_Course
+          
+
+          
+          </a>
+
+          
             
-
-  
-    <div class="nav-item">
-      <a href="../../../index.html#id1"
-         class="nav-link ">
-         章节目录
-      </a>
-    </div>
-  
-    <div class="nav-item">
-      <a href="../../../appendix/index.html#id1"
-         class="nav-link ">
-         附录
-      </a>
-    </div>
-  
-    <div class="nav-item">
-      <a href="../../index.html#id1"
-         class="nav-link ">
-         实验内容
-      </a>
-    </div>
-  
-    <div class="nav-item">
-      <a href="../../../extern/index.html#dsp"
-         class="nav-link ">
-         DSP 课程相关
-      </a>
-    </div>
-  
-
-
-
             
-          </navlinks><div id="searchbox" class="searchbox" role="search">
-  <div class="caption"><span class="caption-text">快速搜索</span>
-    <div class="searchformwrapper">
-      <form class="search" action="../../../search.html" method="get">
-        <input type="text" name="q" />
-        <input type="submit" value="搜索" />
-        <input type="hidden" name="check_keywords" value="yes" />
-        <input type="hidden" name="area" value="default" />
-      </form>
-    </div>
-  </div>
-</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
-  
-    <div class="sidebar-group">
-      <p class="caption">
-        <span class="caption-text"><a href="../../../index.html#id1">章节目录</a></span>
-      </p>
-      <ul class="">
-        
-          <li class="toctree-l1 "><a href="../../../ch1.html" class="reference internal ">引言</a>
+          
 
-            
-          </li>
-
-        
-          <li class="toctree-l1 "><a href="../../../ch2.html" class="reference internal ">时域中的离散时间信号和系统</a>
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 "><a href="../../../ch3.html" class="reference internal ">离散时间傅里叶变换</a>
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 "><a href="../../../ch4.html" class="reference internal ">离散傅里叶变换</a>
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 "><a href="../../../ch5.html" class="reference internal ">Z变换</a>
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 "><a href="../../../ch6.html" class="reference internal ">变换域中的离散时间系统</a>
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 "><a href="../../../ch7.html" class="reference internal ">滤波器设计</a>
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 "><a href="../../../ch8.html" class="reference internal ">滤波器实现</a>
-
-            
-          </li>
-
-        
-      </ul>
-    </div>
-  
-    <div class="sidebar-group">
-      <p class="caption">
-        <span class="caption-text"><a href="../../../appendix/index.html#id1">附录</a></span>
-      </p>
-      <ul class="">
-        
-          <li class="toctree-l1 "><a href="../../../appendix/accumulation.html" class="reference internal ">累加定理证明</a>
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 "><a href="../../../appendix/sinc_nonabs.html" class="reference internal ">Sinc 序列</a>
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 "><a href="../../../appendix/dtft_classical_seq.html" class="reference internal ">经典序列的 DTFT 变换</a>
-
-            
-          </li>
-
-        
-      </ul>
-    </div>
-  
-    <div class="sidebar-group">
-      <p class="caption">
-        <span class="caption-text"><a href="../../index.html#id1">实验内容</a></span>
-      </p>
-      <ul class="">
-        
-          <li class="toctree-l1 "><a href="../../test.html" class="reference internal ">时域中的离散时间信号</a>
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 "><a href="../../auto_focus.html" class="reference internal ">基于傅里叶变换的自动对焦算法</a>
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 "><a href="../../sampling_nonbandLim.html" class="reference internal ">非带限信号的采样与重建</a>
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 "><a href="../vuvuzela_denoising.html" class="reference internal ">如何消除Vuvuzela?</a>
-
-            
-          </li>
-
-        
-      </ul>
-    </div>
-  
-    <div class="sidebar-group">
-      <p class="caption">
-        <span class="caption-text"><a href="../../../extern/index.html#dsp">DSP 课程相关</a></span>
-      </p>
-      <ul class="">
-        
-          <li class="toctree-l1 "><a href="../../../extern/resources.html" class="reference internal ">国外经典DSP课程</a>
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 "><a href="../../../extern/matlab_tools.html" class="reference internal ">Matlab 工具</a>
-
-            
-          </li>
-
-        
-      </ul>
-    </div>
-  
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
 </div>
-        </sidebar>
 
-      <page>
-          <div class="body-header" role="navigation" aria-label="navigation">
-  
-  <ul class="breadcrumbs">
-    <li><a href="../../../index.html">Docs</a> &raquo;</li>
-    
-    <li>如何消除Vuvuzela?</li>
-  </ul>
-  
+          
+        </div>
 
-  <ul class="page-nav">
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">章节目录</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../ch1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ch2.html">2. 时域中的离散时间信号和系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ch3.html">3. 离散时间傅里叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ch4.html">4. 离散傅里叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ch5.html">5. Z变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ch6.html">6. 变换域中的离散时间系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ch7.html">7. 滤波器设计</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ch8.html">8. 滤波器实现</a></li>
 </ul>
+<p class="caption"><span class="caption-text">实验内容</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../ex_c1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ex_c2.html">2. 离散时间信号与系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ex_c3.html">3. 离散时间傅里叶变换</a></li>
+</ul>
+<p class="caption"><span class="caption-text">附录</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../appendix/index_principles.html">定理证明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../appendix/index_history.html">小小历史</a></li>
+</ul>
+<p class="caption"><span class="caption-text">有用资源</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../extern/index.html">DSP 课程相关</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">DSP_Course</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+      <li>如何消除Vuvuzela?</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/experiments/vuvuzela/.ipynb_checkpoints/应用案例_vuvuzela_denoising-checkpoint.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
   
+  <hr/>
 </div>
-<hr>
-          <div class="content" role="main">
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
             
   
 <style>
@@ -351,7 +236,7 @@ div.nboutput div.prompt pre {
 /* all prompts */
 div.nbinput div.prompt,
 div.nboutput div.prompt {
-    min-width: 7ex;
+    min-width: 5ex;
     padding-top: 0.4em;
     padding-right: 0.4em;
     text-align: right;
@@ -483,6 +368,28 @@ div.rendered_html tbody tr:nth-child(odd) {
 }
 div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
 }
 </style>
 <div class="section" id="如何消除Vuvuzela?">
@@ -903,16 +810,43 @@ OK
 </div>
 
 
+           </div>
+           
           </div>
-          <div class="page-nav">
-            <div class="inner"><ul class="page-nav">
-</ul><div class="footer" role="contentinfo">
-      &#169; 版权所有 2019, Lei Yu.
-    <br>
-    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a>.
-</div>
-            </div>
-          </div>
-      </page>
-  </div></body>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Lei Yu
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
 </html>

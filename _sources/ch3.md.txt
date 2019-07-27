@@ -495,7 +495,7 @@ x_{ a s}[n]=\frac{1}{2}\left(x[n]-x^{*}[-n]\right)
 | **差分定理** | $x[n]-x[n-1]$ | $\left(1-e^{-j \omega}\right) X\left(e^{j \omega}\right)$| 
 | **[累加定理](ch3/accumulation.html)** | $\sum_{k=-\infty}^{n} x[k]$ | $\frac{X\left(e^{j \omega}\right)}{1-e^{-j \omega}}+\pi X\left(e^{j 0}\right) \sum_{k=-\infty}^{\infty} \delta(\omega+2 \pi k) $|
 
-## 典型序列的 DTFT 变换
+## 典型序列的 DTFT 变换 
 
 典型序列的 DTFT 变换在工程应用中会经常使用，这里我们给出这些常用序列的 DTFT 变换。
 

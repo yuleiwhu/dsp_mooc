@@ -91,23 +91,25 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">4. 离散傅里叶变换</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#dtft-dft">4.1. 从 DTFT 到 DFT</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#dtft">4.1.1. DTFT 回顾</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#dft">4.1.2. DFT 变换</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#dft-dtft">4.1.3. DFT 与 DTFT 之间的关系</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">4.1.4. DFT 变换的矩阵形式</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#idft">4.1.5. IDFT 变换</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">4.1.2. 对 DTFT 变换的频率采样</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">4.2. DFT 变换的性质和定理</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id4">4.2.1. DFT 变换的性质</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">4.2.2. DFT 变换的定理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">4.2. 从 DTFT 变换到 DFT 变换</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#idft">4.2.1. IDFT 变换</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dft">4.2.2. DFT 变换的矩阵形式</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id6">4.3. DFT 变换的应用</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id7">4.3.1. 基于 DFT 变换的频率分析</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id8">4.3.2. 基于 DFT 变换的卷积</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">4.3. DFT 变换的性质和定理</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">4.3.1. DFT 变换的性质</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">4.3.2. DFT 变换的定理</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#fft-dft">4.4. FFT——快速 DFT 变换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">4.4. DFT 变换的应用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id8">4.4.1. 基于 DFT 变换的频率分析</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">4.4.2. 基于 DFT 变换的卷积</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#fft-dft">4.5. FFT——快速 DFT 变换</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ch5.html">5. Z变换</a></li>
@@ -241,42 +243,79 @@ X_{T}(j \Omega)&amp;=\int_{-\infty}^{\infty} x_{T}(t) e^{-j \Omega t} d t \\
 \end{split}\end{split}\]</div>
 <p>因此，公式\eqref{eq:dtft}实际上就是对$x_T(t)$的连续时间傅里叶变换在时间上的采样（第二个等式中的括号部分）。</p>
 </div>
-<div class="section" id="dft">
-<h3>4.1.2. DFT 变换<a class="headerlink" href="#dft" title="永久链接至标题">¶</a></h3>
-<p>由公式\eqref{eq:dtft}定义的DTFT 变换关于频率$\omega$是连续的，而计算机只能处理离散的序列（时域和频域）。因此，离散傅里叶变换（DFT）就是一种时间和频率上都离散的正交变换。下面，我们来简单推导一下 DFT 变换。</p>
-<p>DFT 变换实际上可以看做是将公式\eqref{eq:dtft}定义的 DTFT 变换进一步在频域等间隔采样。首先，我们知道 DTFT 变换是周期为$2\pi$的连续周期函数，那么考虑一个周期内$[0,2\pi)$。对于$N$点长序列$x[n]$的 DTFT 变换，我们将一个周期$[0,2\pi)$等间隔离散化，得到$N$个等间隔的频率样本$\omega_{N}[k]$</p>
+<div class="section" id="id2">
+<h3>4.1.2. 对 DTFT 变换的频率采样<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
+<p>由公式\eqref{eq:dtft}定义的DTFT 变换关于频率$\omega$是连续的，不便于计算机直接处理，我们需要进一步对频率离散化。那么，离散傅里叶变换（DFT）就是一种时间和频率上都离散的正交变换，它是通过对 DTFT 变换直接在频域进行等间隔采样来得到。</p>
+<p>首先，我们知道 DTFT 变换是周期为$2\pi$的连续周期函数。对于长度为$L$的序列$x[n]$的 DTFT 变换，我们将频率$\omega$以$\frac{2\pi}{N}$等间隔离散化，得到等间隔的频率样本$\omega_{N}[k]$</p>
 <div class="math notranslate nohighlight">
 \[\underbrace{\omega_{N}[k]}_{\text { rad/sample }}=\underbrace{2 \pi k / N}_{\text { frequency in } k}\]</div>
-<p>此时，DTFT 中的变换基$e^{-j\omega n}$，就变成了$W_{N}^{k}=e^{-j \frac{2 \pi k}{N}}$，带入到公式\eqref{eq:dtft}中可以得到</p>
-<div class="math notranslate nohighlight">
+<p>那么定义$X[k]$为 DTFT 变换$X\left(e^{j \omega}\right)$的第$k$个样本点，带入到公式\eqref{eq:dtft}中，可以得到</p>
+<!-- 此时，DTFT 中的变换基$e^{-j\omega n}$，就变成了$W_{N}^{k}=e^{-j \frac{2 \pi k}{N}}$，带入到公式\eqref{eq:dtft}中可以得到 --><div class="math notranslate nohighlight">
 \[\begin{split}\begin{split}
-X[k] = \left. X\left(e^{j \omega}\right) \right\vert_{\omega=\omega_{N}[k]} &amp;=\sum_{n=0}^{N-1} x[n] W_{N}^{kn}  \\
+X[k] = \left. X\left(e^{j \omega}\right) \right\vert_{\omega=\omega_{N}[k]} &amp;=\sum_{n=0}^{L-1} x[n] W_{N}^{kn}  \\
 \end{split}\end{split}\]</div>
-<p><img alt="_images/myimage2.gif" src="_images/myimage2.gif" /></p>
-<p>其中$W_{N} = e^{-j 2 \pi / N}$为旋转因子，一个周期内$[0,2\pi)$的频率离散化序列$X[k],k=0,…,N-1$。</p>
-<p><img alt="_images/dtft_sample.png" src="_images/dtft_sample.png" /></p>
-<p>因为DTFT 变换是周期信号，频带$[0,2\pi)$外的频谱只是将$X[k]$周期复制。我们可以认为频率抽样之后，一个周期内频谱$X[k]$已经携带了整个频谱的信息。</p>
-<p>DFT 变换定义为</p>
+<!-- ![](asset/myimage2.gif) --><p>其中第二个等式是因为序列$x[n]$的有效长度为$N$，且$W_{N} = e^{-j 2 \pi / N}$为旋转因子。</p>
+<!-- 一个周期内$[0,2\pi)$的频率离散化序列$X[k],k=0,...,N-1$。 --><p><img alt="_images/dtft_sample.png" src="_images/dtft_sample.png" /></p>
+<!-- 因为DTFT 变换是周期信号，频带$[0,2\pi)$外的频谱只是将$X[k]$周期复制。我们可以认为频率抽样之后，一个周期内频谱$X[k]$已经携带了整个频谱的信息。 --><div class="admonition hint">
+<p class="admonition-title">提示</p>
+<p>对 DTFT 变换在频域上的等间隔抽样，对时域中原序列会造成什么影响呢？</p>
+</div>
+<p>同时域采样一样，定义采样序列$p_N(\omega) = \sum_{k=-\infty}^{\infty} \delta (\omega - 2k\pi /N)$。那么，将频域采样前后的关系写为</p>
+<p>$$
+\begin{split}
+X_p(e^{j\omega}) &amp;= X(e^{j\omega})\cdot p_N(\omega) = \sum_{k=-\infty}^\infty \delta\left(\omega - \frac{2k\pi}{N}\right) \cdot X(e^{j\omega}) \
+&amp; = \sum_{k=-\infty}^\infty \delta\left(\omega - \frac{2k\pi}{N}\right) \cdot X(e^{j2k\pi/N})
+\end{split}
+$$</p>
+<p>其中$X_p(e^{j\omega})$为$X[k]$的连续形式，表达的信号是等价的。那么对上式进行 IDTFT 变换，就可以得到频域采样后时域的信号，这里记作$\tilde{x}[n]$</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+    \tilde{x}[n] &amp;= \text{IDTFT}\{X_p(e^{j\omega})\} \\
+    &amp; =\frac{1}{2 \pi} \int_{-\pi}^{\pi}\left(\sum_{k=-\infty}^{\infty} X\left(e^{j 2 \pi k / N}\right) \delta(\omega-2 \pi k / N)\right) e^{j \omega n} d \omega \\
+    &amp; = \frac{1}{2 \pi} \sum_{k=-\infty}^{\infty} \underbrace{X\left(e^{j 2 \pi k / N}\right)}_{=\sum_{l=-\infty}^{+\infty} x[l] e^{-j 2 \pi k l / N}} \cdot \underbrace{\int_{-\pi}^{\pi} \delta(\omega-2 \pi k / N) e^{j \omega n} d \omega}_{=e^{j 2 \pi k n / N, \ \text{ for } k\in [0,N-1]}} \\
+    &amp;= \frac{1}{2 \pi} \sum_{l=-\infty}^{\infty} x[l] \underbrace{\sum_{k=0}^{N-1} e^{j 2 \pi k / N(n-l)}}_{=N\sum_{m=-\infty}^{\infty}\delta[l-n-Nm]} \\
+    &amp;= \frac{N}{2 \pi} \sum_{m=-\infty}^{\infty} x[n+mN]
+\end{aligned}\end{split}\]</div>
+<p>上式最后一个等式的求和符号的含义就是，将原信号$x[n]$以$N$为长度，周期延拓。也就是说，如果对 DTFT 变换的频率进行离散化，会导致时域上信号的周期延拓，幅度也会变为原来的$N/2\pi$倍。这个结论与对信号在时域进行采样，频域周期延拓是类似的。</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>4.2. 从 DTFT 变换到 DFT 变换<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>当序列$x[n]$的长度$L=N$时，对该序列的 DTFT 变换的频率等间隔采样。</p>
+<p><strong>频域中：</strong></p>
 <div class="math notranslate nohighlight">
 \[\begin{equation}
-X[k] =\sum_{n=0}^{N-1} x[n] W_{N}^{kn},  \quad k=0,...,N-1 \label{eq:dft}
+X[k] =\sum_{n=0}^{N-1} x[n] W_{N}^{kn},  \quad k=0,...,N-1 
 \end{equation}\]</div>
-<p>注意到，这里序列$x[n]$和 DFT 变换$X[k]$的长度都是$N$。</p>
-<div class="admonition hint">
-<p class="admonition-title">提示</p>
-<p>本节我们假设了序列的长度为$N$，然后推导出了 $N$点 DFT 变换，如公式\eqref{eq:dft}。如果序列的长度为无限长的时候，DFT 变换如何计算呢？</p>
+<p><strong>时域中：</strong></p>
+<div class="math notranslate nohighlight">
+\[\tilde{x}[n] = \frac{N}{2 \pi} \sum_{m=-\infty}^{\infty} x[n+mN]\]</div>
+<p>因为$L=N$，时域反变换序列没有混叠，所以在一个周期内$[0,N-1]$，
+$$
+\tilde{x}[n] = \frac{N}{2\pi}x[n], \quad n = 0,…,N-1
+$$</p>
+<!-- 注意到，这里序列$x[n]$和 DFT 变换$X[k]$的长度都是$N$。 --><!-- 根据DTFT 变换的卷积定理可以计算频域采样后的时域形式
+
+```math
+\begin{split}
+\tilde{x}[n] &= \text{IDTFT} \left\{ X_p(e^{j\omega})  \right\} = x[n] \circledast  p_N[n]\\
+\end{split}
+```
+
+因为采样脉冲串$p_N(\omega)$的IDTFT 变换还是沖激脉冲串，
+
+```math
+\begin{split}
+p_N[n] = \frac{M}{2\pi}\sum_{m=-\infty}^\infty \delta\left(n - Nm\right) 
+\end{split}
+``` --><div class="section" id="idft">
+<h3>4.2.1. IDFT 变换<a class="headerlink" href="#idft" title="永久链接至标题">¶</a></h3>
+<p>同样的，我们通过 IDTFT 变换推导一下 DFT 变换的逆变换形式。</p>
 </div>
-</div>
-<div class="section" id="dft-dtft">
-<h3>4.1.3. DFT 与 DTFT 之间的关系<a class="headerlink" href="#dft-dtft" title="永久链接至标题">¶</a></h3>
-</div>
-<div class="section" id="id2">
-<h3>4.1.4. DFT 变换的矩阵形式<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
+<div class="section" id="dft">
+<h3>4.2.2. DFT 变换的矩阵形式<a class="headerlink" href="#dft" title="永久链接至标题">¶</a></h3>
 <p>将长度为</p>
-</div>
-<div class="section" id="idft">
-<h3>4.1.5. IDFT 变换<a class="headerlink" href="#idft" title="永久链接至标题">¶</a></h3>
-<!-- ## DFT 变换和 其他变换的关系
+<!-- ### IDFT 变换 --><!-- ## DFT 变换和 其他变换的关系
 
 ### 与周期序列傅立叶级数系数的关系
 
@@ -286,26 +325,26 @@ X[k] =\sum_{n=0}^{N-1} x[n] W_{N}^{kn},  \quad k=0,...,N-1 \label{eq:dft}
 
 ### 与连续时间信号傅里叶级数系数的关系 --></div>
 </div>
-<div class="section" id="id3">
-<h2>4.2. DFT 变换的性质和定理<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <div class="section" id="id4">
-<h3>4.2.1. DFT 变换的性质<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
-</div>
+<h2>4.3. DFT 变换的性质和定理<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
 <div class="section" id="id5">
-<h3>4.2.2. DFT 变换的定理<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
-</div>
+<h3>4.3.1. DFT 变换的性质<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
 </div>
 <div class="section" id="id6">
-<h2>4.3. DFT 变换的应用<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
-<div class="section" id="id7">
-<h3>4.3.1. 基于 DFT 变换的频率分析<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<h3>4.3.2. DFT 变换的定理<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
 </div>
+</div>
+<div class="section" id="id7">
+<h2>4.4. DFT 变换的应用<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
 <div class="section" id="id8">
-<h3>4.3.2. 基于 DFT 变换的卷积<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+<h3>4.4.1. 基于 DFT 变换的频率分析<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+</div>
+<div class="section" id="id9">
+<h3>4.4.2. 基于 DFT 变换的卷积<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
 </div>
 </div>
 <div class="section" id="fft-dft">
-<h2>4.4. FFT——快速 DFT 变换<a class="headerlink" href="#fft-dft" title="永久链接至标题">¶</a></h2>
+<h2>4.5. FFT——快速 DFT 变换<a class="headerlink" href="#fft-dft" title="永久链接至标题">¶</a></h2>
 </div>
 </div>
 
