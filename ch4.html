@@ -1,16 +1,26 @@
-<!DOCTYPE html>
-<html  lang="zh_CN">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-      <title>4. 离散傅里叶变换</title>
-    
-      <link rel="stylesheet" href="_static/pygments.css">
-      <link rel="stylesheet" href="_static/theme.css">
-      
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
 
-      <!-- sphinx script_files -->
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>4. 离散傅里叶变换 &mdash; DSP_Course  文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
         <script type="text/javascript" src="_static/jquery.js"></script>
         <script type="text/javascript" src="_static/underscore.js"></script>
         <script type="text/javascript" src="_static/doctools.js"></script>
@@ -18,280 +28,196 @@
         <script type="text/javascript" src="_static/translations.js"></script>
         <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"extensions": ["tex2jax.js"], "jax": ["input/TeX", "output/HTML-CSS"], "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEscapes": true}, "HTML-CSS": {"fonts": ["TeX"]}, "TeX": {"equationNumbers": {"autoNumber": "AMS"}}})</script>
-
-      
-      <script src="_static/theme-vendors.js"></script>
-      <script src="_static/theme.js" defer></script>
     
-  <link rel="index" title="索引" href="genindex.html" />
-  <link rel="search" title="搜索" href="search.html" />
-  <link rel="next" title="5. Z变换" href="ch5.html" />
-  <link rel="prev" title="3. 离散时间傅里叶变换" href="ch3.html" /> 
-  </head>
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  <body><div id="app" class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
-  <router-link to="index.html" class="home-link">
     
-      <span class="site-name">DSP_Course</span>
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="5. Z变换" href="ch5.html" />
+    <link rel="prev" title="3. 离散时间傅里叶变换" href="ch3.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
     
-  </router-link>
-
-  <div class="links">
-    <navlinks class="can-hide">
-
-  
-    <div class="nav-item">
-      <a href="index.html#id1"
-         class="nav-link  router-link-active">
-         章节目录
-      </a>
-    </div>
-  
-    <div class="nav-item">
-      <a href="index.html#id1"
-         class="nav-link ">
-         实验内容
-      </a>
-    </div>
-  
-    <div class="nav-item">
-      <a href="index.html#id1"
-         class="nav-link ">
-         附录
-      </a>
-    </div>
-  
-    <div class="nav-item">
-      <a href="extern/index.html#dsp"
-         class="nav-link ">
-         DSP 课程相关
-      </a>
-    </div>
-  
-
-
-
-    </navlinks>
-  </div>
-</navbar>
-
-      
-      <div class="sidebar-mask" @click="toggleSidebar(false)">
-      </div>
-        <sidebar @toggle-sidebar="toggleSidebar">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
           
-          <navlinks>
+
+          
+            <a href="index.html" class="icon icon-home"> DSP_Course
+          
+
+          
+          </a>
+
+          
             
-
-  
-    <div class="nav-item">
-      <a href="index.html#id1"
-         class="nav-link  router-link-active">
-         章节目录
-      </a>
-    </div>
-  
-    <div class="nav-item">
-      <a href="index.html#id1"
-         class="nav-link ">
-         实验内容
-      </a>
-    </div>
-  
-    <div class="nav-item">
-      <a href="index.html#id1"
-         class="nav-link ">
-         附录
-      </a>
-    </div>
-  
-    <div class="nav-item">
-      <a href="extern/index.html#dsp"
-         class="nav-link ">
-         DSP 课程相关
-      </a>
-    </div>
-  
-
-
-
             
-          </navlinks><div id="searchbox" class="searchbox" role="search">
-  <div class="caption"><span class="caption-text">快速搜索</span>
-    <div class="searchformwrapper">
-      <form class="search" action="search.html" method="get">
-        <input type="text" name="q" />
-        <input type="submit" value="搜索" />
-        <input type="hidden" name="check_keywords" value="yes" />
-        <input type="hidden" name="area" value="default" />
-      </form>
-    </div>
-  </div>
-</div><div class="sidebar-links" role="navigation" aria-label="main navigation">
-  
-    <div class="sidebar-group">
-      <p class="caption">
-        <span class="caption-text"><a href="index.html#id1">章节目录</a></span>
-      </p>
-      <ul class="current">
-        
-          <li class="toctree-l1 "><a href="ch1.html" class="reference internal ">引言</a>
+          
 
-            
-          </li>
-
-        
-          <li class="toctree-l1 "><a href="ch2.html" class="reference internal ">时域中的离散时间信号和系统</a>
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 "><a href="ch3.html" class="reference internal ">离散时间傅里叶变换</a>
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 current"><a href="#" class="reference internal current">离散傅里叶变换</a>
-
-            
-              <ul>
-                
-                  <li class="toctree-l2"><a href="#dtft-dft" class="reference internal">从 DTFT 到 DFT</a></li>
-                
-                  <li class="toctree-l2"><a href="#id3" class="reference internal">DFT 变换和 其他变换的关系</a></li>
-                
-                  <li class="toctree-l2"><a href="#id7" class="reference internal">DFT 变换的性质和定理</a></li>
-                
-                  <li class="toctree-l2"><a href="#id10" class="reference internal">DFT 变换的应用</a></li>
-                
-                  <li class="toctree-l2"><a href="#fft-dft" class="reference internal">FFT——快速 DFT 变换</a></li>
-                
-              </ul>
-            
-          </li>
-
-        
-          <li class="toctree-l1 "><a href="ch5.html" class="reference internal ">Z变换</a>
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 "><a href="ch6.html" class="reference internal ">变换域中的离散时间系统</a>
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 "><a href="ch7.html" class="reference internal ">滤波器设计</a>
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 "><a href="ch8.html" class="reference internal ">滤波器实现</a>
-
-            
-          </li>
-
-        
-      </ul>
-    </div>
-  
-    <div class="sidebar-group">
-      <p class="caption">
-        <span class="caption-text"><a href="index.html#id1">实验内容</a></span>
-      </p>
-      <ul class="">
-        
-          <li class="toctree-l1 "><a href="experiments/ex_c2.html" class="reference internal ">第二章 离散时间信号与系统</a>
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 "><a href="experiments/ex_c3.html" class="reference internal ">第三章 离散时间傅里叶变换</a>
-
-            
-          </li>
-
-        
-      </ul>
-    </div>
-  
-    <div class="sidebar-group">
-      <p class="caption">
-        <span class="caption-text"><a href="index.html#id1">附录</a></span>
-      </p>
-      <ul class="">
-        
-          <li class="toctree-l1 "><a href="appendix/index_principles.html" class="reference internal ">定理证明</a>
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 "><a href="appendix/index_history.html" class="reference internal ">小小历史</a>
-
-            
-          </li>
-
-        
-      </ul>
-    </div>
-  
-    <div class="sidebar-group">
-      <p class="caption">
-        <span class="caption-text"><a href="extern/index.html#dsp">DSP 课程相关</a></span>
-      </p>
-      <ul class="">
-        
-          <li class="toctree-l1 "><a href="extern/resources.html" class="reference internal ">国外经典DSP课程</a>
-
-            
-          </li>
-
-        
-          <li class="toctree-l1 "><a href="extern/matlab_tools.html" class="reference internal ">Matlab 工具</a>
-
-            
-          </li>
-
-        
-      </ul>
-    </div>
-  
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
 </div>
-        </sidebar>
 
-      <page>
-          <div class="body-header" role="navigation" aria-label="navigation">
-  
-  <ul class="breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-    
-    <li>4. 离散傅里叶变换</li>
-  </ul>
-  
+          
+        </div>
 
-  <ul class="page-nav">
-  <li class="prev">
-    <a href="ch3.html"
-       title="上一章">← 3. 离散时间傅里叶变换</a>
-  </li>
-  <li class="next">
-    <a href="ch5.html"
-       title="下一章">5. Z变换 →</a>
-  </li>
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">章节目录</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ch1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch2.html">2. 时域中的离散时间信号和系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch3.html">3. 离散时间傅里叶变换</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">4. 离散傅里叶变换</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#dtft-dft">4.1. 从 DTFT 到 DFT</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dtft">4.1.1. DTFT 回顾</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dft">4.1.2. DFT 变换</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dft-dtft">4.1.3. DFT 与 DTFT 之间的关系</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">4.1.4. DFT 变换的矩阵形式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#idft">4.1.5. IDFT 变换</a></li>
 </ul>
-  
-</div>
-<hr>
-          <div class="content" role="main">
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">4.2. DFT 变换的性质和定理</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id4">4.2.1. DFT 变换的性质</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">4.2.2. DFT 变换的定理</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">4.3. DFT 变换的应用</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id7">4.3.1. 基于 DFT 变换的频率分析</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">4.3.2. 基于 DFT 变换的卷积</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#fft-dft">4.4. FFT——快速 DFT 变换</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ch5.html">5. Z变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch6.html">6. 变换域中的离散时间系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch7.html">7. 滤波器设计</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch8.html">8. 滤波器实现</a></li>
+</ul>
+<p class="caption"><span class="caption-text">实验内容</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c1.html">第一章 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c2.html">第二章 离散时间信号与系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c3.html">第三章 离散时间傅里叶变换</a></li>
+</ul>
+<p class="caption"><span class="caption-text">附录</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="appendix/index_principles.html">定理证明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix/index_history.html">小小历史</a></li>
+</ul>
+<p class="caption"><span class="caption-text">有用资源</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="extern/index.html">DSP 课程相关</a></li>
+</ul>
+
             
-  <div class="section" id="id1">
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DSP_Course</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>4. 离散傅里叶变换</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/ch4.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="id1">
 <h1>4. 离散傅里叶变换<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
 <p>在实际应用中，数字信号处理器中会大量的使用离散时间信号的频率分析，即将时域序列转换成等价的频域表达。在上一章中，我们学习了了利用离散时间傅里叶变换来分析离散时间序列（信号）的频谱。但是，离散时间傅里叶变换往往是频率的连续函数，所以计算机直接处理连续的函数是非常不方便的。我们知道，DTFT 变换等价于将连续时间傅里叶变换在时间轴上均匀采样。那么，在本章中，我们将进一步在频率上对序列的 DTFT 变换进行采样，从而得到时域和频域都离散的频域表达，那么这个过程我们称为离散傅里叶变换，即 DFT。</p>
 <p>序列经过 DFT 变换后的到的频域表达仍然是离散的，因此这种频域分析方法更适用于计算机或者数字处理器，在实际应用中被广泛的使用。</p>
@@ -350,65 +276,86 @@ X[k] =\sum_{n=0}^{N-1} x[n] W_{N}^{kn},  \quad k=0,...,N-1 \label{eq:dft}
 </div>
 <div class="section" id="idft">
 <h3>4.1.5. IDFT 变换<a class="headerlink" href="#idft" title="永久链接至标题">¶</a></h3>
-</div>
+<!-- ## DFT 变换和 其他变换的关系
+
+### 与周期序列傅立叶级数系数的关系
+
+### 与非周期序列傅里叶变换的关系
+
+### 与 Z 变换的关系
+
+### 与连续时间信号傅里叶级数系数的关系 --></div>
 </div>
 <div class="section" id="id3">
-<h2>4.2. DFT 变换和 其他变换的关系<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<h2>4.2. DFT 变换的性质和定理<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <div class="section" id="id4">
-<h3>4.2.1. 与周期序列傅立叶级数系数的关系<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<h3>4.2.1. DFT 变换的性质<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
 </div>
 <div class="section" id="id5">
-<h3>4.2.2. 与非周期序列傅里叶变换的关系<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<h3>4.2.2. DFT 变换的定理<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
 </div>
-<div class="section" id="z">
-<h3>4.2.3. 与 Z 变换的关系<a class="headerlink" href="#z" title="永久链接至标题">¶</a></h3>
 </div>
 <div class="section" id="id6">
-<h3>4.2.4. 与连续时间信号傅里叶级数系数的关系<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
-</div>
-</div>
+<h2>4.3. DFT 变换的应用<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
 <div class="section" id="id7">
-<h2>4.3. DFT 变换的性质和定理<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
+<h3>4.3.1. 基于 DFT 变换的频率分析<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+</div>
 <div class="section" id="id8">
-<h3>4.3.1. DFT 变换的性质<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
-</div>
-<div class="section" id="id9">
-<h3>4.3.2. DFT 变换的定理<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
-</div>
-</div>
-<div class="section" id="id10">
-<h2>4.4. DFT 变换的应用<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h2>
-<div class="section" id="id11">
-<h3>4.4.1. 基于 DFT 变换的频率分析<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
-</div>
-<div class="section" id="id12">
-<h3>4.4.2. 基于 DFT 变换的卷积<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
+<h3>4.3.2. 基于 DFT 变换的卷积<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
 </div>
 </div>
 <div class="section" id="fft-dft">
-<h2>4.5. FFT——快速 DFT 变换<a class="headerlink" href="#fft-dft" title="永久链接至标题">¶</a></h2>
+<h2>4.4. FFT——快速 DFT 变换<a class="headerlink" href="#fft-dft" title="永久链接至标题">¶</a></h2>
 </div>
 </div>
 
 
+           </div>
+           
           </div>
-          <div class="page-nav">
-            <div class="inner"><ul class="page-nav">
-  <li class="prev">
-    <a href="ch3.html"
-       title="上一章">← 3. 离散时间傅里叶变换</a>
-  </li>
-  <li class="next">
-    <a href="ch5.html"
-       title="下一章">5. Z变换 →</a>
-  </li>
-</ul><div class="footer" role="contentinfo">
-      &#169; 版权所有 2019, Lei Yu.
-    <br>
-    Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2 with <a href="https://github.com/schettino72/sphinx_press_theme">Press Theme</a>.
-</div>
-            </div>
-          </div>
-      </page>
-  </div></body>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ch5.html" class="btn btn-neutral float-right" title="5. Z变换" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ch3.html" class="btn btn-neutral float-left" title="3. 离散时间傅里叶变换" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Lei Yu
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
 </html>

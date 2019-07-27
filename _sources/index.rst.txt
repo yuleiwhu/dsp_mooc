@@ -8,6 +8,8 @@
 
 本课程配套《数字信号处理》 MOOC 课程，如需要观看视频教程，请移步中国大学 MOOC 官网(https://www.icourse163.org/course/WHU-1205726806)。
 
+**NOTE：本课程持续更新中，如有遗漏错误之处，请在这里留言 (https://github.com/yuleiwhu/dsp_mooc/issues)。**
+
 .. toctree::
    :maxdepth: 2
    :numbered: 3
@@ -30,6 +32,7 @@
    :caption: 实验内容
    :maxdepth: 2
 
+   experiments/ex_c1
    experiments/ex_c2
    experiments/ex_c3
 
