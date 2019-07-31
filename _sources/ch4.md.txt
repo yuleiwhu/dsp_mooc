@@ -232,7 +232,7 @@ x[n] = e^{-\alpha n}, \quad 0 \leq n <N
 
 分别通过时域补零和频域插值逼近该序列的DTFT变换，具体实现[参见Python代码](experiments/dft2dtft)。
 
-![](asset/untitled.png)
+![](asset/untitled1.png)
 
 
 ### DFT 变换的矩阵形式
