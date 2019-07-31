@@ -406,7 +406,7 @@ div.rendered_html tbody tr:hover {
 <span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="k">import</span> <span class="o">*</span>
 
-<span class="n">N</span> <span class="o">=</span> <span class="mi">128</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">32</span>
 <span class="n">n</span> <span class="o">=</span> <span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
 <span class="n">xn</span> <span class="o">=</span> <span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span>
 
@@ -427,6 +427,9 @@ div.rendered_html tbody tr:hover {
 <span class="n">w</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">w</span><span class="p">))</span>
 <span class="n">plot</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="nb">abs</span><span class="p">(</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">xn</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">w</span><span class="p">))),</span><span class="s1">&#39;--r&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Zero-padding in Time&#39;</span><span class="p">)</span>
 
+<span class="n">w</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">Xk</span><span class="p">)),</span><span class="nb">len</span><span class="p">(</span><span class="n">Xk</span><span class="p">))</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="nb">abs</span><span class="p">(</span><span class="n">Xk</span><span class="p">),</span><span class="s1">&#39;-o&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;N-Point DFT&#39;</span><span class="p">)</span>
+
 <span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
 
 <span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;omega&#39;</span><span class="p">)</span>
@@ -440,10 +443,8 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area stderr docutils container">
 <div class="highlight"><pre>
-/Users/mac/anaconda3/envs/Sphinx/lib/python3.6/site-packages/matplotlib/backends/backend_agg.py:211: RuntimeWarning: Glyph 8722 missing from current font.
-  font.set_text(s, 0.0, flags=flags)
-/Users/mac/anaconda3/envs/Sphinx/lib/python3.6/site-packages/matplotlib/backends/backend_agg.py:180: RuntimeWarning: Glyph 8722 missing from current font.
-  font.set_text(s, 0, flags=flags)
+/Users/mac/anaconda3/lib/python3.7/site-packages/mkl_fft/_numpy_fft.py:158: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  output = mkl_fft.fft(a, n, axis)
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">

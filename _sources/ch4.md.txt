@@ -153,11 +153,16 @@ p_N[n] = \frac{M}{2\pi}\sum_{m=-\infty}^\infty \delta\left(n - Nm\right)
 
     **DFT变换：**
 
-    $$X[k] =\\sum_{n=0}^{N-1} x[n] W_{N}^{kn},  \\quad k=0,...,N-1 $$
+    \\begin{equation}
+    X[k] =\\sum_{n=0}^{N-1} x[n] W_{N}^{kn},  \\quad k=0,...,N-1 
+    \\end{equation}
 
     **IDFT变换：**
 
-    $$x[n] = \\frac{1}{N} \\sum_{k=0}^{N-1} X[k] W_N^{-kn}, \\quad n=0,...,N-1 $$
+    \\begin{equation}
+    x[n] = \\frac{1}{N} \\sum_{k=0}^{N-1} X[k] W_N^{-kn}, \\quad n=0,...,N-1 
+    \\end{equation}
+
 ```
 
 DFT变换实际上就是对DTFT变换的频率进行等间隔采样的版本。
@@ -220,7 +225,21 @@ x[n], & 0\leq n < L \\
 
 这个式子的结论就是，对原序列$x[n]$末尾补零，加长序列长度，然后做DFT变换，对应于在DTFT变换的频域提高采样频率。
 
-#### 例子
+#### 例子：DFT变换是DTFT变换的频域采样
+
+考虑截断余弦序列
+
+$$
+x[n]=\cos (2 \pi 0.1 n), \quad n \in\{0, \ldots, 31\}
+$$
+
+该序列长度为$L=32$，分别对该序列计算64点和32点DFT变换，可以得到$x[n]$的DFT变换：
+
+![](asset/2019-07-31-15-36-37.png)
+
+图中，蓝色的曲线为序列$x[n]$的DTFT变换，很明显，DFT变换实际上就是DTFT变换频域上的等间隔采样，采样间隔等于$2\pi/N$，其中$N$为DFT变换的长度。当DFT变换的长度$N=64$，采样间隔等于$2\pi/64$；当DFT变换长度为$N=32$时，采样间隔等于$2\pi/32$。所以，从实验结果可以看出，DFT变换的长度越长，频域的样本点越密集。
+
+#### 例子：DTFT变换的两种近似
 
 下面我们通过一个例子来说明通过时域补零和频域插值方式来逼近原始序列DTFT变换的过程。
 
@@ -237,9 +256,46 @@ x[n] = e^{-\alpha n}, \quad 0 \leq n <N
 
 ### DFT 变换的矩阵形式
 
-将长度为
+DFT变换和逆变换是针对有限长序列$x[n]$的变换。我们将这个有限长序列$x[n]$写成向量形式
 
+```math
+{\mathbf{x}}  \triangleq \left[\begin{array}{c}{x[0]} \\ {x[1]} \\ {x[2]} \\ {\vdots} \\ {x[N-1]}\end{array}\right]
+```
 
+$x[n]$为向量$\mathbf{x}$中的第$n$个元素，$n\in [0,N-1]$。
+
+同时定义矩阵$\mathbf{D}_N \in \mathbb{C}^{N\times N}$
+
+```math
+{\mathbf{D}_{N}} \triangleq {\left[\begin{array}{ccccc}{1} & {1} & {1} & {\dots} & {1} \\ {1} & {W_{N}^{1}} & {W_{N}^{2}} & {\ldots} & {W_{N}^{(N-1)}} \\ {1} & {W_{N}^{2}} & {W_{N}^{4}} & {\dots} & {W_{N}^{2(N-1)}} \\ {\vdots} & {\vdots} & {\vdots} & {\ddots} & {\vdots} \\ {1} & {W_{N}^{(N-1)}} & {W_{N}^{2(N-1)}} & {\dots} & {W_{N}^{(N-1)^{2}}}\end{array}\right]}
+```
+
+然后，我们可以将DFT变换写成如下矩阵的形式
+
+\begin{equation}
+\mathbf{X}=\mathbf{D}_{N} \cdot \mathbf{x} \label{eq:dft_matrix}
+\end{equation}
+
+这里$\mathbf{X} \in \mathbb{C}^{N}$为DFT变换后的向量，其中$X[k]$为它的第$k$个元素，$k\in [0,N-1]$。
+
+很容易，我们可以证明矩阵$\mathbf{D}_N $满足如下等式：
+
+$$
+\mathbf{D}_N ^H \mathbf{D}_N = \text{Id}
+$$
+
+其中$\mathbf{D}_N ^H $表示矩阵$\mathbf{D}_N $的共轭转置。
+
+#### 例子
+
+计算序列$x[n] = \{1, 0, 1, 2\}$的DFT变换。
+
+```math
+\left[\begin{array}{l}{X[0]} \\ {X[1]} \\ {X[2]} \\ {X[3]}\end{array}\right] &= 
+\left[\begin{array}{llll}{1} & {1} & {1} & {1} \\ {1} & {W_{4}^{1}} & {W_{4}^{2}} & {W_{4}^{3}} \\ {1} & {W_{4}^{2}} & {W_{4}^{4}} & {W_{4}^{6}} \\ {1} & {W_{4}^{3}} & {W_{4}^{6}} & {W_{4}^{9}}\end{array}\right] \left[\begin{array}{c}{x[0]} \\ {x[1]} \\ {x[2]} \\ {x[3]}\end{array}\right] \\
+&= \left[\begin{array}{cccc}{1} & {1} & {1} & {1} \\ {1} & {W_{4}^{1}} & {W_{4}^{2}} & {W_{4}^{3}} \\ {1} & {W_{4}^{2}} & {W_{4}^{4}} & {W_{4}^{6}} \\ {1} & {W_{4}^{3}} & {W_{4}^{6}} & {W_{4}^{9}}\end{array}\right]\left[\begin{array}{l}{1} \\ {0} \\ {2} \\ {1}\end{array}\right] \\
+&=[4,1+j, 2,1-j]^{T}
+```
 
 ## DFT 变换的性质和定理
 
