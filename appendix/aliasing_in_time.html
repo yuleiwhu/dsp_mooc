@@ -37,7 +37,9 @@
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
-    <link rel="search" title="搜索" href="../search.html" /> 
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="../experiments/dft2dtft.html" />
+    <link rel="prev" title="4. 离散傅里叶变换" href="../experiments/ex_c4.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -93,10 +95,17 @@
 <li class="toctree-l1"><a class="reference internal" href="../ch8.html">8. 滤波器实现</a></li>
 </ul>
 <p class="caption"><span class="caption-text">实验内容</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../experiments/ex_c1.html">1. 引言</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../experiments/ex_c2.html">2. 离散时间信号与系统</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../experiments/ex_c3.html">3. 离散时间傅里叶变换</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../experiments/ex_c4.html">4. 离散傅里叶变换</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">序列时域混叠</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#DFT变换与DTFT变换的关系">DFT变换与DTFT变换的关系</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">附录</span></p>
 <ul>
@@ -150,6 +159,8 @@
   <ul class="wy-breadcrumbs">
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../experiments/ex_c4.html">4. 离散傅里叶变换</a> &raquo;</li>
         
       <li>序列时域混叠</li>
     
@@ -394,20 +405,22 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="序列时域混叠">
 <h1>序列时域混叠<a class="headerlink" href="#序列时域混叠" title="永久链接至标题">¶</a></h1>
-<p>同时域采样一样，定义采样序列<span class="math notranslate nohighlight">\(p_N( omega) =  sum_{k=- infty}^{ infty}  delta ( omega - 2k pi /N)\)</span>。那么，将频域采样前后的关系写为</p>
+<p>同时域采样一样，定义采样序列<span class="math notranslate nohighlight">\(p_N( \omega) =  \sum_{k=- \infty}^{ \infty}  \delta ( \omega - 2k \pi /N)\)</span>。那么，将频域采样前后的关系写为</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{split}
     X_p(e^{j\omega}) &amp;= X(e^{j\omega})\cdot p_N(\omega) = \sum_{k=-\infty}^\infty \delta\left(\omega - \frac{2k\pi}{N}\right) \cdot X(e^{j\omega}) \\
     &amp; = \sum_{k=-\infty}^\infty \delta\left(\omega - \frac{2k\pi}{N}\right) \cdot X(e^{j2k\pi/N})
 \end{split}\end{split}\]</div>
-<p>其中<span class="math notranslate nohighlight">\(X_p(e^{j omega})\)</span>为<span class="math notranslate nohighlight">\(X[k]\)</span>的连续形式，表达的信号是等价的。那么对上式进行 IDTFT 变换，就可以得到频域采样后时域的信号，这里记作<span class="math notranslate nohighlight">\( tilde{x}[n]\)</span></p>
-<p>\begin{aligned} <span class="math">\tilde{x}`[n] &= :nbsphinx-math:</span>text{IDTFT}`{X_p(e^{j:nbsphinx-math:<cite>omega</cite>})} \ &amp; =:nbsphinx-math:<cite>frac{1}{2 pi}</cite> <span class="math">\int</span><em>{-:nbsphinx-math:`pi`}{:nbsphinx-math:`pi`}:nbsphinx-math:`left`(:nbsphinx-math:`sum`{k=-:nbsphinx-math:`infty`}^{:nbsphinx-math:`infty`} X:nbsphinx-math:`left`(e^{j 2 :nbsphinx-math:`pi `k / N}:nbsphinx-math:`right`) :nbsphinx-math:`delta`(:nbsphinx-math:`omega`-2 :nbsphinx-math:`pi `k /
-N):nbsphinx-math:`right`) e^{j :nbsphinx-math:`omega `n} d :nbsphinx-math:`omega `\ &amp; = :nbsphinx-math:`frac{1}{2 pi}` :nbsphinx-math:`sum`{k=-:nbsphinx-math:`infty`}{:nbsphinx-math:`infty`} :nbsphinx-math:`underbrace{Xleft(e^{j 2 pi k / N}right)}`</em>{=:nbsphinx-math:<cite>sum</cite><em>{l=-:nbsphinx-math:`infty`}^{+:nbsphinx-math:`infty`} x[l] e^{-j 2 :nbsphinx-math:`pi `k l / N}}
-:nbsphinx-math:`cdot `:nbsphinx-math:`underbrace{int_{-pi}^{pi} delta(omega-2 pi k / N) e^{j omega n} d omega}`</em>{=e^{j 2 <span class="math">\pi `k n / N,  :nbsphinx-math:</span>text{ for }` k:nbsphinx-math:<cite>in [0,N-1]</cite>}} \ &amp;= <span class="math">\frac{1}{2 \pi}</span> <span class="math">\sum</span><em>{l=-:nbsphinx-math:`infty`}^{:nbsphinx-math:`infty`} x[l]
-:nbsphinx-math:`underbrace{sum_{k=0}^{N-1} e^{j 2 pi k / N(n-l)}}`</em>{=N:nbsphinx-math:<cite>sum</cite><em>{m=-:nbsphinx-math:`infty`}^{:nbsphinx-math:`infty`}:nbsphinx-math:`delta[l-n-Nm]`} \ &amp;= :nbsphinx-math:`frac{N}{2 pi}` :nbsphinx-math:`sum`</em>{m=-<span class="math">\infty</span>}^{<span class="math">\infty</span>} x[n+mN] \end{aligned}</p>
-<p>上式最后一个等式的求和符号的含义就是，将原信号<span class="math notranslate nohighlight">\(x[n]\)</span>以<span class="math notranslate nohighlight">\(N\)</span>为长度，周期延拓。也就是说，如果对 DTFT 变换的频率进行离散化，会导致时域上信号的周期延拓，幅度也会变为原来的<span class="math notranslate nohighlight">\(N/2 pi\)</span>倍。这个结论与对信号在时域进行采样，频域周期延拓是类似的。</p>
+<p>其中<span class="math notranslate nohighlight">\(X_p(e^{j \omega})\)</span>为<span class="math notranslate nohighlight">\(X[k]\)</span>的连续形式，表达的信号是等价的。那么对上式进行 IDTFT 变换，就可以得到频域采样后时域的信号，这里记作<span class="math notranslate nohighlight">\( \tilde{x}[n]\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\tilde{x}[n] &amp;= \text{IDTFT}\{X_p(e^{j\omega})\} \\
+&amp; =\frac{1}{2 \pi} \int_{-\pi}^{\pi}\left(\sum_{k=-\infty}^{\infty} X\left(e^{j 2 \pi k / N}\right) \delta(\omega-2 \pi k / N)\right) e^{j \omega n} d \omega \\
+&amp; = \frac{1}{2 \pi} \sum_{k=-\infty}^{\infty} \underbrace{X\left(e^{j 2 \pi k / N}\right)}_{=\sum_{l=-\infty}^{+\infty} x[l] e^{-j 2 \pi k l / N}} \cdot \underbrace{\int_{-\pi}^{\pi} \delta(\omega-2 \pi k / N) e^{j \omega n} d \omega}_{=e^{j 2 \pi k n / N, \ \text{ for } k\in [0,N-1]}} \\
+&amp;= \frac{1}{2 \pi} \sum_{l=-\infty}^{\infty} x[l] \underbrace{\sum_{k=0}^{N-1} e^{j 2 \pi k / N(n-l)}}_{=N\sum_{m=-\infty}^{\infty}\delta[l-n-Nm]} \\
+&amp;= \frac{N}{2 \pi} \sum_{m=-\infty}^{\infty} x[n+mN]\end{split}\]</div>
+<p>上式最后一个等式的求和符号的含义就是，将原信号<span class="math notranslate nohighlight">\(x[n]\)</span>以<span class="math notranslate nohighlight">\(N\)</span>为长度，周期延拓。也就是说，如果对 DTFT 变换的频率进行离散化，会导致时域上信号的周期延拓，幅度也会变为原来的<span class="math notranslate nohighlight">\(N/2 \pi\)</span>倍。这个结论与对信号在时域进行采样，频域周期延拓是类似的。</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[39]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -461,9 +474,11 @@ N):nbsphinx-math:`right`) e^{j :nbsphinx-math:`omega `n} d :nbsphinx-math:`omega
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area docutils container">
-<img alt="../_images/appendix_aliasing_in_time_1_0.png" src="../_images/appendix_aliasing_in_time_1_0.png" />
-</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/Users/mac/anaconda3/envs/Sphinx/lib/python3.6/site-packages/ipykernel_launcher.py:11: UserWarning: In Matplotlib 3.3 individual lines on a stem plot will be added as a LineCollection instead of individual lines. This significantly improves the performance of a stem plot. To remove this warning and switch to the new behaviour, set the &#34;use_line_collection&#34; keyword argument to True.
+  # This is added back by InteractiveShellApp.init_path()
+</pre></div></div>
 </div>
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
@@ -472,17 +487,40 @@ N):nbsphinx-math:`right`) e^{j :nbsphinx-math:`omega `n} d :nbsphinx-math:`omega
 <img alt="../_images/appendix_aliasing_in_time_1_1.png" src="../_images/appendix_aliasing_in_time_1_1.png" />
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/Users/mac/anaconda3/envs/Sphinx/lib/python3.6/site-packages/ipykernel_launcher.py:28: UserWarning: In Matplotlib 3.3 individual lines on a stem plot will be added as a LineCollection instead of individual lines. This significantly improves the performance of a stem plot. To remove this warning and switch to the new behaviour, set the &#34;use_line_collection&#34; keyword argument to True.
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/appendix_aliasing_in_time_1_3.png" src="../_images/appendix_aliasing_in_time_1_3.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/Users/mac/anaconda3/envs/Sphinx/lib/python3.6/site-packages/ipykernel_launcher.py:43: UserWarning: In Matplotlib 3.3 individual lines on a stem plot will be added as a LineCollection instead of individual lines. This significantly improves the performance of a stem plot. To remove this warning and switch to the new behaviour, set the &#34;use_line_collection&#34; keyword argument to True.
+</pre></div></div>
+</div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/appendix_aliasing_in_time_1_2.png" src="../_images/appendix_aliasing_in_time_1_2.png" />
+<img alt="../_images/appendix_aliasing_in_time_1_5.png" src="../_images/appendix_aliasing_in_time_1_5.png" />
 </div>
 </div>
 <div class="section" id="DFT变换与DTFT变换的关系">
 <h2>DFT变换与DTFT变换的关系<a class="headerlink" href="#DFT变换与DTFT变换的关系" title="永久链接至标题">¶</a></h2>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[40]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -514,15 +552,32 @@ N):nbsphinx-math:`right`) e^{j :nbsphinx-math:`omega `n} d :nbsphinx-math:`omega
 <div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
-<div class="output_area docutils container">
-<img alt="../_images/appendix_aliasing_in_time_3_0.png" src="../_images/appendix_aliasing_in_time_3_0.png" />
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/Users/mac/anaconda3/envs/Sphinx/lib/python3.6/site-packages/ipykernel_launcher.py:12: UserWarning: In Matplotlib 3.3 individual lines on a stem plot will be added as a LineCollection instead of individual lines. This significantly improves the performance of a stem plot. To remove this warning and switch to the new behaviour, set the &#34;use_line_collection&#34; keyword argument to True.
+  if sys.path[0] == &#39;&#39;:
+</pre></div></div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/appendix_aliasing_in_time_3_1.png" src="../_images/appendix_aliasing_in_time_3_1.png" />
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/Users/mac/anaconda3/envs/Sphinx/lib/python3.6/site-packages/ipykernel_launcher.py:20: UserWarning: In Matplotlib 3.3 individual lines on a stem plot will be added as a LineCollection instead of individual lines. This significantly improves the performance of a stem plot. To remove this warning and switch to the new behaviour, set the &#34;use_line_collection&#34; keyword argument to True.
+</pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/appendix_aliasing_in_time_3_1.png" src="../_images/appendix_aliasing_in_time_3_1.png" />
+<img alt="../_images/appendix_aliasing_in_time_3_3.png" src="../_images/appendix_aliasing_in_time_3_3.png" />
 </div>
 </div>
 <div class="nbinput nblast docutils container">
@@ -542,6 +597,15 @@ N):nbsphinx-math:`right`) e^{j :nbsphinx-math:`omega `n} d :nbsphinx-math:`omega
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../experiments/dft2dtft.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../experiments/ex_c4.html" class="btn btn-neutral float-left" title="4. 离散傅里叶变换" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

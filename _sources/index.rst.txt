@@ -36,6 +36,7 @@
    experiments/ex_c1
    experiments/ex_c2
    experiments/ex_c3
+   experiments/ex_c4
 
 
 .. toctree::

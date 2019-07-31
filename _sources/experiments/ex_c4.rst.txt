@@ -1,0 +1,10 @@
+离散傅里叶变换
+====================================
+
+展示实验内容页面。
+
+.. toctree::
+   :maxdepth: 1
+
+   ../appendix/aliasing_in_time
+   dft2dtft
