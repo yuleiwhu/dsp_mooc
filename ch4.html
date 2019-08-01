@@ -112,11 +112,27 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#id12">4.3. DFT 变换的应用</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id13">4.3.1. 基于 DFT 变换的频率分析</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id14">4.3.2. 基于 DFT 变换的卷积</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">4.3.1. 基于 DFT 变换的频率分析</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id14">有限长序列的频率分析</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id15">无限长序列的频率分析</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id16">频谱泄露问题</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#fft-dft">4.4. FFT——快速 DFT 变换</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id17">4.3.2. 基于 DFT 变换的卷积</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id18">重叠相加法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id19">重叠保留法</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#fft-dft">4.4. FFT——快速 DFT 变换</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id20">4.4.1. DFT的复杂度分析</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fft">4.4.2. FFT变换的历史</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id21">4.4.3. 时间抽取FFT变换</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id22">4.4.4. 频率抽取FFT变换</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id23">4.4.5. FFT变换的应用场景</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ch5.html">5. Z变换</a></li>
@@ -427,6 +443,12 @@ $$</p>
 </div>
 <div class="section" id="id9">
 <h2>4.2. DFT 变换的性质和定理<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h2>
+<p>前面的章节，我们已经讨论了DFT变换本质上是DTFT变换在频域的等间隔采样，可以推断DTFT变换的性质和定理，DFT变换都能继承。为了阐述清楚DFT定理和DTFT定理之间的关系，我们再回顾一下序列的DFT变换和DTFT变换的关系：</p>
+<ol class="simple">
+<li><p>DFT</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\]</div>
 <div class="section" id="id10">
 <h3>4.2.1. DFT 变换的性质<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
 </div>
@@ -438,13 +460,44 @@ $$</p>
 <h2>4.3. DFT 变换的应用<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h2>
 <div class="section" id="id13">
 <h3>4.3.1. 基于 DFT 变换的频率分析<a class="headerlink" href="#id13" title="永久链接至标题">¶</a></h3>
-</div>
 <div class="section" id="id14">
-<h3>4.3.2. 基于 DFT 变换的卷积<a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h3>
+<h4>有限长序列的频率分析<a class="headerlink" href="#id14" title="永久链接至标题">¶</a></h4>
+</div>
+<div class="section" id="id15">
+<h4>无限长序列的频率分析<a class="headerlink" href="#id15" title="永久链接至标题">¶</a></h4>
+</div>
+<div class="section" id="id16">
+<h4>频谱泄露问题<a class="headerlink" href="#id16" title="永久链接至标题">¶</a></h4>
+</div>
+</div>
+<div class="section" id="id17">
+<h3>4.3.2. 基于 DFT 变换的卷积<a class="headerlink" href="#id17" title="永久链接至标题">¶</a></h3>
+<div class="section" id="id18">
+<h4>重叠相加法<a class="headerlink" href="#id18" title="永久链接至标题">¶</a></h4>
+</div>
+<div class="section" id="id19">
+<h4>重叠保留法<a class="headerlink" href="#id19" title="永久链接至标题">¶</a></h4>
+</div>
 </div>
 </div>
 <div class="section" id="fft-dft">
 <h2>4.4. FFT——快速 DFT 变换<a class="headerlink" href="#fft-dft" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id20">
+<h3>4.4.1. DFT的复杂度分析<a class="headerlink" href="#id20" title="永久链接至标题">¶</a></h3>
+</div>
+<div class="section" id="fft">
+<h3>4.4.2. FFT变换的历史<a class="headerlink" href="#fft" title="永久链接至标题">¶</a></h3>
+</div>
+<div class="section" id="id21">
+<h3>4.4.3. 时间抽取FFT变换<a class="headerlink" href="#id21" title="永久链接至标题">¶</a></h3>
+</div>
+<div class="section" id="id22">
+<h3>4.4.4. 频率抽取FFT变换<a class="headerlink" href="#id22" title="永久链接至标题">¶</a></h3>
+</div>
+<div class="section" id="id23">
+<h3>4.4.5. FFT变换的应用场景<a class="headerlink" href="#id23" title="永久链接至标题">¶</a></h3>
+<p>雷达、照相机、医疗成像、遥感成像等等</p>
+</div>
 </div>
 </div>
 
