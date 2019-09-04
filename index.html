@@ -25,6 +25,7 @@
         <script type="text/javascript" src="_static/underscore.js"></script>
         <script type="text/javascript" src="_static/doctools.js"></script>
         <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/proof.js"></script>
         <script type="text/javascript" src="_static/translations.js"></script>
         <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"extensions": ["tex2jax.js"], "jax": ["input/TeX", "output/HTML-CSS"], "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEscapes": true}, "HTML-CSS": {"fonts": ["TeX"]}, "TeX": {"equationNumbers": {"autoNumber": "AMS"}}})</script>
@@ -36,6 +37,7 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/proof.css" type="text/css" />
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜索" href="search.html" />
     <link rel="next" title="1. 引言" href="ch1.html" /> 
@@ -82,7 +84,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">章节目录</span></p>
+              <p class="caption"><span class="caption-text">讲义（建设中）</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="ch1.html">1. 引言</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ch2.html">2. 时域中的离散时间信号和系统</a></li>
@@ -93,21 +95,31 @@
 <li class="toctree-l1"><a class="reference internal" href="ch7.html">7. 滤波器设计</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ch8.html">8. 滤波器实现</a></li>
 </ul>
-<p class="caption"><span class="caption-text">实验内容</span></p>
+<p class="caption"><span class="caption-text">课后习题</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch1.html">1. 作业要求</a></li>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch2.html">2. 时域中的离散时间信号和系统</a></li>
+</ul>
+<p class="caption"><span class="caption-text">实验内容 (Python)</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="experiments/ex_c1.html">1. 引言</a></li>
 <li class="toctree-l1"><a class="reference internal" href="experiments/ex_c2.html">2. 离散时间信号与系统</a></li>
 <li class="toctree-l1"><a class="reference internal" href="experiments/ex_c3.html">3. 离散时间傅里叶变换</a></li>
 <li class="toctree-l1"><a class="reference internal" href="experiments/ex_c4.html">4. 离散傅里叶变换</a></li>
 </ul>
+<p class="caption"><span class="caption-text">实验内容（Matlab）</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/ch1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/ch2.html">2. 离散时间信号</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/convolution_correlation.html">3. 卷积和相关</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/auto_focus.html">4. 基于傅里叶变换的自动对焦算法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/sampling_nonbandLim.html">5. 非带限信号的采样与重建</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/vuvuzela/vuvuzela_denoising.html">6. 如何消除Vuvuzela?</a></li>
+</ul>
 <p class="caption"><span class="caption-text">附录</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="appendix/index_principles.html">定理证明</a></li>
 <li class="toctree-l1"><a class="reference internal" href="appendix/index_history.html">小小历史</a></li>
-</ul>
-<p class="caption"><span class="caption-text">有用资源</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="extern/index.html">DSP 课程相关</a></li>
 </ul>
 
             
@@ -198,28 +210,132 @@
 </style>
 <div class="section" id="id1">
 <h1>欢迎进入《数字信号处理》课程学习！<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
-<p>本课程配套《数字信号处理》 MOOC 课程，如需要观看视频教程，请移步中国大学 MOOC 官网(<a class="reference external" href="https://www.icourse163.org/course/WHU-1205726806">https://www.icourse163.org/course/WHU-1205726806</a>)。</p>
-<p><strong>NOTE：本课程持续更新中，如有遗漏错误之处，请在这里留言 (https://github.com/yuleiwhu/dsp_mooc/issues)。</strong></p>
+<p><strong>本课程仍在建设中，如有遗漏错误之处，请留言</strong> <a class="reference external" href="https://github.com/yuleiwhu/dsp_mooc/issues">https://github.com/yuleiwhu/dsp_mooc/issues</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">课程名称</dt>
+<dd class="field-odd"><p>《数字信号处理》</p>
+</dd>
+<dt class="field-even">授课老师</dt>
+<dd class="field-even"><p>余磊 副教授，(<a class="reference external" href="mailto:ly&#46;wd&#37;&#52;&#48;whu&#46;edu&#46;cn">ly<span>&#46;</span>wd<span>&#64;</span>whu<span>&#46;</span>edu<span>&#46;</span>cn</a>)</p>
+</dd>
+<dt class="field-odd">课程时间</dt>
+<dd class="field-odd"><p>1-14周，周二上午1-2节，周四上午3-4节</p>
+</dd>
+<dt class="field-even">课程地点</dt>
+<dd class="field-even"><p>三区1-502</p>
+</dd>
+<dt class="field-odd">教材</dt>
+<dd class="field-odd"><p>Mitra, S.K., 著；余翔宇 译；《数字信号处理——基于计算机的方法》，电子工业出版社，2014年，第四版</p>
+</dd>
+<dt class="field-even">课程安排及课件</dt>
+<dd class="field-even"><p></p></dd>
+</dl>
+<ol class="arabic simple">
+<li><p><strong>数字信号处理简介</strong> <a class="reference external" href="pdfs/Intro_new.pdf">1</a></p></li>
+</ol>
+<ol class="arabic" start="2">
+<li><p><strong>离散时间系统与离散时间信号</strong></p>
+<blockquote>
+<div><p><cite>离散时间信号（序列）的概念，在时域的数学表示方法、分类以及基本运算方法；离散时间系统的概念以及性质；LTI离散时间系统的概念及性质，冲激响应序列，以及利用冲激响应序列判断系统因果性、稳定性的条件；熟练掌握卷积和相关的概念、表达式、以及计算方法；理解卷积和相关的物理含义。</cite></p>
+<p>2.1 时域中的离散时间信号 <a class="reference external" href="pdfs/2.1 Discrete-time Signal.pdf">2.1</a>, <a class="reference external" href="pdfs/2.2 SC_BOps.pdf">2.1.1</a></p>
+<p>2.2 时域中的离散时间系统 <a class="reference internal" href="#id5">2.2</a></p>
+<p>2.3 卷积与相关 <a class="reference internal" href="#id6">2.3</a></p>
+</div></blockquote>
+</li>
+</ol>
+<span id="id5"></span><ol class="arabic" id="id6" start="3">
+<li><p><strong>离散时间傅立叶变换</strong></p>
+<blockquote>
+<div><p><cite>离散时间傅立叶变换（DTFT）是分析离散时间信号和系统的基本方法；掌握并理解DTFT变换及其逆变换的定义及物理意义、性质及定理、典型序列的DTFT变换；利用DTFT变换，掌握采样定理的原理。</cite></p>
+<p>3.1 DTFT与IDTFT定义</p>
+<p>3.2 DTFT的性质与定理</p>
+<p>3.3 典型序列的DTFT</p>
+<p>3.4 采样定理</p>
+</div></blockquote>
+</li>
+<li><p><strong>离散傅立叶变换</strong></p>
+<blockquote>
+<div><p><cite>离散傅立叶变换（DFT）可以看作是离散时间傅立叶变换的数值计算；掌握并理解DFT变换及其逆变换的定义，理解DFT变换和DTFT变换的关系，掌握DFT变换的定理，并熟练运用DFT解决实际应用中的问题，理解DFT变换快速算法也就是FFT的基本原理。</cite></p>
+<p>4.1 DFT变换的定义</p>
+<p>4.2 DFT与DTFT的关系</p>
+<p>4.3 DFT定理</p>
+<p>4.4 DFT应用</p>
+<p>4.5 FFT</p>
+</div></blockquote>
+</li>
+<li><p><strong>Z变换</strong></p>
+<blockquote>
+<div><p><cite>Z变换的基本概念，了解Z变换与DTFT变换的关系，掌握几种典型序列的Z变换方法，理解收敛域的概念，Z变换定理。</cite></p>
+<p>5.1 Z变换定义</p>
+<p>5.2 有理Z变换</p>
+<p>5.3 收敛域</p>
+<p>5.4 Z变换定理</p>
+<p>5.5 逆Z变换</p>
+</div></blockquote>
+</li>
+<li><p><strong>频域中的离散时间系统</strong></p>
+<blockquote>
+<div><p><cite>掌握利用DTFT和Z变换分析离散时间系统的方法，掌握并理解离散时间系统幅度响应和相位响应的概念，了解全通系统、零相位系统、线性相位系统的原理和判定方法。</cite></p>
+<p>6.1 频域中的离散时间系统</p>
+<p>6.2 Z域中的离散时间系统</p>
+<p>6.3 离散时间系统的幅度响应</p>
+<p>6.4 全通系统</p>
+<p>6.5 零相位系统</p>
+<p>6.6 线性相位系统</p>
+</div></blockquote>
+</li>
+<li><p><strong>数字滤波器设计</strong></p>
+<blockquote>
+<div><p><cite>理解窗函数的原理，掌握有限冲激响应数字滤波器的设计方法，了解模拟滤波器的设计方法，掌握无限冲激响应数字滤波器的设计方法。</cite></p>
+<p>7.1 窗函数</p>
+<p>7.2 有限冲激响应数字滤波器</p>
+<p>7.3 模拟滤波器</p>
+<p>7.4 无限冲激响应数字滤波器</p>
+</div></blockquote>
+</li>
+<li><p><strong>数字滤波器实现</strong></p>
+<blockquote>
+<div><p><cite>了解数字滤波器实现面临的实际问题，掌握数字滤波器方框图表示方法，掌握有限冲激响应数字滤波器、无限冲激响应数字滤波器结构，了解全通滤波器结构，理解有限字长效应。</cite></p>
+<p>8.1 数字滤波器实现</p>
+<p>8.2 数字滤波器方框图表示</p>
+<p>8.3 有限冲激响应数字滤波器结构</p>
+<p>8.4 无限冲激响应数字滤波器结构</p>
+<p>8.5 全通滤波器结构</p>
+<p>8.6 有限字长效应</p>
+</div></blockquote>
+</li>
+</ol>
+<dl class="field-list">
+<dt class="field-odd">参考文献</dt>
+<dd class="field-odd"><ol class="arabic simple">
+<li><p>Mitra, S. K., &amp; Kuo, Y. (2006). Digital signal processing: a computer-based approach (Vol. 4). New York: McGraw-Hill. （本课程教材英文原版）</p></li>
+<li><p>Vetterli, M., Kovačević, J., &amp; Goyal, V. K. (2014). Foundations of signal processing. Cambridge University Press. （强烈推荐：几何视角的DSP）</p></li>
+<li><p>Oppenheim, A. V., &amp; Schafer, R. W. (2014). Discrete-time signal processing. Pearson Education. （数字信号处理经典教科书）</p></li>
+<li><p>Mallat, S. (1999). A wavelet tour of signal processing. Elsevier. （进阶教材）</p></li>
+<li><p>Richard G. Lyons, et. al, 著；余磊 译；《数字信号处理精要》，机械工业出版社，2016年3月，第一版。（科普教材）</p></li>
+</ol>
+</dd>
+<dt class="field-even">网上资源</dt>
+<dd class="field-even"><p><strong>国内中文站点：</strong></p>
+<ul class="simple">
+<li><p>武汉大学MOOC平台   <a class="reference external" href="https://www.icourse163.org/course/WHU-1205726806">https://www.icourse163.org/course/WHU-1205726806</a></p></li>
+</ul>
+<p><strong>国外站点：</strong></p>
+<ul class="simple">
+<li><p>Gabriel Peyre, <a class="reference external" href="https://www.numerical-tours.com/matlab/">https://www.numerical-tours.com/matlab/</a></p></li>
+<li><p>SciPy, <a class="reference external" href="https://docs.scipy.org/doc/scipy-0.18.1/reference/signal.html">https://docs.scipy.org/doc/scipy-0.18.1/reference/signal.html</a></p></li>
+<li><p>斯坦福课程《傅立叶变换及其应用》，<a class="reference external" href="https://see.stanford.edu/Course/EE261">https://see.stanford.edu/Course/EE261</a></p></li>
+<li><p>华盛顿大学《数字信号处理》课程，<a class="reference external" href="http://melodi.ee.washington.edu/courses/ee518/notes/">http://melodi.ee.washington.edu/courses/ee518/notes/</a></p></li>
+</ul>
+</dd>
+</dl>
 <div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">章节目录</span></p>
+<p class="caption"><span class="caption-text">讲义（建设中）</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="ch1.html">1. 引言</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ch2.html">2. 时域中的离散时间信号和系统</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ch3.html">3. 离散时间傅里叶变换</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="ch3.html#ctftdtft">3.1. 从CTFT到DTFT</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ch3.html#id7">3.2. 逆 DTFT 变换及收敛性</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ch3.html#id19">3.3. DTFT 变换的性质和定理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ch3.html#id24">3.4. 典型序列的 DTFT 变换</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ch3.html#id25">3.5. 采样与重建</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="ch4.html">4. 离散傅里叶变换</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="ch4.html#dtft-dft">4.1. 从 DTFT 到 DFT</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ch4.html#id9">4.2. DFT 变换的性质和定理</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ch4.html#id12">4.3. DFT 变换的应用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ch4.html#fft-dft">4.4. FFT——快速 DFT 变换</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="ch3.html">3. 离散时间傅里叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch4.html">4. 离散傅里叶变换</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ch5.html">5. Z变换</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ch6.html">6. 变换域中的离散时间系统</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ch7.html">7. 滤波器设计</a></li>
@@ -227,61 +343,46 @@
 </ul>
 </div>
 <div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">实验内容</span></p>
+<p class="caption"><span class="caption-text">课后习题</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c1.html">1. 引言</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="experiments/basics_python.html">Python 基础</a></li>
-<li class="toctree-l2"><a class="reference internal" href="experiments/basics_matplotlib.html">Matplotlib基础</a></li>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch1.html">1. 作业要求</a></li>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch2.html">2. 时域中的离散时间信号和系统</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="homework/ch2.html#id2">理论部分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="homework/ch2.html#id3">实验部分</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c2.html">2. 离散时间信号与系统</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="experiments/dt_signals.html">时域中的离散时间信号</a></li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c3.html">3. 离散时间傅里叶变换</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="experiments/dtft_idtft.html">DTFT变换</a></li>
-<li class="toctree-l2"><a class="reference internal" href="experiments/auto_focus.html">基于傅里叶变换的自动对焦算法</a></li>
-<li class="toctree-l2"><a class="reference internal" href="experiments/sampling_nonbandLim.html">非带限信号的采样与重建</a></li>
-<li class="toctree-l2"><a class="reference internal" href="experiments/vuvuzela/vuvuzela_denoising.html">如何消除Vuvuzela?</a></li>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">实验内容 (Python)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c2.html">2. 离散时间信号与系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c3.html">3. 离散时间傅里叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c4.html">4. 离散傅里叶变换</a></li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c4.html">4. 离散傅里叶变换</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="appendix/aliasing_in_time.html">序列时域混叠</a></li>
-<li class="toctree-l2"><a class="reference internal" href="experiments/dft2dtft.html">从DFT到DTFT</a></li>
-</ul>
-</li>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">实验内容（Matlab）</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/ch1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/ch2.html">2. 离散时间信号</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/convolution_correlation.html">3. 卷积和相关</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/auto_focus.html">4. 基于傅里叶变换的自动对焦算法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/sampling_nonbandLim.html">5. 非带限信号的采样与重建</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/vuvuzela/vuvuzela_denoising.html">6. 如何消除Vuvuzela?</a></li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">附录</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="appendix/index_principles.html">定理证明</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="appendix/accumulation.html">累加定理证明</a></li>
-<li class="toctree-l2"><a class="reference internal" href="appendix/sinc_nonabs.html">Sinc 序列</a></li>
-<li class="toctree-l2"><a class="reference internal" href="appendix/dtft_classical_seq.html">经典序列的 DTFT 变换</a></li>
-<li class="toctree-l2"><a class="reference internal" href="appendix/aliasing_sinusoid.html">正弦信号采样的混叠现象</a></li>
-<li class="toctree-l2"><a class="reference internal" href="appendix/aliasing_in_time.html">序列时域混叠</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="appendix/index_history.html">小小历史</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="appendix/gibbs.html">Gibbs效应</a></li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">有用资源</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="extern/index.html">DSP 课程相关</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="extern/resources.html">国外经典DSP课程</a></li>
-<li class="toctree-l2"><a class="reference internal" href="extern/matlab_tools.html">Matlab 工具</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="appendix/index_principles.html">定理证明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix/index_history.html">小小历史</a></li>
 </ul>
 </div>
 </div>
-<div class="section" id="id2">
-<h1>索引和搜索页面<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id7">
+<h1>索引和搜索页面<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h1>
 <ul class="simple">
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">索引</span></a></p></li>
 <li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">模块索引</span></a></p></li>

@@ -597,7 +597,9 @@ G_p(j\Omega) = \frac{1}{T} G_a(j\Omega) , \quad |\Omega| \leq \frac{\Omega_{samp
 
 ### 模拟信号重建
 
-重建过程是将离散时间信号转换成模拟信号。要保证无失真重建出原始模拟信号，采样频率需要满足 Nyquist 频率，保证其采样过程不发生频谱混叠现象。根据上一节的分析，若不存在混叠，我们就可以从样本中重建原始模拟信号，
+重建过程是将离散时间信号转换成模拟信号。要保证无失真重建出原始模拟信号，采样频率需要满足 Nyquist 频率，保证其采样过程不发生频谱混叠现象。根据上一节的分析，若不存在混叠，我们就可以从样本中重建原始模拟信号。
+
+![](asset/filter_reconstruction_sampling.png)
 
 \begin{equation}
 \hat G_a(j\Omega) =  

@@ -1,0 +1,46 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "引言\n",
+    "====================================\n",
+    "MATLAB（矩阵实验室）是由美国MathWorks公司开发的第四代高层次的编程语言和交互式环境数值计算，可视化和编程；\n",
+    "\n",
+    "MATLAB允许矩阵操作、绘制函数和数据、算法实现、创建用户界面；\n",
+    "\n",
+    "MATLAB能和在其他语言，包括C、C++、Java和Fortran语言编写的程序接口；\n",
+    "\n",
+    "MATLAB可以分析数据、开发算法、建立模型和应用程序；\n",
+    "\n",
+    "MATLAB拥有众多的内置命令和数学函数，可以帮助您在数学计算，绘图和执行数值计算方法。\n",
+    "\n",
+    "相关教程，可移步[《Matlab基础及应用》](https://yuleiwhu.github.io/matlab_course/)\n"
+   ]
+  }
+ ],
+ "metadata": {
+  "celltoolbar": "Raw Cell Format",
+  "kernelspec": {
+   "display_name": "Matlab",
+   "language": "matlab",
+   "name": "matlab"
+  },
+  "language_info": {
+   "codemirror_mode": "octave",
+   "file_extension": ".m",
+   "help_links": [
+    {
+     "text": "MetaKernel Magics",
+     "url": "https://metakernel.readthedocs.io/en/latest/source/README.html"
+    }
+   ],
+   "mimetype": "text/x-octave",
+   "name": "matlab",
+   "version": "0.16.7"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}

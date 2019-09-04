@@ -1,0 +1,13 @@
+# 作业要求
+
+本课程所有章节的作业均包括两个部分：1. 理论；2. 实验操作。
+
+理论部分，建议同学们利用Typora工具完成后，生成PDF或者直接上传markdown文件；实验操作部分，也可以在Typora中插入代码，并且将实验结果贴在文件中。**不建议使用Word排版**。
+
+* Typora网址：[https://typora.io](https://typora.io)
+
+* 相关介绍：[https://zhuanlan.zhihu.com/p/44998516](https://zhuanlan.zhihu.com/p/44998516)
+
+```eval_rst
+.. note:: 一定注意不准抄袭，一经发现，本次作业自动评为0分。
+```

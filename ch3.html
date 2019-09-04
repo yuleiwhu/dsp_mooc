@@ -25,6 +25,7 @@
         <script type="text/javascript" src="_static/underscore.js"></script>
         <script type="text/javascript" src="_static/doctools.js"></script>
         <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/proof.js"></script>
         <script type="text/javascript" src="_static/translations.js"></script>
         <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
         <script type="text/x-mathjax-config">MathJax.Hub.Config({"extensions": ["tex2jax.js"], "jax": ["input/TeX", "output/HTML-CSS"], "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEscapes": true}, "HTML-CSS": {"fonts": ["TeX"]}, "TeX": {"equationNumbers": {"autoNumber": "AMS"}}})</script>
@@ -36,6 +37,7 @@
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/proof.css" type="text/css" />
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜索" href="search.html" />
     <link rel="next" title="4. 离散傅里叶变换" href="ch4.html" />
@@ -83,7 +85,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">章节目录</span></p>
+              <p class="caption"><span class="caption-text">讲义（建设中）</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="ch1.html">1. 引言</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ch2.html">2. 时域中的离散时间信号和系统</a></li>
@@ -140,21 +142,31 @@
 <li class="toctree-l1"><a class="reference internal" href="ch7.html">7. 滤波器设计</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ch8.html">8. 滤波器实现</a></li>
 </ul>
-<p class="caption"><span class="caption-text">实验内容</span></p>
+<p class="caption"><span class="caption-text">课后习题</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch1.html">1. 作业要求</a></li>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch2.html">2. 时域中的离散时间信号和系统</a></li>
+</ul>
+<p class="caption"><span class="caption-text">实验内容 (Python)</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="experiments/ex_c1.html">1. 引言</a></li>
 <li class="toctree-l1"><a class="reference internal" href="experiments/ex_c2.html">2. 离散时间信号与系统</a></li>
 <li class="toctree-l1"><a class="reference internal" href="experiments/ex_c3.html">3. 离散时间傅里叶变换</a></li>
 <li class="toctree-l1"><a class="reference internal" href="experiments/ex_c4.html">4. 离散傅里叶变换</a></li>
 </ul>
+<p class="caption"><span class="caption-text">实验内容（Matlab）</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/ch1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/ch2.html">2. 离散时间信号</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/convolution_correlation.html">3. 卷积和相关</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/auto_focus.html">4. 基于傅里叶变换的自动对焦算法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/sampling_nonbandLim.html">5. 非带限信号的采样与重建</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/vuvuzela/vuvuzela_denoising.html">6. 如何消除Vuvuzela?</a></li>
+</ul>
 <p class="caption"><span class="caption-text">附录</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="appendix/index_principles.html">定理证明</a></li>
 <li class="toctree-l1"><a class="reference internal" href="appendix/index_history.html">小小历史</a></li>
-</ul>
-<p class="caption"><span class="caption-text">有用资源</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="extern/index.html">DSP 课程相关</a></li>
 </ul>
 
             
@@ -359,7 +371,7 @@ X_{p}(j \Omega) &amp;=\int_{-\infty}^{\infty} x_{p}(t) e^{-j \Omega t} d t=\int_
 </div>
 </div>
 <div class="section" id="id6">
-<h3>3.1.4. <a class="reference internal" href="experiments/auto_focus.html"><span class="doc">例子：相机自动对焦算法</span></a><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<h3>3.1.4. <a class="reference external" href="experiments/auto_focus">例子：相机自动对焦算法</a><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
 <p>几乎所有的数码相机都具有自动对焦功能，它能帮助我们自动的调整焦距，从而使得画面更加清晰。基于傅里叶变换，我们也可以设计一个很简单的自动对焦算法。
 <img alt="_images/2019-07-16-14-18-21.png" src="_images/2019-07-16-14-18-21.png" /></p>
 <p>图像信号，我们可以将其看成是一个二维的离散时间信号。相对应，二维离散时间信号的频域表示也是一个二维图像，如下图所示。中心位置附近是对应低频部分（图中红色圈中区域），主要来自于原始图像的平滑区域；而远离中心位置为高频部分，主要来自于尖锐的边缘和复杂的纹理。</p>
@@ -831,7 +843,8 @@ import numpy as np
 </div>
 <div class="section" id="id28">
 <h3>3.5.3. 模拟信号重建<a class="headerlink" href="#id28" title="永久链接至标题">¶</a></h3>
-<p>重建过程是将离散时间信号转换成模拟信号。要保证无失真重建出原始模拟信号，采样频率需要满足 Nyquist 频率，保证其采样过程不发生频谱混叠现象。根据上一节的分析，若不存在混叠，我们就可以从样本中重建原始模拟信号，</p>
+<p>重建过程是将离散时间信号转换成模拟信号。要保证无失真重建出原始模拟信号，采样频率需要满足 Nyquist 频率，保证其采样过程不发生频谱混叠现象。根据上一节的分析，若不存在混叠，我们就可以从样本中重建原始模拟信号。</p>
+<p><img alt="_images/filter_reconstruction_sampling.png" src="_images/filter_reconstruction_sampling.png" /></p>
 <p>\begin{equation}
 \hat G_a(j\Omega) =\begin{cases}
 T G_p(j\Omega) , &amp; |\Omega| \leq \frac{\Omega_{samp}}{2} \\
@@ -881,7 +894,7 @@ T G_p(j\Omega) , &amp; |\Omega| \leq \frac{\Omega_{samp}}{2} \\
 <p><img alt="_images/2019-07-19-22-47-19.png" src="_images/2019-07-19-22-47-19.png" /></p>
 </div>
 <div class="section" id="id30">
-<h3>3.5.5. <a class="reference internal" href="experiments/sampling_nonbandLim.html"><span class="doc">例子</span></a><a class="headerlink" href="#id30" title="永久链接至标题">¶</a></h3>
+<h3>3.5.5. <a class="reference external" href="experiments/sampling_nonbandLim">例子</a><a class="headerlink" href="#id30" title="永久链接至标题">¶</a></h3>
 </div>
 </div>
 </div>

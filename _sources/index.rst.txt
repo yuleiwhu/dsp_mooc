@@ -6,14 +6,154 @@
 欢迎进入《数字信号处理》课程学习！
 ======================================
 
-本课程配套《数字信号处理》 MOOC 课程，如需要观看视频教程，请移步中国大学 MOOC 官网(https://www.icourse163.org/course/WHU-1205726806)。
+**本课程仍在建设中，如有遗漏错误之处，请留言** https://github.com/yuleiwhu/dsp_mooc/issues 
 
-**NOTE：本课程持续更新中，如有遗漏错误之处，请在这里留言 (https://github.com/yuleiwhu/dsp_mooc/issues)。**
+:课程名称: 《数字信号处理》
+:授课老师: 余磊 副教授，(ly.wd@whu.edu.cn)
+:课程时间: 1-14周，周二上午1-2节，周四上午3-4节
+:课程地点: 三区1-502
+:教材: Mitra, S.K., 著；余翔宇 译；《数字信号处理——基于计算机的方法》，电子工业出版社，2014年，第四版
+:课程安排及课件:
+
+
+
+
+1. **数字信号处理简介** 1_ 
+
+.. _1: pdfs/Intro_new.pdf 
+
+2. **离散时间系统与离散时间信号**   
+
+    `离散时间信号（序列）的概念，在时域的数学表示方法、分类以及基本运算方法；离散时间系统的概念以及性质；LTI离散时间系统的概念及性质，冲激响应序列，以及利用冲激响应序列判断系统因果性、稳定性的条件；熟练掌握卷积和相关的概念、表达式、以及计算方法；理解卷积和相关的物理含义。`
+
+    2.1 时域中的离散时间信号 2.1_, 2.1.1_
+
+    2.2 时域中的离散时间系统 2.2_
+
+    2.3 卷积与相关 2.3_
+
+
+.. _2.1: pdfs/2.1\ Discrete-time\ Signal.pdf
+.. _2.1.1: pdfs/2.2\ SC_BOps.pdf
+.. _2.2: 
+.. _2.3:
+
+3. **离散时间傅立叶变换**
+
+    `离散时间傅立叶变换（DTFT）是分析离散时间信号和系统的基本方法；掌握并理解DTFT变换及其逆变换的定义及物理意义、性质及定理、典型序列的DTFT变换；利用DTFT变换，掌握采样定理的原理。`
+
+    3.1 DTFT与IDTFT定义
+
+    3.2 DTFT的性质与定理
+
+    3.3 典型序列的DTFT
+
+    3.4 采样定理
+
+4. **离散傅立叶变换**
+
+    `离散傅立叶变换（DFT）可以看作是离散时间傅立叶变换的数值计算；掌握并理解DFT变换及其逆变换的定义，理解DFT变换和DTFT变换的关系，掌握DFT变换的定理，并熟练运用DFT解决实际应用中的问题，理解DFT变换快速算法也就是FFT的基本原理。`
+
+    4.1 DFT变换的定义
+
+    4.2 DFT与DTFT的关系
+
+    4.3 DFT定理
+
+    4.4 DFT应用
+
+    4.5 FFT
+
+5. **Z变换**
+    
+    `Z变换的基本概念，了解Z变换与DTFT变换的关系，掌握几种典型序列的Z变换方法，理解收敛域的概念，Z变换定理。`
+
+    5.1 Z变换定义
+
+    5.2 有理Z变换
+
+    5.3 收敛域
+
+    5.4 Z变换定理
+
+    5.5 逆Z变换
+
+6. **频域中的离散时间系统**
+
+    `掌握利用DTFT和Z变换分析离散时间系统的方法，掌握并理解离散时间系统幅度响应和相位响应的概念，了解全通系统、零相位系统、线性相位系统的原理和判定方法。`
+
+    6.1 频域中的离散时间系统
+
+    6.2 Z域中的离散时间系统
+
+    6.3 离散时间系统的幅度响应
+
+    6.4 全通系统
+
+    6.5 零相位系统
+
+    6.6 线性相位系统
+
+7. **数字滤波器设计**
+
+    `理解窗函数的原理，掌握有限冲激响应数字滤波器的设计方法，了解模拟滤波器的设计方法，掌握无限冲激响应数字滤波器的设计方法。`
+
+    7.1 窗函数
+
+    7.2 有限冲激响应数字滤波器
+
+    7.3 模拟滤波器
+
+    7.4 无限冲激响应数字滤波器
+
+8. **数字滤波器实现**
+    
+    `了解数字滤波器实现面临的实际问题，掌握数字滤波器方框图表示方法，掌握有限冲激响应数字滤波器、无限冲激响应数字滤波器结构，了解全通滤波器结构，理解有限字长效应。`
+
+    8.1 数字滤波器实现
+
+    8.2 数字滤波器方框图表示
+
+    8.3 有限冲激响应数字滤波器结构
+
+    8.4 无限冲激响应数字滤波器结构
+
+    8.5 全通滤波器结构
+
+    8.6 有限字长效应
+
+:参考文献:
+
+    1. Mitra, S. K., & Kuo, Y. (2006). Digital signal processing: a computer-based approach (Vol. 4). New York: McGraw-Hill. （本课程教材英文原版）
+
+    2. Vetterli, M., Kovačević, J., & Goyal, V. K. (2014). Foundations of signal processing. Cambridge University Press. （强烈推荐：几何视角的DSP）
+
+    3. Oppenheim, A. V., & Schafer, R. W. (2014). Discrete-time signal processing. Pearson Education. （数字信号处理经典教科书）
+
+    4. Mallat, S. (1999). A wavelet tour of signal processing. Elsevier. （进阶教材）
+
+    5. Richard G. Lyons, et. al, 著；余磊 译；《数字信号处理精要》，机械工业出版社，2016年3月，第一版。（科普教材）
+
+:网上资源:
+    **国内中文站点：**
+
+    * 武汉大学MOOC平台   https://www.icourse163.org/course/WHU-1205726806
+
+     
+    **国外站点：** 
+
+    * Gabriel Peyre, https://www.numerical-tours.com/matlab/
+
+    * SciPy, https://docs.scipy.org/doc/scipy-0.18.1/reference/signal.html
+
+    * 斯坦福课程《傅立叶变换及其应用》，https://see.stanford.edu/Course/EE261
+    
+    * 华盛顿大学《数字信号处理》课程，http://melodi.ee.washington.edu/courses/ee518/notes/
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :numbered: 3
-   :caption: 章节目录
+   :caption: 讲义（建设中）
 
    ch1
    ch2
@@ -25,32 +165,46 @@
    ch8
 
 
-
+.. toctree::
+   :caption: 课后习题
+   :numbered: 1
+   
+   homework/ch1
+   homework/ch2
 
 
 .. toctree::
-   :caption: 实验内容
-   :numbered: 1
-   :maxdepth: 2
+   :caption: 实验内容 (Python)
+   :numbered: 2
+   :maxdepth: 1
 
    experiments/ex_c1
    experiments/ex_c2
    experiments/ex_c3
    experiments/ex_c4
 
+.. toctree::
+   :caption: 实验内容（Matlab）
+   :numbered: 3
+   :maxdepth: 1
+
+   matlab_ex/ch1
+   matlab_ex/ch2
+   matlab_ex/convolution_correlation
+   matlab_ex/auto_focus
+   matlab_ex/sampling_nonbandLim
+   matlab_ex/vuvuzela/vuvuzela_denoising
+   
+   
 
 .. toctree::
    :caption: 附录
-   :maxdepth: 2
+   :maxdepth: 1
 
    appendix/index_principles
    appendix/index_history
 
-.. toctree::
-    :caption: 有用资源
-    :maxdepth: 2
 
-    extern/index
 
 索引和搜索页面
 ==================
