@@ -1,0 +1,42 @@
+# 频域中的离散时间信号
+
+课本第三章“频域中的离散时间信号”课后习题：
+
+## 理论部分
+
+3.16，3.21，3.29，3.53，3.61，3.66
+
+## 实践部分
+
+M3.1, M3.3, M3.4, M3.5
+
+```matlab
+% Program 3_1
+% Discrete-Time Fourier Transform Computation
+%
+% Read in the desired number of frequency samples
+k = input('Number of frequency points = ');
+% Read in the numerator and denominator coefficients
+num = input('Numerator coefficients = ');
+den = input('Denominator coefficients = ');
+% Compute the frequency response
+w = 0:pi/(k-1):pi;
+h = freqz(num, den, w);
+% Plot the frequency response
+subplot(2,2,1)
+plot(w/pi,real(h));grid
+title('Real part')
+xlabel('\omega/\pi'); ylabel('Amplitude')
+subplot(2,2,2)
+plot(w/pi,imag(h));grid
+title('Imaginary part')
+xlabel('\omega/\pi'); ylabel('Amplitude')
+subplot(2,2,3)
+plot(w/pi,abs(h));grid
+title('Magnitude Spectrum')
+xlabel('\omega/\pi'); ylabel('Magnitude')
+subplot(2,2,4)
+plot(w/pi,angle(h));grid
+title('Phase Spectrum')
+xlabel('\omega/\pi'); ylabel('Phase, radians')
+```

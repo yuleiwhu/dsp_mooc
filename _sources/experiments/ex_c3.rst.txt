@@ -7,8 +7,6 @@
    :maxdepth: 1
 
    dtft_idtft
-   auto_focus
-   sampling_nonbandLim
    vuvuzela/vuvuzela_denoising
    aliasing_in_time
    

@@ -171,6 +171,7 @@
    
    homework/ch1
    homework/ch2
+   homework/ch3
 
 
 .. toctree::

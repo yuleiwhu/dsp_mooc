@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>2. 时域中的离散时间信号和系统 &mdash; DSP_Course  文档</title>
+  <title>3. 频域中的离散时间信号 &mdash; DSP_Course  文档</title>
   
 
   
@@ -40,8 +40,8 @@
   <link rel="stylesheet" href="../_static/proof.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
-    <link rel="next" title="3. 频域中的离散时间信号" href="ch3.html" />
-    <link rel="prev" title="1. 作业要求" href="ch1.html" /> 
+    <link rel="next" title="1. 引言" href="../experiments/ex_c1.html" />
+    <link rel="prev" title="2. 时域中的离散时间信号和系统" href="ch2.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -99,12 +99,12 @@
 <p class="caption"><span class="caption-text">课后习题</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="ch1.html">1. 作业要求</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">2. 时域中的离散时间信号和系统</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="ch2.html">2. 时域中的离散时间信号和系统</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3. 频域中的离散时间信号</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#id2">理论部分</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">实验部分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">实践部分</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ch3.html">3. 频域中的离散时间信号</a></li>
 </ul>
 <p class="caption"><span class="caption-text">实验内容 (Python)</span></p>
 <ul>
@@ -171,13 +171,13 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>2. 时域中的离散时间信号和系统</li>
+      <li>3. 频域中的离散时间信号</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/homework/ch2.md.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/homework/ch3.md.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -215,32 +215,45 @@
 }
 </style>
 <div class="section" id="id1">
-<h1>2. 时域中的离散时间信号和系统<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<h1>3. 频域中的离散时间信号<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>课本第三章“频域中的离散时间信号”课后习题：</p>
 <div class="section" id="id2">
 <h2>理论部分<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
-<p><strong>1</strong> 已知序列</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}x[n]=\{2,0,-1,6,-3,2,0\}, \quad -3\leq n\leq 3 \\
-y[n] = \{8,2,-7,-3,0,1,1\} \quad -5\leq n\leq 1 \\
-w[n] = \{3,6,-1,2,6,6,1\} \quad -2 \leq n \leq 4\end{split}\]</div>
-<p>上述序列在给定区间以外的样本值都为0。生成下列序列：</p>
-<p>(a). $c[n]=x[n+3]$;</p>
-<p>(b). $d[n]=y[n-2]$;</p>
-<p>(c). $e[n]=x[-n]$</p>
-<p>(d). $u[n]=x[n-3]+y[n+3]$</p>
-<p>(e). $v[n]=y[n-3]\cdot w[n+2]$</p>
-<p>(f). $s[n]=y[n+4]-w[n-3]$</p>
-<p>(g). $r[n]=3.9w[n]$</p>
-<p>(h). $u[n]=x[n]\circledast y[n]$</p>
-<p>(i). 各序列的自相关序列</p>
-<p>(j). $x[n]$和$y[n]$的互相关序列$r_{xy}[l]$</p>
-<p>(k). $x[n]$和$w[n]$的互相关序列$r_{xw}[l]$</p>
-<p><strong>2</strong> 证明一个长度为$M$的序列与一个长度为$N$的序列进行卷积，可得到一个长度为$M+N-1$的序列。</p>
-<p><strong>3</strong> 连续时间信号$x_a(t)=\cos \Omega_0 t$在$t=nT$时刻抽样，生成离散时间序列$x[n]=x_a(nT)=\cos(\Omega_0 nT)$。当$T$取何值时$x[n]$是一个周期序列？若$\Omega_0=30$且$T=\pi/6$，$x[n]$的基本周期是多少？</p>
+<p>3.16，3.21，3.29，3.53，3.61，3.66</p>
 </div>
 <div class="section" id="id3">
-<h2>实验部分<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
-<p><strong>4</strong> 对下面的$\alpha$值：(a) $\alpha=0.6$, (b) $\alpha=0.8$. 求取并用Matlab或者Python画出因果指数衰减序列$x[n]=\alpha^n \mu [n]$的自相关序列。</p>
+<h2>实践部分<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>M3.1, M3.3, M3.4, M3.5</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="c">% Program 3_1</span>
+<span class="c">% Discrete-Time Fourier Transform Computation</span>
+<span class="c">%</span>
+<span class="c">% Read in the desired number of frequency samples</span>
+<span class="n">k</span> <span class="p">=</span> <span class="n">input</span><span class="p">(</span><span class="s">&#39;Number of frequency points = &#39;</span><span class="p">);</span>
+<span class="c">% Read in the numerator and denominator coefficients</span>
+<span class="n">num</span> <span class="p">=</span> <span class="n">input</span><span class="p">(</span><span class="s">&#39;Numerator coefficients = &#39;</span><span class="p">);</span>
+<span class="n">den</span> <span class="p">=</span> <span class="n">input</span><span class="p">(</span><span class="s">&#39;Denominator coefficients = &#39;</span><span class="p">);</span>
+<span class="c">% Compute the frequency response</span>
+<span class="n">w</span> <span class="p">=</span> <span class="mi">0</span><span class="p">:</span><span class="nb">pi</span><span class="o">/</span><span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span><span class="nb">pi</span><span class="p">;</span>
+<span class="n">h</span> <span class="p">=</span> <span class="n">freqz</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">den</span><span class="p">,</span> <span class="n">w</span><span class="p">);</span>
+<span class="c">% Plot the frequency response</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">w</span><span class="o">/</span><span class="nb">pi</span><span class="p">,</span><span class="nb">real</span><span class="p">(</span><span class="n">h</span><span class="p">));</span><span class="n">grid</span>
+<span class="n">title</span><span class="p">(</span><span class="s">&#39;Real part&#39;</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;\omega/\pi&#39;</span><span class="p">);</span> <span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;Amplitude&#39;</span><span class="p">)</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">w</span><span class="o">/</span><span class="nb">pi</span><span class="p">,</span><span class="nb">imag</span><span class="p">(</span><span class="n">h</span><span class="p">));</span><span class="n">grid</span>
+<span class="n">title</span><span class="p">(</span><span class="s">&#39;Imaginary part&#39;</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;\omega/\pi&#39;</span><span class="p">);</span> <span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;Amplitude&#39;</span><span class="p">)</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">w</span><span class="o">/</span><span class="nb">pi</span><span class="p">,</span><span class="nb">abs</span><span class="p">(</span><span class="n">h</span><span class="p">));</span><span class="n">grid</span>
+<span class="n">title</span><span class="p">(</span><span class="s">&#39;Magnitude Spectrum&#39;</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;\omega/\pi&#39;</span><span class="p">);</span> <span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;Magnitude&#39;</span><span class="p">)</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">w</span><span class="o">/</span><span class="nb">pi</span><span class="p">,</span><span class="nb">angle</span><span class="p">(</span><span class="n">h</span><span class="p">));</span><span class="n">grid</span>
+<span class="n">title</span><span class="p">(</span><span class="s">&#39;Phase Spectrum&#39;</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s">&#39;\omega/\pi&#39;</span><span class="p">);</span> <span class="n">ylabel</span><span class="p">(</span><span class="s">&#39;Phase, radians&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -252,10 +265,10 @@ w[n] = \{3,6,-1,2,6,6,1\} \quad -2 \leq n \leq 4\end{split}\]</div>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="ch3.html" class="btn btn-neutral float-right" title="3. 频域中的离散时间信号" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../experiments/ex_c1.html" class="btn btn-neutral float-right" title="1. 引言" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="ch1.html" class="btn btn-neutral float-left" title="1. 作业要求" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="ch2.html" class="btn btn-neutral float-left" title="2. 时域中的离散时间信号和系统" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
