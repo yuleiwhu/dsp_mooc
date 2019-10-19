@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>3. 离散时间傅里叶变换 &mdash; DSP_Course  文档</title>
+  <title>4. 离散傅立叶变换 &mdash; DSP_Course  文档</title>
   
 
   
@@ -40,8 +40,8 @@
   <link rel="stylesheet" href="../_static/proof.css" type="text/css" />
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
-    <link rel="next" title="3.1. DTFT变换" href="dtft_idtft.html" />
-    <link rel="prev" title="2.2. 时域中的离散时间系统" href="dt_systems.html" /> 
+    <link rel="next" title="1. 引言" href="../experiments/ex_c1.html" />
+    <link rel="prev" title="3. 离散时间傅立叶变换" href="ch3.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -97,22 +97,22 @@
 <li class="toctree-l1"><a class="reference internal" href="../ch8.html">8. 滤波器实现</a></li>
 </ul>
 <p class="caption"><span class="caption-text">课后习题</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../homework/ch1.html">1. 作业要求</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../homework/ch2.html">2. 时域中的离散时间信号和系统</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../homework/ch3.html">3. 离散时间傅立叶变换</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../homework/ch4.html">4. 离散傅立叶变换</a></li>
-</ul>
-<p class="caption"><span class="caption-text">实验内容 (Python)</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="ex_c1.html">1. 引言</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ex_c2.html">2. 离散时间信号与系统</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">3. 离散时间傅里叶变换</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="dtft_idtft.html">3.1. DTFT变换</a></li>
-<li class="toctree-l2"><a class="reference internal" href="vuvuzela/vuvuzela_denoising.html">3.2. 如何消除Vuvuzela?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch1.html">1. 作业要求</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch2.html">2. 时域中的离散时间信号和系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch3.html">3. 离散时间傅立叶变换</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">4. 离散傅立叶变换</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">理论部分</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">实践部分</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ex_c4.html">4. 离散傅里叶变换</a></li>
+</ul>
+<p class="caption"><span class="caption-text">实验内容 (Python)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../experiments/ex_c1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../experiments/ex_c2.html">2. 离散时间信号与系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../experiments/ex_c3.html">3. 离散时间傅里叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../experiments/ex_c4.html">4. 离散傅里叶变换</a></li>
 </ul>
 <p class="caption"><span class="caption-text">实验内容（Matlab）</span></p>
 <ul>
@@ -172,13 +172,13 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>3. 离散时间傅里叶变换</li>
+      <li>4. 离散傅立叶变换</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/experiments/ex_c3.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/homework/ch4.md.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -216,12 +216,25 @@
 }
 </style>
 <div class="section" id="id1">
-<h1>3. 离散时间傅里叶变换<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
-<p>展示实验内容页面。</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="dtft_idtft.html">3.1. DTFT变换</a></li>
-<li class="toctree-l1"><a class="reference internal" href="vuvuzela/vuvuzela_denoising.html">3.2. 如何消除Vuvuzela?</a></li>
+<h1>4. 离散傅立叶变换<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>教材课本[1]中第三章“频域中的离散时间信号”课后习题：</p>
+<p>[1] Mitra, S.K., 著；余翔宇 译；《数字信号处理——基于计算机的方法》，电子工业出版社，2014年，第四版</p>
+<p><strong>DEADLINE：</strong> 2019年11月2日</p>
+<div class="section" id="id2">
+<h2>理论部分<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>5.2, 5.12, 5.18, 5.20, 5.43, 5.60, 5.61, 5.76, 11.21</p>
+</div>
+<div class="section" id="id3">
+<h2>实践部分<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>M5.2, M5.7</p>
+<ul class="simple">
+<li><p>用DFT和STFT变换分别对如下给出的语音信号进行频域分析（<a class="reference external" href="originalspeech.wav">下载链接</a>）。要求：</p>
+<ol class="simple">
+<li><p>画出时域波形；</p></li>
+<li><p>画出DFT和STFT的结果，并适当分析信号的特征；</p></li>
+<li><p>阐述DFT和STFT变换之间的关系和优缺点。</p></li>
+</ol>
+</li>
 </ul>
 </div>
 </div>
@@ -234,10 +247,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="dtft_idtft.html" class="btn btn-neutral float-right" title="3.1. DTFT变换" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../experiments/ex_c1.html" class="btn btn-neutral float-right" title="1. 引言" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="dt_systems.html" class="btn btn-neutral float-left" title="2.2. 时域中的离散时间系统" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="ch3.html" class="btn btn-neutral float-left" title="3. 离散时间傅立叶变换" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
