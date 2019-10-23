@@ -450,16 +450,15 @@ div.rendered_html tbody tr:hover {
 <blockquote>
 <div><p>利用Scipy包来对系统进行仿真</p>
 </div></blockquote>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>scipy.signal.lfilter(b, a, x, axis=-1, zi=None)
-
-其中，\ :math:`b` 和 :math:`a`\ 分别为系统差分方程的系数
-
-.. math::
-
-   a[0]y[n] = b[0]x[n] + b[1]x[n-1] + ... + b[M]x[n-M]
-   - a[1]y[n-1] - ... - a[N]y[n-N]
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scipy</span><span class="o">.</span><span class="n">signal</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">zi</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
 </pre></div>
 </div>
+<blockquote>
+<div><p>其中，<span class="math notranslate nohighlight">\(b\)</span> 和 <span class="math notranslate nohighlight">\(a\)</span>分别为系统差分方程的系数</p>
+<div class="math notranslate nohighlight">
+\[a[0]y[n] = b[0]x[n] + b[1]x[n-1] + ... + b[M]x[n-M]
+- a[1]y[n-1] - ... - a[N]y[n-N]\]</div>
+</div></blockquote>
 <div class="section" id="例：滑动平均系统">
 <h3>例：滑动平均系统<a class="headerlink" href="#例：滑动平均系统" title="永久链接至标题">¶</a></h3>
 <div class="math notranslate nohighlight">
