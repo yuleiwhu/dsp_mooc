@@ -1,0 +1,943 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2.2. 时域中的离散时间系统 &mdash; DSP_Course  文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/proof.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"extensions": ["tex2jax.js"], "jax": ["input/TeX", "output/HTML-CSS"], "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEscapes": true}, "HTML-CSS": {"fonts": ["TeX"]}, "TeX": {"equationNumbers": {"autoNumber": "AMS"}}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/proof.css" type="text/css" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="3. 离散时间傅里叶变换" href="ex_c3.html" />
+    <link rel="prev" title="2.1. 时域中的离散时间信号" href="dt_signals.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> DSP_Course
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">讲义（建设中）</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ch1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ch2.html">2. 时域中的离散时间信号和系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ch3.html">3. 离散时间傅里叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ch4.html">4. 离散傅里叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ch5.html">5. Z变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ch6.html">6. 变换域中的离散时间系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ch7.html">7. 滤波器设计</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ch8.html">8. 滤波器实现</a></li>
+</ul>
+<p class="caption"><span class="caption-text">课后习题</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../homework/ch1.html">1. 作业要求</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../homework/ch2.html">2. 时域中的离散时间信号和系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../homework/ch3.html">3. 离散时间傅立叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../homework/ch4.html">4. 离散傅立叶变换</a></li>
+</ul>
+<p class="caption"><span class="caption-text">实验内容 (Python)</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ex_c1.html">1. 引言</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="ex_c2.html">2. 离散时间信号与系统</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="dt_signals.html">2.1. 时域中的离散时间信号</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2.2. 时域中的离散时间系统</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#离散时间系统">离散时间系统</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#例：滑动平均系统">例：滑动平均系统</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#线性系统和非线性系统">线性系统和非线性系统</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#时不变系统和时变系统">时不变系统和时变系统</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#例子">例子</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#线性时不变系统、冲激响应和阶跃响应、卷积">线性时不变系统、冲激响应和阶跃响应、卷积</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#BIBO稳定">BIBO稳定</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#因果系统">因果系统</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#滤波概念的解释">滤波概念的解释</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#系统1">系统1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#系统2">系统2</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ex_c3.html">3. 离散时间傅里叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex_c4.html">4. 离散傅里叶变换</a></li>
+</ul>
+<p class="caption"><span class="caption-text">实验内容（Matlab）</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../matlab_ex/ch1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../matlab_ex/ch2.html">2. 离散时间信号</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../matlab_ex/convolution_correlation.html">3. 卷积和相关</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../matlab_ex/auto_focus.html">4. 基于傅里叶变换的自动对焦算法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../matlab_ex/sampling_nonbandLim.html">5. 非带限信号的采样与重建</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../matlab_ex/vuvuzela/vuvuzela_denoising.html">6. 如何消除Vuvuzela?</a></li>
+</ul>
+<p class="caption"><span class="caption-text">附录</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../appendix/index_principles.html">定理证明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix/index_history.html">小小历史</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">DSP_Course</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="ex_c2.html">2. 离散时间信号与系统</a> &raquo;</li>
+        
+      <li>2.2. 时域中的离散时间系统</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/experiments/dt_systems.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 5ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="时域中的离散时间系统">
+<h1>2.2. 时域中的离散时间系统<a class="headerlink" href="#时域中的离散时间系统" title="永久链接至标题">¶</a></h1>
+<p>在时域中，离散时间系统对输入信号或者延迟信号进行简单运算处理，生成具有所需特性的输出信号。本节的目的就是通过Python仿真一些简单的离散时间系统，并研究它们的时域性质。</p>
+<div class="section" id="离散时间系统">
+<h2>离散时间系统<a class="headerlink" href="#离散时间系统" title="永久链接至标题">¶</a></h2>
+<p>本课程中，我们主要研究的线性时不变离散时间系统，形式如下的线性常系数差分方程来描述。</p>
+<div class="math notranslate nohighlight">
+\[\sum _ { k = 0 } ^ { N } d _ { k } y [ n - k ] = \sum _ { k = 0 } ^ { M } p _ { k } x [ n - k ]\]</div>
+<p>其中，<span class="math notranslate nohighlight">\(x[n]\)</span>和<span class="math notranslate nohighlight">\(y[n]\)</span>分别是系统的输入和输出，<span class="math notranslate nohighlight">\(d[k]\)</span><span class="math notranslate nohighlight">\(p[k]\)</span>为常数，离散时间系统的阶数为<span class="math notranslate nohighlight">\( \max(N,M)\)</span>，表示系统差分方程的阶数。</p>
+<p>若系统是因果的，还可以进一步将上述形式化简</p>
+<div class="math notranslate nohighlight">
+\[y [ n ] = - \sum _ { k = 1 } ^ { N } \frac { d _ { k } } { d _ { 0 } } y [ n - k ] + \sum _ { k = 0 } ^ { M } \frac { p _ { k } } { d _ { 0 } } x [ n - k ]\]</div>
+<p>已知<span class="math notranslate nohighlight">\(x[n]\)</span>和初始条件<span class="math notranslate nohighlight">\(y[n_0-1],y[n_0-2], \cdots,y[n_0-N]\)</span>，那么可以计算出<span class="math notranslate nohighlight">\(y[n]\)</span>。</p>
+<blockquote>
+<div><p>利用Scipy包来对系统进行仿真</p>
+</div></blockquote>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>scipy.signal.lfilter(b, a, x, axis=-1, zi=None)
+
+其中，\ :math:`b` 和 :math:`a`\ 分别为系统差分方程的系数
+
+.. math::
+
+   a[0]y[n] = b[0]x[n] + b[1]x[n-1] + ... + b[M]x[n-M]
+   - a[1]y[n-1] - ... - a[N]y[n-N]
+</pre></div>
+</div>
+<div class="section" id="例：滑动平均系统">
+<h3>例：滑动平均系统<a class="headerlink" href="#例：滑动平均系统" title="永久链接至标题">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[y [ n ] = \frac { 1 } { M } \sum _ { k = 0 } ^ { M - 1 } x [ n - k ]\]</div>
+<p>通过若干个正弦信号之和所组成的信号中滤除高频分量</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 加载所需要的包</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">signal</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1"># 产生两个不同频率正弦序列</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">101</span><span class="p">)</span>
+<span class="n">s1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mf">0.05</span><span class="o">*</span><span class="n">n</span><span class="p">)</span> <span class="c1"># 信号1</span>
+<span class="n">s2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mf">0.47</span><span class="o">*</span><span class="n">n</span><span class="p">)</span> <span class="c1"># 信号2</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">s1</span><span class="o">+</span><span class="n">s2</span>
+
+<span class="c1"># 平滑滤波处理</span>
+<span class="n">M</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="n">M</span><span class="p">,])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]),</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">M</span>
+
+<span class="c1"># 显示结果</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Input signal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time index n&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Output signal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time index n&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/experiments_dt_systems_1_0.png" src="../_images/experiments_dt_systems_1_0.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="线性系统和非线性系统">
+<h2>线性系统和非线性系统<a class="headerlink" href="#线性系统和非线性系统" title="永久链接至标题">¶</a></h2>
+<p>对于线性离散时间系统，若<span class="math notranslate nohighlight">\(y_1[n]\)</span>和<span class="math notranslate nohighlight">\(y_2[n]\)</span>分别是输入序列<span class="math notranslate nohighlight">\(x_1[n]\)</span>和<span class="math notranslate nohighlight">\(x_2[n]\)</span>的响应，则输入为</p>
+<div class="math notranslate nohighlight">
+\[x[n] = \alpha x_1[n] +\beta x_2[n]\]</div>
+<p>的输出响应为</p>
+<div class="math notranslate nohighlight">
+\[y[n] = \alpha y_1[n] +\beta y_2[n]\]</div>
+<p>上式的叠加性质对于任意常量<span class="math notranslate nohighlight">\( \alpha\)</span>和<span class="math notranslate nohighlight">\( \beta\)</span>以及任意输入<span class="math notranslate nohighlight">\(x_1[n]\)</span>和<span class="math notranslate nohighlight">\(x_2[n]\)</span>都成立。</p>
+<p>若存在一组非零的<span class="math notranslate nohighlight">\( \alpha\)</span>和<span class="math notranslate nohighlight">\( \beta\)</span>，或者一组非零的输入序列<span class="math notranslate nohighlight">\(x_1[n]\)</span>和<span class="math notranslate nohighlight">\(x_2[n]\)</span>，上述叠加性质不成立，则系统为非线性系统。</p>
+<p>现在我们来研究下面这个系统的线性性质，</p>
+<div class="math notranslate nohighlight">
+\[y [ n ] - 0.4 y [ n - 1 ] + 0.75 y [ n - 2 ] = 2.2403 x [ n ] + 2.4908 x [ n - 1 ] + 2.2403 x [ n - 2 ]\]</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 产生混合信号：高频正弦+低频正弦</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">41</span><span class="p">)</span>
+<span class="n">s1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mf">0.1</span><span class="o">*</span><span class="n">n</span><span class="p">)</span>
+<span class="n">s2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mf">0.4</span><span class="o">*</span><span class="n">n</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">a</span><span class="o">*</span><span class="n">s1</span><span class="o">+</span><span class="n">b</span><span class="o">*</span><span class="n">s2</span>
+
+<span class="c1"># 定义系统的系数</span>
+<span class="n">num</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">2.2403</span><span class="p">,</span><span class="mf">2.4908</span><span class="p">,</span><span class="mf">2.2403</span><span class="p">])</span>
+<span class="n">den</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.75</span><span class="p">])</span>
+
+<span class="c1"># 系统处理（滤波）</span>
+<span class="n">ic</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># set initial</span>
+<span class="n">zi</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lfilter_zi</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">den</span><span class="p">)</span>
+<span class="n">y1</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="n">den</span><span class="p">,</span><span class="n">s1</span><span class="p">,</span><span class="n">zi</span><span class="o">=</span><span class="n">zi</span><span class="o">*</span><span class="n">ic</span><span class="p">)</span> <span class="c1"># y1[n]</span>
+<span class="n">y2</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="n">den</span><span class="p">,</span><span class="n">s2</span><span class="p">,</span><span class="n">zi</span><span class="o">=</span><span class="n">zi</span><span class="o">*</span><span class="n">ic</span><span class="p">)</span> <span class="c1"># y2[n]</span>
+<span class="n">y</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="n">den</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">zi</span><span class="o">=</span><span class="n">zi</span><span class="o">*</span><span class="n">ic</span><span class="p">)</span>   <span class="c1"># y[n]</span>
+<span class="n">yt</span> <span class="o">=</span> <span class="n">a</span><span class="o">*</span><span class="n">y1</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="n">y2</span>
+
+<span class="c1"># 计算叠加输入的响应和输出直接叠加的差异</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">y</span><span class="o">-</span><span class="n">yt</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">131</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;y[n]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">132</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">yt</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;y_t[n]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">133</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">d</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Difference&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/experiments_dt_systems_3_0.png" src="../_images/experiments_dt_systems_3_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="时不变系统和时变系统">
+<h2>时不变系统和时变系统<a class="headerlink" href="#时不变系统和时变系统" title="永久链接至标题">¶</a></h2>
+<p>对于离散时不变系统，若<span class="math notranslate nohighlight">\(y_1[n]\)</span>是<span class="math notranslate nohighlight">\(x_1[n]\)</span>的响应，则输入</p>
+<div class="math notranslate nohighlight">
+\[x[n] = x_1[n-n_0]\]</div>
+<p>的输出为</p>
+<div class="math notranslate nohighlight">
+\[y[n] = y_1[n-n_0]\]</div>
+<p>其中<span class="math notranslate nohighlight">\(n_0\)</span>是任意整数。上面的输入输出关系，对任意输入序列及相应的输出成立。</p>
+<p>若对至少一个输入序列及其相应的输出序列不成立，则称系统为时变的。</p>
+<div class="section" id="例子">
+<h3>例子<a class="headerlink" href="#例子" title="永久链接至标题">¶</a></h3>
+<p>验证如下系统是否为时不变：</p>
+<div class="math notranslate nohighlight">
+\[y [ n ] - 0.4 y [ n - 1 ] + 0.75 y [ n - 2 ] = 2.2403 x [ n ] + 2.4908 x [ n - 1 ] + 2.2403 x [ n - 2 ]\]</div>
+<p>我们产生两个不同的输入序列<span class="math notranslate nohighlight">\(x[n]\)</span>和<span class="math notranslate nohighlight">\(x[n-D]\)</span>，计算出相应的输出序列<span class="math notranslate nohighlight">\(y_1[n]\)</span>和<span class="math notranslate nohighlight">\(y_2[n]\)</span>，以及二者的差<span class="math notranslate nohighlight">\(d[n]=y1[n]-y2[n+D]\)</span>，若<span class="math notranslate nohighlight">\(d[n]\)</span>为0，则系统是时不变的。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 产生混合信号：高频正弦+低频正弦</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">41</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span>
+<span class="n">D</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">a</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mf">0.1</span><span class="o">*</span><span class="n">n</span><span class="p">)</span><span class="o">+</span><span class="n">b</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mf">0.4</span><span class="o">*</span><span class="n">n</span><span class="p">)</span>
+<span class="n">xd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">D</span><span class="p">,]),</span><span class="n">x</span><span class="p">),</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+
+<span class="c1"># 定义系统的系数</span>
+<span class="n">num</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">2.2403</span><span class="p">,</span><span class="mf">2.4908</span><span class="p">,</span><span class="mf">2.2403</span><span class="p">])</span>
+<span class="n">den</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.75</span><span class="p">])</span>
+
+<span class="c1"># 系统处理（滤波）</span>
+<span class="n">ic</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># set initial</span>
+<span class="n">zi</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lfilter_zi</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">den</span><span class="p">)</span>
+<span class="n">y1</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="n">den</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">zi</span><span class="o">=</span><span class="n">zi</span><span class="o">*</span><span class="n">ic</span><span class="p">)</span> <span class="c1"># y1[n]</span>
+<span class="n">y2</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="n">den</span><span class="p">,</span><span class="n">xd</span><span class="p">,</span><span class="n">zi</span><span class="o">=</span><span class="n">zi</span><span class="o">*</span><span class="n">ic</span><span class="p">)</span> <span class="c1"># y2[n]</span>
+
+<span class="n">y2D</span> <span class="o">=</span> <span class="n">y2</span><span class="p">[</span><span class="n">D</span><span class="p">:]</span> <span class="c1">#计算输入为x[n-D]的响应的D个单位超前</span>
+
+<span class="c1"># 计算输入为x[n]的响应与输入为x[n-D]的响应的D个单位超前之间的差</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">y1</span><span class="o">-</span><span class="n">y2D</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">y1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;y1[n]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">d</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Difference&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/experiments_dt_systems_5_0.png" src="../_images/experiments_dt_systems_5_0.png" />
+</div>
+</div>
+<p>若上述系统的初始条件不等于0，系统还是时不变系统吗？</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ic</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># set initial</span>
+<span class="n">zi</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lfilter_zi</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">den</span><span class="p">)</span>
+<span class="n">y1</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="n">den</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">zi</span><span class="o">=</span><span class="n">zi</span><span class="o">*</span><span class="n">ic</span><span class="p">)</span> <span class="c1"># y1[n]</span>
+<span class="n">y2</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="n">den</span><span class="p">,</span><span class="n">xd</span><span class="p">,</span><span class="n">zi</span><span class="o">=</span><span class="n">zi</span><span class="o">*</span><span class="n">ic</span><span class="p">)</span> <span class="c1"># y2[n]</span>
+
+<span class="n">y2D</span> <span class="o">=</span> <span class="n">y2</span><span class="p">[</span><span class="n">D</span><span class="p">:]</span> <span class="c1">#计算输入为x[n-D]的响应的D个单位超前</span>
+
+<span class="c1"># 计算输入为x[n]的响应与输入为x[n-D]的响应的D个单位超前之间的差</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">y1</span><span class="o">-</span><span class="n">y2D</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">y1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;y1[n]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">d</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Difference&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/experiments_dt_systems_7_0.png" src="../_images/experiments_dt_systems_7_0.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="线性时不变系统、冲激响应和阶跃响应、卷积">
+<h2>线性时不变系统、冲激响应和阶跃响应、卷积<a class="headerlink" href="#线性时不变系统、冲激响应和阶跃响应、卷积" title="永久链接至标题">¶</a></h2>
+<p>线性时不变（LTI）系统既满足线性性质又满足时不变性质。</p>
+<p>离散时间系统对单位样本序列<span class="math notranslate nohighlight">\( \delta[n]\)</span>的响应称为单位样本响应，或者冲激响应，用<span class="math notranslate nohighlight">\(h[n]\)</span>来表示。</p>
+<blockquote>
+<div><p>有限冲激和无限冲激响应系统: 冲激响应序列<span class="math notranslate nohighlight">\(h[n]\)</span>的长度无限长时，称系统为无限冲激响应系统；冲激响应序列<span class="math notranslate nohighlight">\(h[n]\)</span>的长度有限长时，称系统为有限冲激响应系统。</p>
+</div></blockquote>
+<p>离散时间系统对单位阶跃序列<span class="math notranslate nohighlight">\( \mu[n]\)</span>的响应称为单位阶跃响应，或者阶跃响应，用<span class="math notranslate nohighlight">\(s[n]\)</span>来表示。</p>
+<p>离散时间系统输入信号<span class="math notranslate nohighlight">\(x[n]\)</span>时的输出响应<span class="math notranslate nohighlight">\(y[n]\)</span>，可以表示为冲激响应<span class="math notranslate nohighlight">\(h[n]\)</span>和输入信号<span class="math notranslate nohighlight">\(x[n]\)</span>的加权累加和</p>
+<div class="math notranslate nohighlight">
+\[y [ n ] = \sum _ { k = - \infty } ^ { \infty } h [ k ] x [ n - k ]\]</div>
+<p>通过简单的变量代换，也可表示为</p>
+<div class="math notranslate nohighlight">
+\[y [ n ] = \sum _ { k = - \infty } ^ { \infty } h [ n - k ] x [ k ]\]</div>
+<p>上述两个式子称为序列<span class="math notranslate nohighlight">\(x[n]\)</span>和<span class="math notranslate nohighlight">\(h[n]\)</span>的卷积和</p>
+<div class="math notranslate nohighlight">
+\[y [ n ] = h [ n ] \circledast x [ n ]\]</div>
+<p>其中符号<span class="math notranslate nohighlight">\( \circledast\)</span>表示卷积和。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">40</span>
+<span class="c1"># 定义系统的系数</span>
+<span class="n">num</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">2.2403</span><span class="p">,</span><span class="mf">2.4908</span><span class="p">,</span><span class="mf">2.2403</span><span class="p">])</span>
+<span class="n">den</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.75</span><span class="p">])</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1"># 系统的冲激响应</span>
+<span class="n">t</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">dimpulse</span><span class="p">((</span><span class="n">num</span><span class="p">,</span><span class="n">den</span><span class="p">,</span><span class="n">dt</span><span class="p">),</span><span class="n">n</span><span class="o">=</span><span class="n">N</span><span class="p">)</span>
+<span class="n">t</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">dstep</span><span class="p">((</span><span class="n">num</span><span class="p">,</span><span class="n">den</span><span class="p">,</span><span class="n">dt</span><span class="p">),</span><span class="n">n</span><span class="o">=</span><span class="n">N</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">h</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/experiments_dt_systems_9_0.png" src="../_images/experiments_dt_systems_9_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 系统的输出等于冲激响应序列和输入序列的卷积</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">41</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">b</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">a</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mf">0.1</span><span class="o">*</span><span class="n">n</span><span class="p">)</span><span class="o">+</span><span class="n">b</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mf">0.4</span><span class="o">*</span><span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># 定义系统参数</span>
+<span class="n">num</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">2.2403</span><span class="p">,</span><span class="mf">2.4908</span><span class="p">,</span><span class="mf">2.2403</span><span class="p">])</span>
+<span class="n">den</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span><span class="c1">#np.array([1,-0.4,0.75])</span>
+
+<span class="c1"># 利用lfilter计算</span>
+<span class="n">ic</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># set initial</span>
+<span class="n">y1</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="n">den</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">zi</span><span class="o">=</span><span class="n">ic</span><span class="p">)</span> <span class="c1"># y1[n]</span>
+
+<span class="c1"># 利用卷积计算</span>
+<span class="n">t</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">dimpulse</span><span class="p">((</span><span class="n">num</span><span class="p">,</span><span class="n">den</span><span class="p">,</span><span class="n">dt</span><span class="p">),</span><span class="n">n</span><span class="o">=</span><span class="mi">41</span><span class="p">)</span>
+
+<span class="n">y2</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">h</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">y1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y2</span><span class="p">[:</span><span class="mi">41</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/experiments_dt_systems_10_0.png" src="../_images/experiments_dt_systems_10_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="BIBO稳定">
+<h2>BIBO稳定<a class="headerlink" href="#BIBO稳定" title="永久链接至标题">¶</a></h2>
+<p>若对于任意有界输入序列<span class="math notranslate nohighlight">\(x[n]\)</span>，其输出<span class="math notranslate nohighlight">\(y[n]\)</span>也是一个有界序列，则该离散时间系统是有界输入有界输出（BIBO）稳定的，也就是说，若</p>
+<div class="math notranslate nohighlight">
+\[|x[n]| &lt; B_x,\forall n\]</div>
+<p>则响应的输出<span class="math notranslate nohighlight">\(y[n]\)</span>也有界，即</p>
+<div class="math notranslate nohighlight">
+\[|y[n]| &lt; B_y,\forall n\]</div>
+<p>当且仅当线性时不变离散时间系统的冲激响应序列<span class="math notranslate nohighlight">\(h[n]\)</span>绝对可和时，改线性时不变系统是BIBO稳定的，即</p>
+<div class="math notranslate nohighlight">
+\[\sum _ { n = - \infty } ^ { \infty } | h [ n ] | &lt; \infty\]</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 定义系统参数</span>
+<span class="n">num</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">0.8</span><span class="p">])</span>
+<span class="n">den</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">0.9</span><span class="p">])</span>
+<span class="c1"># 冲激响应序列</span>
+<span class="n">t</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">dimpulse</span><span class="p">((</span><span class="n">num</span><span class="p">,</span><span class="n">den</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">n</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">parsum</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+    <span class="n">parsum</span> <span class="o">=</span> <span class="n">parsum</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">parsum</span><span class="p">)</span>
+
+<span class="c1"># 画出冲激响应</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">h</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+35.35909090875415
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/experiments_dt_systems_12_1.png" src="../_images/experiments_dt_systems_12_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="因果系统">
+<h2>因果系统<a class="headerlink" href="#因果系统" title="永久链接至标题">¶</a></h2>
+<p>若<span class="math notranslate nohighlight">\(y_1[n]\)</span> <span class="math notranslate nohighlight">\(y_2[n]\)</span>分别是因果离散时间系统输入信号<span class="math notranslate nohighlight">\(u_1[n]\)</span> <span class="math notranslate nohighlight">\(u_2[n]\)</span>的响应，则当</p>
+<div class="math notranslate nohighlight">
+\[u _ { 1 } [ n ] = u _ { 2 } [ n ] \qquad n &lt; N\]</div>
+<p>时</p>
+<div class="math notranslate nohighlight">
+\[y _ { 1 } [ n ] = y _ { 2 } [ n ] \qquad n &lt; N\]</div>
+<p>当且仅当线性时不变离散时间系统的冲激响应序列<span class="math notranslate nohighlight">\(h[n]\)</span>满足</p>
+<div class="math notranslate nohighlight">
+\[h[k]=0, \qquad k &lt; 0\]</div>
+<p>该LTI离散时间系统才是因果的。</p>
+</div>
+<div class="section" id="滤波概念的解释">
+<h2>滤波概念的解释<a class="headerlink" href="#滤波概念的解释" title="永久链接至标题">¶</a></h2>
+<p>考虑用如下差分方程描述的两个离散时间系统：</p>
+<div class="section" id="系统1">
+<h3>系统1<a class="headerlink" href="#系统1" title="永久链接至标题">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[y [ n ] = 0.5 x [ n ] + 0.27 x [ n - 1 ] + 0.77 x [ n - 2 ]\]</div>
+</div>
+<div class="section" id="系统2">
+<h3>系统2<a class="headerlink" href="#系统2" title="永久链接至标题">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[y [ n ] = 0.45 x [ n ] + 0.5 x [ n - 1 ] + 0.45 x [ n - 2 ] + 0.53 y [ n - 1 ] - 0.46 y [ n - 2 ]\]</div>
+<p>对输入</p>
+<div class="math notranslate nohighlight">
+\[x [ n ] = \cos \left( \frac { 20 \pi n } { 256 } \right) + \cos \left( \frac { 200 \pi n } { 256 } \right) , \qquad 0 \leqslant n &lt; 299\]</div>
+<p>计算上述两个系统的输出。</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 产生混合信号：高频正弦+低频正弦</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">299</span><span class="p">,</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">s1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">n</span><span class="o">/</span><span class="mi">256</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">s2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">n</span><span class="o">/</span><span class="mi">256</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">s1</span><span class="o">+</span><span class="n">s2</span>
+
+<span class="c1"># 定义两个系统的系数</span>
+<span class="n">num1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.27</span><span class="p">,</span><span class="mf">0.77</span><span class="p">])</span>
+<span class="n">den1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">num2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">0.53</span><span class="p">,</span><span class="mf">0.46</span><span class="p">])</span>
+<span class="n">den2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.45</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.45</span><span class="p">])</span>
+<span class="c1"># 系统处理（滤波）</span>
+<span class="n">ic</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span> <span class="c1"># set initial</span>
+<span class="n">y1</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="n">num1</span><span class="p">,</span><span class="n">den1</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">zi</span><span class="o">=</span><span class="n">ic</span><span class="p">)</span> <span class="c1"># y1[n]</span>
+<span class="n">y2</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">signal</span><span class="o">.</span><span class="n">lfilter</span><span class="p">(</span><span class="n">num2</span><span class="p">,</span><span class="n">den2</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">zi</span><span class="o">=</span><span class="n">ic</span><span class="p">)</span> <span class="c1"># y2[n]</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">311</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;x[n]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">312</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">y1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;y1[n]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">313</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">y2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;y2[n]&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/experiments_dt_systems_15_0.png" src="../_images/experiments_dt_systems_15_0.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ex_c3.html" class="btn btn-neutral float-right" title="3. 离散时间傅里叶变换" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="dt_signals.html" class="btn btn-neutral float-left" title="2.1. 时域中的离散时间信号" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Lei Yu
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
