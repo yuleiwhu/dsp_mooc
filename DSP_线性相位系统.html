@@ -1,0 +1,456 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>线性相位系统 &mdash; DSP_Course  文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/proof.js"></script>
+        <script type="text/javascript" src="_static/translations.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"extensions": ["tex2jax.js"], "jax": ["input/TeX", "output/HTML-CSS"], "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEscapes": true}, "HTML-CSS": {"fonts": ["TeX"]}, "TeX": {"equationNumbers": {"autoNumber": "AMS"}}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/proof.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> DSP_Course
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">讲义（建设中）</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ch1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch2.html">2. 时域中的离散时间信号和系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch3.html">3. 离散时间傅里叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch4.html">4. 离散傅里叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch5.html">5. Z变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch6.html">6. 变换域中的离散时间系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch7.html">7. 滤波器设计</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch8.html">8. 滤波器实现</a></li>
+</ul>
+<p class="caption"><span class="caption-text">课后习题</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch1.html">1. 作业要求</a></li>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch2.html">2. 时域中的离散时间信号和系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch3.html">3. 离散时间傅立叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch4.html">4. 离散傅立叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch5.html">5. z变换</a></li>
+</ul>
+<p class="caption"><span class="caption-text">实验内容 (Python)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c2.html">2. 离散时间信号与系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c3.html">3. 离散时间傅里叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c4.html">4. 离散傅里叶变换</a></li>
+</ul>
+<p class="caption"><span class="caption-text">实验内容（Matlab）</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/ch1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/ch2.html">2. 离散时间信号</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/convolution_correlation.html">3. 卷积和相关</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/auto_focus.html">4. 基于傅里叶变换的自动对焦算法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/sampling_nonbandLim.html">5. 非带限信号的采样与重建</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/vuvuzela/vuvuzela_denoising.html">6. 如何消除Vuvuzela?</a></li>
+</ul>
+<p class="caption"><span class="caption-text">附录</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="appendix/index_principles.html">定理证明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix/index_history.html">小小历史</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DSP_Course</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>线性相位系统</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/DSP_线性相位系统.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="id1">
+<h1>线性相位系统<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>[TOC]</p>
+<p>最常见的一类线性相位滤波器的频率响应为
+$$
+H(e^{j\omega})=e^{-j\omega D}
+$$
+幅度响应为
+$$
+\vert H(e^{j\omega})\vert = 1
+$$
+相位响应为
+$$
+\theta(w) = Dw
+$$
+那么，当输入信号为$x[n]$的时候，输出仅仅是$x[n]$延迟$D$个样本之后的结果，而信号本身的波形不会发生任何变化。假设$X(e^{j\omega})$为输入信号$x[n]$的DTFT变换，那么输出$y[n]$的DTFT变换为
+$$
+Y(e^{j\omega}) = H(e^{j\omega}) X(e^{j\omega})=e^{-j\omega D}X(e^{j\omega})
+$$
+根据DTFT变换的时移定理，可以得到输出$y[n]$的形式为
+$$
+y[n] = \mathcal{F}^{-1}{Y(e^{j\omega})} = x[n-D]
+$$
+<strong>NOTE: think about when $D$ is not integer?</strong></p>
+<div class="section" id="example">
+<h2>Example：理想线性相位滤波器<a class="headerlink" href="#example" title="永久链接至标题">¶</a></h2>
+<p>考虑理想低通滤波器</p>
+<p><img alt="assets/image-20181108213415356.png" src="assets/image-20181108213415356.png" />image-20181108213415356</p>
+<p>很容易可以写出该滤波器的幅度响应和相位响应，从而得到该滤波器的频率响应为
+$$
+H_{LP}(e^{j\omega})=\begin{cases}
+e^{-j\omega n_0},&amp; 0&lt;|w|&lt;\omega_c \
+0,&amp; \omega_c\leq |w| \leq \pi
+\end{cases}
+$$
+那么该系统的冲激响应序列为：
+$$
+{h}<em>{LP}[n] = \frac{\sin \omega_c(n-n_0)}{\pi (n-n_0)}, -\infty &lt; n &lt; \infty
+$$
+冲激响应序列的长度为<strong>双边无限长</strong>，因此非因果，且不可实现。那么需要将无限长序列进行截断（只保留0到$N$的点）
+$$
+\hat{h}</em>{LP}[n] = \frac{\sin \omega_c(n-n_0)}{\pi (n-n_0)}, 0 \leq  n \leq  N
+$$
+<strong>NOTE:该序列是有限长，且因果的。</strong></p>
+<p><img alt="assets/image-20181108214002252.png" src="assets/image-20181108214002252.png" />image-20181108214002252</p>
+<p><strong>Question：线性系统的冲激响应序列都是对称的吗？</strong></p>
+</div>
+<div class="section" id="fir">
+<h2>线性相位FIR滤波器的传输函数及其冲激响应序列<a class="headerlink" href="#fir" title="永久链接至标题">¶</a></h2>
+<p>线性相位FIR传输函数的相位响应必然可以写成如下形式：
+$$
+\theta(\omega)=c\omega+\beta
+$$
+那么，任意的线性相位系统传输函数的<em>极坐标形式</em>为
+$$
+H(e^{j\omega}) = e^{j\theta(\omega)}|H(e^{j\omega})| = e^{j(c\omega+\beta)}\tilde{H}(e^{j\omega}) \label{eq:10}
+$$
+其中$\tilde{H}(e^{j\omega})$为<strong>零相位响应</strong>（实函数）。总结一下：</p>
+<blockquote>
+<div><p>==线性相位 = 零相位$\times$线性相移==</p>
+</div></blockquote>
+<p>因此，我们只需要知道零相位部分的传输函数形式，就可以通过时移定理，得到线性相位系统的传输函数。</p>
+<p>如果只考虑实系统$h[n]\in \mathbb{R}$，根据实序列的DTFT变换的对称性质，可以得到
+$$
+H(e^{j\omega}) = H^<em>(e^{-j\omega})
+$$
+那么
+$$
+e^{j(c\omega+\beta)} \tilde{H}(e^{j\omega}) =e^{-j(c(-\omega)+\beta)}\tilde{H}(e^{-j\omega}) =e^{j(c\omega-\beta)}\tilde{H}(e^{-j\omega})  \
+e^{j\beta}\tilde{H}(e^{j\omega})=e^{-j\beta}\tilde{H}(e^{-j\omega}) \label{12}
+$$
+另外：
+$$
+\left. \begin{array}{c}  |H(e^{j\omega})| = |\tilde{H}(e^{j\omega})| \ |H^</em>(e^{-j\omega})|=|\tilde{H}(e^{-j\omega})| \end{array} \right} \Rightarrow |\tilde{H}(e^{j\omega})|=|\tilde{H}(e^{-j\omega})| \Rightarrow \tilde{H}(e^{j\omega})=\pm \tilde{H}(e^{-j\omega})
+$$
+这时，需要分成两种情况来考虑：</p>
+<ol class="simple">
+<li><p>当$\tilde{H}(e^{j\omega})= \tilde{H}(e^{-j\omega})$，带入到公式$\eqref{12}$中得到，$e^{j\beta}=e^{-j\beta}$，因此$\beta=0$或者$\beta=\pi$。</p>
+<ul class="simple">
+<li><p>$h[n]$满足$H(e^{j\omega})=\sum_{n=0}^N h[n] e^{-j\omega n}$</p></li>
+<li><p>将$\beta$的值带入到公式$\eqref{eq:10}$中，可以得到
+$$
+\tilde{H}(e^{j\omega})=\pm e^{-j\omega c}H(e^{j\omega})=\pm \sum_{n=0}^N h[n] e^{-j\omega(c+n)}
+$$
+因为$\tilde{H}(e^{j\omega})$为偶函数，可以得到
+$$
+\tilde{H}(-e^{j\omega})=\pm e^{j\omega c}H(e^{j\omega})=\pm \sum_{n=0}^N h[n] e^{j\omega(c+n)} =\tilde{H}(e^{j\omega})
+$$</p></li>
+<li><p>根据公式(14)和(15)可以推导出$h[n]=h[N-n]$，且$c=-N/2$。</p></li>
+</ul>
+</li>
+<li><p>当$\tilde{H}(e^{j\omega})=- \tilde{H}(e^{-j\omega})$，同样带入到公式$\eqref{12}$中得到，$e^{j\beta}=-e^{-j\beta}$，因此$\beta=\pm \pi /2$</p>
+<ul class="simple">
+<li><p>将$\beta$的值带入到公式$\eqref{eq:10}$中，可以得到
+$$
+\tilde{H}(e^{j\omega})=\pm e^{-j\omega c}H(e^{j\omega})=\pm \sum_{n=0}^N h[n] e^{-j\omega(c+n)}
+$$
+因为$\tilde{H}(e^{j\omega})$为奇函数，可以得到
+$$
+\tilde{H}(-e^{j\omega})=\pm e^{j\omega c}H(e^{j\omega})=\pm \sum_{n=0}^N h[n] e^{j\omega(c+n)} =-\tilde{H}(e^{j\omega})
+$$</p></li>
+<li><p>根据公式(14)和(15)可以推导出$h[n]=-h[N-n]$，且$c=-N/2$。</p></li>
+</ul>
+</li>
+</ol>
+<p>因此，线性相位FIR滤波器的冲激响应序列肯定是对称的。根据对称性，可以分为偶对称和反对称两种情况。此外，还需要考虑冲激响应序列长度为奇数和偶数两种情况。所以，我们可以将上述的几种情况，分成如下四种组合：</p>
+<ol class="simple">
+<li><p>奇长度对称：又称为1型线性相位FIR滤波器</p></li>
+<li><p>偶长度对称：又称为2型线性相位FIR滤波器</p></li>
+<li><p>奇长度反对称：又称为3型线性相位FIR滤波器</p></li>
+<li><p>偶长度反对称：又称为4型线性相位FIR滤波器</p></li>
+</ol>
+<p><img alt="assets/image-20181108223940114.png" src="assets/image-20181108223940114.png" />image-20181108223940114</p>
+<div class="section" id="id2">
+<h3>1型线性相位FIR滤波器<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
+<p>1型线性相位FIR滤波器的冲激响应序列为奇长度对称序列，$h[n]=h[N-n]$，且$N+1$为奇数。</p>
+<p><img alt="assets/image-20181108225017653.png" src="assets/image-20181108225017653.png" />image-20181108225017653</p>
+<p>分析该滤波器的频率响应：
+$$
+H(e^{j\omega}) = \sum_{n=0}^N h[n] e^{-j\omega n} = e^{-j\omega N/2} \underset{=\tilde{H}(e^{j\omega})}{\underbrace{\left(h[\frac{N}{2}] + 2 \sum_{n=1}^{N/2} h[\frac{N}{2}-n] \cos \omega n\right)}}
+$$
+相位响应为$\theta(\omega)=-\frac{N}{2}\omega$，幅度响应为$|H(e^{j\omega})|=h[\frac{N}{2}] + 2 \sum_{n=1}^{N/2} h[\frac{N}{2}-n] \cos \omega n$。如图所示，给出了$n=0,1,2,3$时的幅度响应各个分量。</p>
+</div>
+<div class="section" id="a-name-fir-2-2fir-a">
+<h3><a name="fir-2">2型线性相位FIR滤波器</a><a class="headerlink" href="#a-name-fir-2-2fir-a" title="永久链接至标题">¶</a></h3>
+<p>2型线性相位FIR滤波器的冲激响应序列为偶长度对称序列，$h[n]=h[N-n]$，且$N+1$为偶数。</p>
+<p><img alt="assets/image-20181108225346444.png" src="assets/image-20181108225346444.png" />image-20181108225346444</p>
+<p>分析该滤波器的频率响应：
+$$
+H(e^{j\omega}) = \sum_{n=0}^N h[n] e^{-j\omega n} = e^{-j\omega N/2} \underset{=\tilde{H}(e^{j\omega})}{\underbrace{\left( 2 \sum_{n=1}^{(N+1)/2} h[\frac{N+1}{2}-n] \cos \left(\omega \left(n-\frac{1}{2}\right)\right)\right)}}
+$$
+相位响应为$\theta(\omega)=-\frac{N}{2}\omega$，幅度响应为$|H(e^{j\omega})|=2 \sum_{n=1}^{(N+1)/2} h[\frac{N+1}{2}-n] \cos \left(\omega \left(n-\frac{1}{2}\right)\right)$。如图所示，给出了$n=0,1,2,3$时的幅度响应各个分量，可以发现，无论$n$取值为多少，在$\omega=\pi$位置的幅度贡献始终为0，而其他频率点则不一定。</p>
+<p><strong>因此，2型线性相位滤波器肯定不允许高频分量通过。</strong></p>
+</div>
+<div class="section" id="a-name-fir-3-3fir-a">
+<h3><a name="fir-3">3型线性相位FIR滤波器</a><a class="headerlink" href="#a-name-fir-3-3fir-a" title="永久链接至标题">¶</a></h3>
+<p>3型线性相位FIR滤波器的冲激响应序列为奇长度反对称序列，$h[n]=-h[N-n]$，且$N+1$为奇数，很明显$h[N/2]=0$。</p>
+<p><img alt="assets/image-20181108225842786.png" src="assets/image-20181108225842786.png" />image-20181108225842786</p>
+<p>分析该滤波器的频率响应：
+$$
+H(e^{j\omega}) = \sum_{n=0}^N h[n] e^{-j\omega n} = je^{-j\omega N/2} \underset{=\tilde{H}(e^{j\omega})}{\underbrace{\left( 2 \sum_{n=1}^{N/2} h[\frac{N}{2}-n] \sin \omega n\right)}}
+$$
+相位响应为$\theta(\omega)=-\frac{N}{2}\omega+\frac{\pi}{2}$，幅度响应为$|H(e^{j\omega})|=2 \sum_{n=1}^{N/2} h[\frac{N}{2}-n] \sin \omega n$。如图所示，给出了$n=0,1,2,3$时的幅度响应各个分量，可以发现，无论$n$取值为多少，在$\omega=0$和$\omega=\pi$位置的幅度贡献始终为0，而其他频率点则不一定。</p>
+<p><strong>因此，3型线性相位滤波器肯定不允许低频和高频分量通过。</strong></p>
+</div>
+<div class="section" id="a-name-fir-4-4fir-a">
+<h3><a name="fir-4">4型线性相位FIR滤波器</a><a class="headerlink" href="#a-name-fir-4-4fir-a" title="永久链接至标题">¶</a></h3>
+<p>4型线性相位FIR滤波器的冲激响应序列为偶长度反对称序列，$h[n]=-h[N-n]$，且$N+1$为偶数。</p>
+<p><img alt="assets/image-20181108225910789.png" src="assets/image-20181108225910789.png" />image-20181108225910789</p>
+<p>分析该滤波器的频率响应为
+$$
+H(e^{j\omega}) = \sum_{n=0}^N h[n] e^{-j\omega n} = je^{-j\omega N/2} \underset{=\tilde{H}(e^{j\omega})}{\underbrace{\left( 2 \sum_{n=1}^{(N+1)/2} h[\frac{N+1}{2}-n] \sin \left(\omega \left(n-\frac{1}{2}\right) \right) \right)}}
+$$
+那么对应的相位响应为：$\theta(\omega)=-\frac{N}{2}\omega+\pi/2$，幅度响应为$|H(e^{j\omega})|=2 \sum_{n=1}^{(N+1)/2} h[\frac{N+1}{2}-n] \sin \left(\omega \left(n-\frac{1}{2}\right) \right)$。如图所示，给出了$n=0,1,2,3$时的幅度响应各个分量。可以发现，无论$n$取任何值，在$\omega=0$处的幅度贡献始终为0。</p>
+<p><strong>因此，4型线性相位滤波器肯定不允许低频分量通过。</strong></p>
+</div>
+</div>
+<div class="section" id="firz">
+<h2>线性相位FIR滤波器的Z域分析<a class="headerlink" href="#firz" title="永久链接至标题">¶</a></h2>
+<p>FIR线性相位滤波器满足对称或者反对称性质
+$$
+h[n]=\pm h[N-n] \Rightarrow H(z)=\pm z^{-N}H(z^{-1})
+$$
+所以如果在$z=\xi$处有一个零点，那么在$z=1/\xi$处也会存在一个零点（镜像对称），因为
+$$
+H(\xi)=0\Rightarrow H(\xi^{-1})=0
+$$
+<img src="assets/image-20181109001100301.png" width="350px"></p>
+<div class="section" id="id3">
+<h3>1-2型线性相位FIR滤波器<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<p>1-2型线性相位滤波器的冲激响应序列满足对称性质
+$$
+h[n]=h[N-n] \Rightarrow H(z)=z^{-N}H(z^{-1}) \Rightarrow H(-1)=(-1)^NH(-1)
+$$
+那么对于2-型，偶长度对称序列，$N$为奇数，那么$H(-1)=-H(-1)\Rightarrow H(-1)=0$。也就是说，在$z=-1$处始终有一个0点。那么，也就印证了<a class="reference external" href="#fir-2">2型线性相位滤波器的性质</a>。</p>
+</div>
+<div class="section" id="id4">
+<h3>3-4型线性相位FIR滤波器<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p>3-4型线性相位滤波器的冲激响应序列满足反对称性质
+$$
+h[n]=-h[N-n] \Rightarrow H(z)=-z^{-N}H(z^{-1})
+$$
+那么，</p>
+<ul class="simple">
+<li><p>当$z=1$，$H(1)=-H(1)$，也就是说$H(1)=0$。</p></li>
+<li><p>当$z=-1$，$H(-1)=-(-1)^NH(-1)$，那么当$N$为偶数时（3型FIR），$H(-1)=0$。</p></li>
+</ul>
+<p>上述两个结论也正好分别印证了<a class="reference external" href="#fir-3">3型线性相位滤波器的性质</a>和<a class="reference external" href="#fir-4">4型线性相位滤波器的性质</a>。</p>
+<p><img alt="assets/image-20181108225721380.png" src="assets/image-20181108225721380.png" />image-20181108225721380</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>结论<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<ol class="simple">
+<li><p>线性相位FIR滤波器的冲激响应序列必须是对称或者反对称的；</p></li>
+<li><p>线性相位FIR滤波器根据对称性质和滤波器长度分为1-4型，四种类型；</p></li>
+<li><p>2型FIR线性相位滤波器不能用来设计高通滤波器，因为在$z=-1$处有一个零点；</p></li>
+<li><p>3-4型FIR线性相位滤波器不能用来设计低通滤波器，因为在$z=1$处都有零点；</p></li>
+<li><p>3型FIR线性相位滤波器不能用来设计高通滤波器，因为在$z=-1$处有一个零点。</p></li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Lei Yu
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

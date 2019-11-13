@@ -1,0 +1,219 @@
+# 线性相位系统
+
+[TOC]
+
+最常见的一类线性相位滤波器的频率响应为
+$$
+H(e^{j\omega})=e^{-j\omega D}
+$$
+幅度响应为
+$$
+\vert H(e^{j\omega})\vert = 1
+$$
+相位响应为
+$$
+\theta(w) = Dw
+$$
+那么，当输入信号为$x[n]$的时候，输出仅仅是$x[n]$延迟$D$个样本之后的结果，而信号本身的波形不会发生任何变化。假设$X(e^{j\omega})$为输入信号$x[n]$的DTFT变换，那么输出$y[n]$的DTFT变换为
+$$
+Y(e^{j\omega}) = H(e^{j\omega}) X(e^{j\omega})=e^{-j\omega D}X(e^{j\omega})
+$$
+根据DTFT变换的时移定理，可以得到输出$y[n]$的形式为
+$$
+y[n] = \mathcal{F}^{-1}\{Y(e^{j\omega})\} = x[n-D]
+$$
+**NOTE: think about when $D$ is not integer?**
+
+## Example：理想线性相位滤波器
+
+考虑理想低通滤波器
+
+![image-20181108213415356](assets/image-20181108213415356.png)
+
+很容易可以写出该滤波器的幅度响应和相位响应，从而得到该滤波器的频率响应为
+$$
+H_{LP}(e^{j\omega})=\begin{cases}
+e^{-j\omega n_0},& 0<|w|<\omega_c \\
+0,& \omega_c\leq |w| \leq \pi
+\end{cases}
+$$
+那么该系统的冲激响应序列为：
+$$
+{h}_{LP}[n] = \frac{\sin \omega_c(n-n_0)}{\pi (n-n_0)}, -\infty < n < \infty
+$$
+冲激响应序列的长度为**双边无限长**，因此非因果，且不可实现。那么需要将无限长序列进行截断（只保留0到$N$的点）
+$$
+\hat{h}_{LP}[n] = \frac{\sin \omega_c(n-n_0)}{\pi (n-n_0)}, 0 \leq  n \leq  N
+$$
+**NOTE:该序列是有限长，且因果的。**
+
+![image-20181108214002252](assets/image-20181108214002252.png)
+
+**Question：线性系统的冲激响应序列都是对称的吗？**
+
+## 线性相位FIR滤波器的传输函数及其冲激响应序列
+
+线性相位FIR传输函数的相位响应必然可以写成如下形式：
+$$
+\theta(\omega)=c\omega+\beta
+$$
+那么，任意的线性相位系统传输函数的*极坐标形式*为
+$$
+H(e^{j\omega}) = e^{j\theta(\omega)}|H(e^{j\omega})| = e^{j(c\omega+\beta)}\tilde{H}(e^{j\omega}) \label{eq:10}
+$$
+其中$\tilde{H}(e^{j\omega})$为**零相位响应**（实函数）。总结一下：
+
+> ==线性相位 = 零相位$\times$线性相移==
+
+因此，我们只需要知道零相位部分的传输函数形式，就可以通过时移定理，得到线性相位系统的传输函数。
+
+
+
+如果只考虑实系统$h[n]\in \mathbb{R}$，根据实序列的DTFT变换的对称性质，可以得到
+$$
+H(e^{j\omega}) = H^*(e^{-j\omega})
+$$
+那么
+$$
+e^{j(c\omega+\beta)} \tilde{H}(e^{j\omega}) =e^{-j(c(-\omega)+\beta)}\tilde{H}(e^{-j\omega}) =e^{j(c\omega-\beta)}\tilde{H}(e^{-j\omega})  \\
+e^{j\beta}\tilde{H}(e^{j\omega})=e^{-j\beta}\tilde{H}(e^{-j\omega}) \label{12}
+$$
+另外：
+$$
+\left. \begin{array}{c}  |H(e^{j\omega})| = |\tilde{H}(e^{j\omega})| \\ |H^*(e^{-j\omega})|=|\tilde{H}(e^{-j\omega})| \end{array} \right\} \Rightarrow |\tilde{H}(e^{j\omega})|=|\tilde{H}(e^{-j\omega})| \Rightarrow \tilde{H}(e^{j\omega})=\pm \tilde{H}(e^{-j\omega})
+$$
+这时，需要分成两种情况来考虑：
+
+1. 当$\tilde{H}(e^{j\omega})= \tilde{H}(e^{-j\omega})$，带入到公式$\eqref{12}$中得到，$e^{j\beta}=e^{-j\beta}$，因此$\beta=0$或者$\beta=\pi$。
+
+   - $h[n]$满足$H(e^{j\omega})=\sum_{n=0}^N h[n] e^{-j\omega n}$
+
+   - 将$\beta$的值带入到公式$\eqref{eq:10}$中，可以得到
+     $$
+     \tilde{H}(e^{j\omega})=\pm e^{-j\omega c}H(e^{j\omega})=\pm \sum_{n=0}^N h[n] e^{-j\omega(c+n)}
+     $$
+     因为$\tilde{H}(e^{j\omega})$为偶函数，可以得到
+     $$
+     \tilde{H}(-e^{j\omega})=\pm e^{j\omega c}H(e^{j\omega})=\pm \sum_{n=0}^N h[n] e^{j\omega(c+n)} =\tilde{H}(e^{j\omega})
+     $$
+
+   - 根据公式(14)和(15)可以推导出$h[n]=h[N-n]$，且$c=-N/2$。
+
+2. 当$\tilde{H}(e^{j\omega})=- \tilde{H}(e^{-j\omega})$，同样带入到公式$\eqref{12}$中得到，$e^{j\beta}=-e^{-j\beta}$，因此$\beta=\pm \pi /2$
+
+   - 将$\beta$的值带入到公式$\eqref{eq:10}$中，可以得到
+     $$
+     \tilde{H}(e^{j\omega})=\pm e^{-j\omega c}H(e^{j\omega})=\pm \sum_{n=0}^N h[n] e^{-j\omega(c+n)}
+     $$
+     因为$\tilde{H}(e^{j\omega})$为奇函数，可以得到
+     $$
+     \tilde{H}(-e^{j\omega})=\pm e^{j\omega c}H(e^{j\omega})=\pm \sum_{n=0}^N h[n] e^{j\omega(c+n)} =-\tilde{H}(e^{j\omega})
+     $$
+
+   - 根据公式(14)和(15)可以推导出$h[n]=-h[N-n]$，且$c=-N/2$。
+
+因此，线性相位FIR滤波器的冲激响应序列肯定是对称的。根据对称性，可以分为偶对称和反对称两种情况。此外，还需要考虑冲激响应序列长度为奇数和偶数两种情况。所以，我们可以将上述的几种情况，分成如下四种组合：
+
+1. 奇长度对称：又称为1型线性相位FIR滤波器
+2. 偶长度对称：又称为2型线性相位FIR滤波器
+3. 奇长度反对称：又称为3型线性相位FIR滤波器
+4. 偶长度反对称：又称为4型线性相位FIR滤波器
+
+![image-20181108223940114](assets/image-20181108223940114.png)
+
+### 1型线性相位FIR滤波器
+
+1型线性相位FIR滤波器的冲激响应序列为奇长度对称序列，$h[n]=h[N-n]$，且$N+1$为奇数。
+
+![image-20181108225017653](assets/image-20181108225017653.png)
+
+分析该滤波器的频率响应：
+$$
+H(e^{j\omega}) = \sum_{n=0}^N h[n] e^{-j\omega n} = e^{-j\omega N/2} \underset{=\tilde{H}(e^{j\omega})}{\underbrace{\left(h[\frac{N}{2}] + 2 \sum_{n=1}^{N/2} h[\frac{N}{2}-n] \cos \omega n\right)}}
+$$
+相位响应为$\theta(\omega)=-\frac{N}{2}\omega$，幅度响应为$|H(e^{j\omega})|=h[\frac{N}{2}] + 2 \sum_{n=1}^{N/2} h[\frac{N}{2}-n] \cos \omega n$。如图所示，给出了$n=0,1,2,3$时的幅度响应各个分量。
+
+### <a name="fir-2">2型线性相位FIR滤波器</a>
+
+2型线性相位FIR滤波器的冲激响应序列为偶长度对称序列，$h[n]=h[N-n]$，且$N+1$为偶数。
+
+![image-20181108225346444](assets/image-20181108225346444.png)
+
+分析该滤波器的频率响应：
+$$
+H(e^{j\omega}) = \sum_{n=0}^N h[n] e^{-j\omega n} = e^{-j\omega N/2} \underset{=\tilde{H}(e^{j\omega})}{\underbrace{\left( 2 \sum_{n=1}^{(N+1)/2} h[\frac{N+1}{2}-n] \cos \left(\omega \left(n-\frac{1}{2}\right)\right)\right)}}
+$$
+相位响应为$\theta(\omega)=-\frac{N}{2}\omega$，幅度响应为$|H(e^{j\omega})|=2 \sum_{n=1}^{(N+1)/2} h[\frac{N+1}{2}-n] \cos \left(\omega \left(n-\frac{1}{2}\right)\right)$。如图所示，给出了$n=0,1,2,3$时的幅度响应各个分量，可以发现，无论$n$取值为多少，在$\omega=\pi$位置的幅度贡献始终为0，而其他频率点则不一定。
+
+**因此，2型线性相位滤波器肯定不允许高频分量通过。**
+
+### <a name="fir-3">3型线性相位FIR滤波器</a>
+
+3型线性相位FIR滤波器的冲激响应序列为奇长度反对称序列，$h[n]=-h[N-n]$，且$N+1$为奇数，很明显$h[N/2]=0$。
+
+![image-20181108225842786](assets/image-20181108225842786.png)
+
+分析该滤波器的频率响应：
+$$
+H(e^{j\omega}) = \sum_{n=0}^N h[n] e^{-j\omega n} = je^{-j\omega N/2} \underset{=\tilde{H}(e^{j\omega})}{\underbrace{\left( 2 \sum_{n=1}^{N/2} h[\frac{N}{2}-n] \sin \omega n\right)}}
+$$
+相位响应为$\theta(\omega)=-\frac{N}{2}\omega+\frac{\pi}{2}$，幅度响应为$|H(e^{j\omega})|=2 \sum_{n=1}^{N/2} h[\frac{N}{2}-n] \sin \omega n$。如图所示，给出了$n=0,1,2,3$时的幅度响应各个分量，可以发现，无论$n$取值为多少，在$\omega=0$和$\omega=\pi$位置的幅度贡献始终为0，而其他频率点则不一定。
+
+**因此，3型线性相位滤波器肯定不允许低频和高频分量通过。**
+
+### <a name="fir-4">4型线性相位FIR滤波器</a>
+
+4型线性相位FIR滤波器的冲激响应序列为偶长度反对称序列，$h[n]=-h[N-n]$，且$N+1$为偶数。
+
+![image-20181108225910789](assets/image-20181108225910789.png)
+
+分析该滤波器的频率响应为
+$$
+H(e^{j\omega}) = \sum_{n=0}^N h[n] e^{-j\omega n} = je^{-j\omega N/2} \underset{=\tilde{H}(e^{j\omega})}{\underbrace{\left( 2 \sum_{n=1}^{(N+1)/2} h[\frac{N+1}{2}-n] \sin \left(\omega \left(n-\frac{1}{2}\right) \right) \right)}}
+$$
+那么对应的相位响应为：$\theta(\omega)=-\frac{N}{2}\omega+\pi/2$，幅度响应为$|H(e^{j\omega})|=2 \sum_{n=1}^{(N+1)/2} h[\frac{N+1}{2}-n] \sin \left(\omega \left(n-\frac{1}{2}\right) \right)$。如图所示，给出了$n=0,1,2,3$时的幅度响应各个分量。可以发现，无论$n$取任何值，在$\omega=0$处的幅度贡献始终为0。
+
+**因此，4型线性相位滤波器肯定不允许低频分量通过。**
+
+## 线性相位FIR滤波器的Z域分析
+
+FIR线性相位滤波器满足对称或者反对称性质
+$$
+h[n]=\pm h[N-n] \Rightarrow H(z)=\pm z^{-N}H(z^{-1})
+$$
+所以如果在$z=\xi$处有一个零点，那么在$z=1/\xi$处也会存在一个零点（镜像对称），因为
+$$
+H(\xi)=0\Rightarrow H(\xi^{-1})=0
+$$
+<img src="assets/image-20181109001100301.png" width="350px">
+
+### 1-2型线性相位FIR滤波器
+
+1-2型线性相位滤波器的冲激响应序列满足对称性质
+$$
+h[n]=h[N-n] \Rightarrow H(z)=z^{-N}H(z^{-1}) \Rightarrow H(-1)=(-1)^NH(-1)
+$$
+那么对于2-型，偶长度对称序列，$N$为奇数，那么$H(-1)=-H(-1)\Rightarrow H(-1)=0$。也就是说，在$z=-1$处始终有一个0点。那么，也就印证了[2型线性相位滤波器的性质](#fir-2)。
+
+### 3-4型线性相位FIR滤波器
+
+3-4型线性相位滤波器的冲激响应序列满足反对称性质
+$$
+h[n]=-h[N-n] \Rightarrow H(z)=-z^{-N}H(z^{-1}) 
+$$
+那么，
+
+- 当$z=1$，$H(1)=-H(1)$，也就是说$H(1)=0$。
+- 当$z=-1$，$H(-1)=-(-1)^NH(-1)$，那么当$N$为偶数时（3型FIR），$H(-1)=0$。
+
+上述两个结论也正好分别印证了[3型线性相位滤波器的性质](#fir-3)和[4型线性相位滤波器的性质](#fir-4)。
+
+![image-20181108225721380](assets/image-20181108225721380.png)
+
+## 结论
+
+1. 线性相位FIR滤波器的冲激响应序列必须是对称或者反对称的；
+2. 线性相位FIR滤波器根据对称性质和滤波器长度分为1-4型，四种类型；
+3. 2型FIR线性相位滤波器不能用来设计高通滤波器，因为在$z=-1$处有一个零点；
+4. 3-4型FIR线性相位滤波器不能用来设计低通滤波器，因为在$z=1$处都有零点；
+5. 3型FIR线性相位滤波器不能用来设计高通滤波器，因为在$z=-1$处有一个零点。

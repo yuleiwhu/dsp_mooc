@@ -1,0 +1,425 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>全通数字滤波器 &mdash; DSP_Course  文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/proof.js"></script>
+        <script type="text/javascript" src="_static/translations.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"extensions": ["tex2jax.js"], "jax": ["input/TeX", "output/HTML-CSS"], "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEscapes": true}, "HTML-CSS": {"fonts": ["TeX"]}, "TeX": {"equationNumbers": {"autoNumber": "AMS"}}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/proof.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> DSP_Course
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">讲义（建设中）</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ch1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch2.html">2. 时域中的离散时间信号和系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch3.html">3. 离散时间傅里叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch4.html">4. 离散傅里叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch5.html">5. Z变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch6.html">6. 变换域中的离散时间系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch7.html">7. 滤波器设计</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch8.html">8. 滤波器实现</a></li>
+</ul>
+<p class="caption"><span class="caption-text">课后习题</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch1.html">1. 作业要求</a></li>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch2.html">2. 时域中的离散时间信号和系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch3.html">3. 离散时间傅立叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch4.html">4. 离散傅立叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch5.html">5. z变换</a></li>
+</ul>
+<p class="caption"><span class="caption-text">实验内容 (Python)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c2.html">2. 离散时间信号与系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c3.html">3. 离散时间傅里叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c4.html">4. 离散傅里叶变换</a></li>
+</ul>
+<p class="caption"><span class="caption-text">实验内容（Matlab）</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/ch1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/ch2.html">2. 离散时间信号</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/convolution_correlation.html">3. 卷积和相关</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/auto_focus.html">4. 基于傅里叶变换的自动对焦算法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/sampling_nonbandLim.html">5. 非带限信号的采样与重建</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/vuvuzela/vuvuzela_denoising.html">6. 如何消除Vuvuzela?</a></li>
+</ul>
+<p class="caption"><span class="caption-text">附录</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="appendix/index_principles.html">定理证明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix/index_history.html">小小历史</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DSP_Course</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>全通数字滤波器</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/DSP_全通滤波器.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="id1">
+<h1>全通数字滤波器<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>[TOC]</p>
+<p>我们学过了低通滤波器、高通滤波器、带通滤波器、带阻滤波器，那么本节将要学习的全通滤波器又是什么？</p>
+<p>全通滤波器为幅度响应为1，即
+$$
+|A(e^{j\omega})|=1,\ \forall \omega
+$$
+含义就是所有的频率成分都能通过系统，且幅度增益都等于1。</p>
+<p><img alt="assets/image-20181110000717082.png" src="assets/image-20181110000717082.png" />image-20181110000717082</p>
+<blockquote>
+<div><p>全通滤波器既然让所有的频率成分都通过，那岂不是没有意义？</p>
+<p>答案是否，因为除了幅度响应，相位响应也很重要。而全通函数虽然幅度响应恒等于1，但是相位响应可以是任意的。因此，全通滤波器通常被用来作为<strong>相位补偿</strong>模块。</p>
+<ol class="simple">
+<li><p>相位均衡器</p></li>
+</ol>
+</div></blockquote>
+<div class="section" id="id2">
+<h2>全通传输函数的形式<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>只考虑实系统的话，$h[n]\in \mathbb{R}$，根据DTFT变换的对称性质可以得到
+$$
+{A}^<em>(e^{j\omega}) = {A}(e^{-j\omega})
+$$
+那么
+$$
+|A(e^{j\omega})|^2=A(e^{j\omega})A^</em>(e^{j\omega})=A(e^{j\omega})A(e^{-j\omega})=
+A(z)A(z^{-1})\vert_{z=e^{j\omega}}=1 \label{eq:3}
+$$
+另外，假设$A(z)$具有如下函数形式
+$$
+{A}(z) = \frac{\sum_{k=0}^M p_k z^{-k}}{\sum_{k=0}^N d_k z^{-k}} = \frac{z^{-M}\sum_{k=0}^M p_k z^{M-k}}{\sum_{k=0}^N d_k z^{-k}} \label{eq:4}
+$$
+相应的$A(z^{-1})$可以计算出来
+$$
+{A}(z^{-1}) = \frac{\sum_{k=0}^M p_k z^{k}}{\sum_{k=0}^N d_k z^{k}} = \frac{z^M\sum_{k=0}^M p_k z^{k-M}}{\sum_{k=0}^N d_k z^{k}} \label{eq:5}
+$$
+根据公式$\eqref{eq:3}\eqref{eq:4}\eqref{eq:5}$可以得到
+$$
+{A}(z) {A}(z^{-1}) = \frac{z^{-M}\sum\limits_{k=0}^M p_k \textcolor{red}{z^{M-k}}}{\sum\limits_{k=0}^N d_k \textcolor{blue}{z^{-k} }}\cdot \frac{z^M\sum\limits_{k=0}^M p_k \textcolor{blue}{z^{k-M}}}{\sum\limits_{k=0}^N d_k \textcolor{red}{ z^{k}}} = 1
+$$
+那么根据对应项系数相等的条件可以得到
+$$
+M=N\
+p_{M-k}=d_k
+$$
+将这个结果带入到公式$\eqref{eq:4}$中，我们可以得到全通函数的一般形式
+$$
+{A}<em>M(z) =\pm \frac{d_M + d</em>{M-1} z^{-1} + …+d_1 z^{-M+1} + z^{-M}}{1+d_1 z^{-1} + …+d_{M-1} z^{-M+1}+d_M z^{-M}} \label{eq:8}
+$$
+令$D_M(z)=1+d_1z^{-1}+\cdots +d_Mz^{-M}$，全通函数简化形式为
+$$
+A_M(z) = \pm \frac{z^{-M}D_M(z^{-1})}{D_M(z)}
+$$</p>
+<div class="section" id="id3">
+<h3>例子1：一阶全通函数<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<p>$$
+A_1(z)=\frac{a+z^{-1}}{1+az^{-1}}, \quad |a|&lt;1
+$$</p>
+<p>该系统的幅度和相位响应分别如下：</p>
+<img src="assets/image-20181110004036869.png" width=550px></div>
+</div>
+<div class="section" id="id4">
+<h2>全通传输函数的零极点分布<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>下面我们来分析一下全通函数的额零极点分布。假设，$z=\lambda$为传输函数$A_M(z)$的零点，即
+$$
+A_M(\lambda) = 0 \Rightarrow D_M(\lambda^{-1})=0\Rightarrow A_M(\lambda^{-1}) = \infty
+$$
+也就是说，$z=\lambda^{-1}$为传输函数$A_M(z)$的极点。这说明，如果在z-平面上存在一个零点$z=\lambda$，那么必然存在一个与之对应的点$z=\lambda^{-1}$为该传输函数的极点，即<strong>零点和极点关于单位圆镜像对称</strong>。</p>
+<p>反之同理，如果在z平面上存在一个极点$z=\lambda$，那么必然存在一个与之对应的点$z=\lambda^{-1}$为该传输函数的零点，即<strong>极点与零点关于单位圆镜像对称</strong>。</p>
+<p><img alt="assets/image-20181110195915676.png" src="assets/image-20181110195915676.png" />image-20181110195915676</p>
+</div>
+<div class="section" id="id5">
+<h2>全通传输函数的幅度特性<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<p>不失一般性，我们可以将全通传输函数$\eqref{eq:8}$的分子和分母分别因式分解，转换成如下级联形式
+$$
+{A}<em>M(z) = \pm \prod</em>{i=1}^{M}\frac{-\lambda_i^<em>+z^{-1}}{1-\lambda_i z^{-1}}
+$$
+那么我们只需要分析其中一个子系统（一对零极点）结构的幅度特性，然后推广到M阶就可以了。令
+$$
+{A}(z) = \frac{-\lambda^</em>+z^{-1}}{1-\lambda z^{-1}}
+$$
+写成极坐标形式，$z=|z|e^{j\omega},\lambda=r e^{j\omega},r&gt;0$。一般来说，我们考虑的系统都是因果稳定的，所以极点肯定是在单位圆内，$r&lt;1$。</p>
+<p>可以计算出幅度平方为
+$$
+|{A}(z)|^2 = \frac{1-2r|z|\cos(\omega-\phi)+r^2|z|^2}{|z|^2-2r|z|\cos(\omega-\phi)+r^2}=1- \frac{(1-r^2)(|z|^2-1)}{|z|^2-2r|z|\cos(\omega-\phi)+r^2}
+$$</p>
+<ul class="simple">
+<li><p>当$|z|&lt;1$时（单位圆内），$|A(z)|^2&gt;1$</p></li>
+<li><p>当$|z|&gt;1$时（单位圆外），$|A(z)|^2&lt;1$</p></li>
+<li><p>当$|z|=1$时（单位圆上），$|A(z)|^2=1$</p></li>
+</ul>
+<p>我们可以形象的将全通函数的幅度性质用一个“帽子”来形容，帽沿表示单位圆，等高的，且恒定为1（全通）；帽尖肯定是在帽沿的内面，肯定是高于帽沿，即高度大于1；帽边表示单位圆外，肯定低于帽沿，即高度小于1。</p>
+<blockquote>
+<div><p><strong>思考一个问题，因果稳定的全通函数在单位圆内可能存在零点吗？为什么？</strong></p>
+</div></blockquote>
+</div>
+<div class="section" id="id6">
+<h2>全通传输函数的相位特性<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
+<p>实系统全通传输函数的相位响应$\theta(\omega)$或者表示为$\arg[A_M(e^{j\omega})]$，具有如下三个性质：</p>
+<ul class="simple">
+<li><p>$\frac{d\theta(\omega)}{d\omega} &lt; 0$，即关于角频率$\omega$是单调递减的；</p></li>
+<li><p>$\theta(\omega)\leq 0$，非负；</p></li>
+<li><p>$M$阶稳定实系统全通传输函数的群延迟$\tau_g(\omega)=-\frac{d\theta}{d\omega}$，满足
+$$
+\int_0^\pi \tau_g(\omega)d\omega=M\pi
+$$</p></li>
+</ul>
+<hr class="docutils" />
+<p>考虑一阶因果稳定实系数全通函数
+$$
+{A}(z) = \frac{-\lambda^*+z^{-1}}{1-\lambda z^{-1}} \label{eq:16}
+$$</p>
+<p>频率响应为（令$z=e^{j\omega}$）
+$$
+A(e^{j\omega}) = \frac{-\lambda^*+e^{-j\omega}}{1-\lambda e^{-j\omega}} = e^{-j\omega}\left[\frac{1-re^{j(\omega-\phi)}}{1-re^{-j(\omega-\phi)}}\right]
+$$
+相位函数为
+$$
+\theta(\omega) = -\omega - 2\arctan\left[\frac{r\sin(\omega-\phi)}{1-r\cos(\omega-\phi)}\right]
+$$</p>
+<div class="section" id="id7">
+<h3>单调递减<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<p>$$
+\frac{d\theta}{d\omega} = -\frac{(1-r^2)}{|1+re^{-j(\omega-\phi)}|^2} &lt; 0 ,\forall r&lt;1
+$$</p>
+</div>
+<div class="section" id="id8">
+<h3>非负性质<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+<p>因为$A(0)=1$，所以$\theta(0)=0$，因此
+$$
+\theta(\omega) \leq 0
+$$</p>
+</div>
+<div class="section" id="id9">
+<h3>群延迟性质<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
+<p>系统$\eqref{eq:16}$的群延迟为
+$$
+\begin{split}
+\tau_1(\omega) &amp;= \left. -Re\left[z \frac{d\ln {A}(z)}{dz} \right]\right\vert_{z=e^{j\omega}} = \left. -Re\left[ z\left( \frac{-\lambda^<em>}{1-\lambda^</em> z} - \frac{1}{z-\lambda} \right) \right] \right\vert_{z=e^{j\omega}} \
+&amp;= \frac{1- r^2 }{1+r^2-2r\cos(\omega-\phi)} &gt;0
+\end{split}
+$$
+等式两边积分可以得到
+$$
+\int_{0}^{\pi} \tau_1(\omega) d\omega = \left[
+2\arctan \left( \frac{r+1}{r-1}\tan\frac{\phi-\omega}{2} \right)
+\right]<em>{0}^{\pi} = \pi
+$$
+那么对于任意$M$阶稳定实系统全通传输函数的群延迟满足
+$$
+{A}(z) = \prod</em>{i-1}^M A_i(z) \Rightarrow \int_0^\pi \tau_g  (\omega) d\omega = M\pi
+$$</p>
+</div>
+</div>
+<div class="section" id="id10">
+<h2>结论<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li><p>全通传输函数的幅度响应为1；</p></li>
+<li><p>全通传输函数的分子和分母为镜像对称多项式；</p></li>
+<li><p>全通传输函数的零点和极点，极点和零点，关于单位圆镜像对称；</p></li>
+<li><p>全通传输函数的幅度特性类似一个帽子（单位圆内大于1，单位圆外小于1，单位圆上等于1）；</p></li>
+<li><p>全通传输函数的相位特性有三点：</p>
+<ul>
+<li><p>单调递减</p></li>
+<li><p>非负</p></li>
+<li><p>总延迟为$M\pi$</p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Lei Yu
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

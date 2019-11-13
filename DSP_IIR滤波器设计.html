@@ -1,0 +1,523 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>IIR 数字滤波器设计 &mdash; DSP_Course  文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/proof.js"></script>
+        <script type="text/javascript" src="_static/translations.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"extensions": ["tex2jax.js"], "jax": ["input/TeX", "output/HTML-CSS"], "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEscapes": true}, "HTML-CSS": {"fonts": ["TeX"]}, "TeX": {"equationNumbers": {"autoNumber": "AMS"}}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/proof.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> DSP_Course
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">讲义（建设中）</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ch1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch2.html">2. 时域中的离散时间信号和系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch3.html">3. 离散时间傅里叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch4.html">4. 离散傅里叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch5.html">5. Z变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch6.html">6. 变换域中的离散时间系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch7.html">7. 滤波器设计</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch8.html">8. 滤波器实现</a></li>
+</ul>
+<p class="caption"><span class="caption-text">课后习题</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch1.html">1. 作业要求</a></li>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch2.html">2. 时域中的离散时间信号和系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch3.html">3. 离散时间傅立叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch4.html">4. 离散傅立叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch5.html">5. z变换</a></li>
+</ul>
+<p class="caption"><span class="caption-text">实验内容 (Python)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c2.html">2. 离散时间信号与系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c3.html">3. 离散时间傅里叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c4.html">4. 离散傅里叶变换</a></li>
+</ul>
+<p class="caption"><span class="caption-text">实验内容（Matlab）</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/ch1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/ch2.html">2. 离散时间信号</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/convolution_correlation.html">3. 卷积和相关</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/auto_focus.html">4. 基于傅里叶变换的自动对焦算法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/sampling_nonbandLim.html">5. 非带限信号的采样与重建</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/vuvuzela/vuvuzela_denoising.html">6. 如何消除Vuvuzela?</a></li>
+</ul>
+<p class="caption"><span class="caption-text">附录</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="appendix/index_principles.html">定理证明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix/index_history.html">小小历史</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DSP_Course</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>IIR 数字滤波器设计</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/DSP_IIR滤波器设计.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="iir">
+<h1>IIR 数字滤波器设计<a class="headerlink" href="#iir" title="永久链接至标题">¶</a></h1>
+<p>[TOC]</p>
+<p>IIR数字滤波器的基本设计思路可以参照下图：</p>
+<p><img alt="assets/image-20181113011114250-2042674.png" src="assets/image-20181113011114250-2042674.png" />image-20181113011114250</p>
+<p>IIR数字滤波器设计可以分解为三个步骤：</p>
+<ol class="simple">
+<li><p>选择滤波器类型，根据通带或者阻带的波纹条件；</p></li>
+<li><p>根据数字滤波器指标，通过某种变换（例如双线性变换）将数字指标转换成模拟滤波器指标；</p></li>
+<li><p>设计模拟滤波器的传输函数；</p></li>
+<li><p>根据上述变换的反变换，将模拟滤波器转换成数字滤波器。</p></li>
+</ol>
+<div class="section" id="id1">
+<h2>例子：设计IIR滤波器<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<blockquote>
+<div><p>设计满足下列指标的IIR数字滤波器：</p>
+<ol class="simple">
+<li><p>低通滤波器</p></li>
+<li><p>通带波纹1dB</p></li>
+<li><p>通带截止频率$\omega_p=0.4\pi$</p></li>
+<li><p>阻带最小衰减$\geq 40dB$</p></li>
+<li><p>阻带截止频率$\omega_s=0.5\pi$，且阻带随着频率增加衰减增加</p></li>
+</ol>
+</div></blockquote>
+<ol>
+<li><p>首先，根据通带和阻带波纹条件，选择滤波器类型：指标5中阻带衰减随着频率增加而增大，所以要求使用的滤波器满足阻带无震荡，所以必须选择Chebyshev I型滤波器。</p></li>
+<li><p>其次，根据双线性变换，将数字指标转换成模拟指标</p>
+<ul class="simple">
+<li><p>频率指标</p></li>
+</ul>
+<p>$$
+\begin{split}
+\Omega_p &amp;=\tan \frac{\omega_p}{2} = \tan 0.2\pi  = 0.7265 rad/sec\
+\Omega_s &amp;= \tan \frac{\omega_s}{2} = \tan 0.25 \pi =1.0 rad/sec
+\end{split}
+$$</p>
+<ul class="simple">
+<li><p>幅度指标
+$$
+\begin{split}
+&amp;\mbox{1dB通带波纹}\
+&amp;\Rightarrow \frac{1}{\sqrt{1+\varepsilon^2}} = 10^{-1/20} = 0.8913 \Rightarrow \varepsilon = 0.5078 \
+&amp;\mbox{40dB阻带衰减}\
+&amp;\Rightarrow \frac{1}{A}=10^{-40/20}=0.01 \Rightarrow A = 100
+\end{split}
+$$</p></li>
+<li><p>最小阶数
+$$
+N \geq \frac{\cosh^{-1}\left(\frac{\sqrt{A^2-1}}{\varepsilon}\right)}{\cosh^{-1}\left(\frac{\Omega_s}{\Omega_p}\right)} = 7.09 \Rightarrow N = 8
+$$</p></li>
+</ul>
+</li>
+<li><p>设计ChebyshevI型模拟滤波器</p></li>
+<li><p>通过双线性变换，将模拟滤波器转换成数字滤波器</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="n">N</span><span class="p">=</span><span class="mi">8</span><span class="p">;</span>
+<span class="n">wp</span><span class="p">=</span><span class="mf">0.7265</span><span class="p">;</span>
+<span class="n">pbripple</span> <span class="p">=</span> <span class="mf">1.0</span><span class="p">;</span>
+<span class="p">[</span> <span class="n">B</span><span class="p">,</span><span class="n">A</span><span class="p">]=</span><span class="n">cheby1</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">pbripple</span><span class="p">,</span><span class="n">wp</span><span class="p">,</span><span class="s">&#39;s&#39;</span><span class="p">);</span> <span class="c">% 设计Chebyshev滤波器</span>
+<span class="p">[</span> <span class="n">b</span><span class="p">,</span><span class="n">a</span> <span class="p">]</span> <span class="p">=</span> <span class="n">bilinear</span><span class="p">(</span><span class="n">B</span><span class="p">,</span><span class="n">A</span><span class="p">,.</span><span class="mi">5</span><span class="p">);</span> <span class="c">%双线性变换</span>
+</pre></div>
+</div>
+<p><img alt="assets/image-20181113012647404-2043607.png" src="assets/image-20181113012647404-2043607.png" />image-20181113012647404</p>
+</li>
+</ol>
+</div>
+<div class="section" id="id2">
+<h2>双线性变换<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>可以发现，IIR数字滤波器的设计，实际上是通过模拟的IIR滤波器设计来近似的，关键的点在于找到一个合适的从数字（或者准确的说离散）到模拟（或者连续）的变换。针对连续情况，通过Laplace变换，将连续系统的冲激响应变换到S域；S平面的虚轴对应系统的频率响应；对于因果稳定的连续系统，其极点都在S平面的左半平面。而对于离散系统来说，则通过Z变换，将离散时间系统的冲激响应变换的Z域；Z平面的单位圆对应系统的频率响应；对于因果稳定的离散时间系统，其极点都在Z平面的单位圆内。</p>
+<p>综上所述，我们需要定义一个从离散时间到连续时间的变换，即Z域到S域的变换，$s=F(z)$，满足如下两个条件：</p>
+<ol class="simple">
+<li><p>s-域中的虚轴对应z-域中的单位圆：保证变换前后的频率响应分布不变；</p></li>
+<li><p>s-域中的左半平面对应z-域中的单位圆内：保证变换前后系统的稳定性不变。</p></li>
+</ol>
+<p><img alt="assets/image-20181113021213644-2046333.png" src="assets/image-20181113021213644-2046333.png" />image-20181113021213644</p>
+<p>那么，我们可以定义<strong>双线性变换</strong>
+$$
+s = F(z)=\frac { 2 } { T } \left( \frac { 1 - z ^ { - 1 } } { 1 + z ^ { - 1 } } \right)
+$$
+其逆变换为：
+$$
+z=F^{-1}(z) = \frac { 1 + \frac { T } { 2 } s } { 1 - \frac { T } { 2 } s }
+$$
+很容易，我们可以验证双线性变换满足刚刚所述的两个条件，因为令$s=\sigma_0+j\Omega_0$
+$$
+| z | ^ { 2 } = \frac { \left( 1 + \frac { T } { 2 } \sigma _ { 0 } \right) ^ { 2 } + \left( \frac { T } { 2 } \Omega _ { 0 } \right) ^ { 2 } } { \left( 1 - \frac { T } { 2 } \sigma _ { 0 } \right) ^ { 2 } + \left( \frac { T } { 2 } \Omega _ { 0 } \right) ^ { 2 } } \left{ \begin{array} { c c } { &lt; 1 } &amp; { \sigma _ { 0 } &lt; 0 } \ { = 1 } &amp; { \sigma _ { 0 } = 0 } \ { &gt; 1 } &amp; { \sigma _ { 0 } &gt; 0 } \end{array} \right.
+$$</p>
+<ul class="simple">
+<li><p>$\sigma_0&lt;0$表示位于s平面的左半部分，此时，$z$平面上对应的点在单位圆内；</p></li>
+<li><p>$\sigma_0=0$表示位于s平面的虚轴上，此时，z平面上对应的点在单位圆上。</p></li>
+</ul>
+<p>如果将s平面上各个区域的点用不同颜色标识，对应到z平面上，点的分布就如下图所示。</p>
+<p><img alt="assets/image-20181113021744677-2046664.png" src="assets/image-20181113021744677-2046664.png" />image-20181113021744677</p>
+<p>同时，s平面上的虚轴$s=j\Omega$于z平面上单位圆$z=e^{j\omega}$的关系如下
+$$
+j \Omega = \frac { 2 } { T } \left( \frac { 1 - e ^ { - j \omega } } { 1 + e ^ { - j \omega } } \right) = j \frac { 2 } { T } \tan ( \omega / 2 )
+$$
+双线性变换两边（连续频率$\Omega$和离散频率$\omega$）之间的关系为
+$$
+\begin{array} { l } { \Omega = \frac { 2 } { T } \tan \left( \frac { \omega } { 2 } \right) } \ { \omega = 2 \arctan \left( \frac { \Omega T } { 2 } \right) } \end{array}
+$$
+很显然，双线性变换是一个非线性变换，上述频率之间的关系，表示双线性变换将范围在$(-\infty,\infty)$的连续频率$\Omega$压缩映射到范围在$(-\pi,\pi)$的离散频率$\omega$上，因此会引起频率畸变。</p>
+<p><img alt="assets/image-20181113022237313-2046957.png" src="assets/image-20181113022237313-2046957.png" />image-20181113022237313</p>
+</div>
+<div class="section" id="id3">
+<h2>利用双线性变换进行IIR数字滤波器设计<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p><img alt="assets/image-20181113022602047-2047162.png" src="assets/image-20181113022602047-2047162.png" />image-20181113022602047</p>
+<p>再来回顾一下IIR数字滤波器设计的基本流程：</p>
+<ol class="simple">
+<li><p>选择滤波器类型；</p></li>
+<li><p>双线性变换将数字指标转换成模拟滤波器指标；</p></li>
+<li><p>设计模拟滤波器的传输函数；</p></li>
+<li><p>根据上述变换的反变换，将模拟滤波器转换成数字滤波器。</p></li>
+</ol>
+<p>同时，可以通过回顾例子1，进一步理解设计流程。</p>
+</div>
+<div class="section" id="matlab">
+<h2>通过Matlab的滤波器设计工具箱<a class="headerlink" href="#matlab" title="永久链接至标题">¶</a></h2>
+<p><img alt="assets/image-20181115192903579-2281343.png" src="assets/image-20181115192903579-2281343.png" />image-20181115192903579</p>
+</div>
+<div class="section" id="id4">
+<h2>通过谱变换设计高通、带通、带阻滤波器的方法<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p><img alt="assets/image-20181115193002287-2281402.png" src="assets/image-20181115193002287-2281402.png" />image-20181115193002287</p>
+<ol class="simple">
+<li><p>双线性变换将数字指标转换成模拟指标</p></li>
+<li><p>设计模拟低通滤波器</p></li>
+<li><p>两种方法选择：</p>
+<ol class="simple">
+<li><p>先<strong>连续时间谱变换</strong>，将低通变为高通（或者带通、带阻）模拟滤波器，然后双线性变换将模拟滤波器变成数字滤波器</p></li>
+<li><p>先双线性变换，将模拟转数字，然后通过<strong>离散时间谱变换</strong>，将低通变高通（带通或者带阻）</p></li>
+</ol>
+</li>
+</ol>
+<p>所以，这个问题的关键在于，如何确定连续时间谱变换，或者离散时间谱变换？</p>
+<div class="section" id="id5">
+<h3>连续时间谱变换<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<p>简单来说，连续时间谱变换实际上就是找到一个连续域的变换$s=F(\hat{s})$，将已经设计好的低通滤波器的低频部分变为想要设计的滤波器的通带部分，高通部分变为想要设计滤波器的阻带部分。
+$$
+H _ { L P } ( s ) \frac { s = F ( \hat { s } ) } { \hat { s } = F ^ { - 1 } ( s ) } H _ { D } ( \hat { s } )
+$$</p>
+<div class="section" id="id6">
+<h4>低通变换到高通<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h4>
+<p>将$\Omega$的低通部分变换到$\hat{\Omega}$的高通部分，可以通过下面的图像来描述。</p>
+<p><img alt="assets/image-20181115193945516-2281985.png" src="assets/image-20181115193945516-2281985.png" />image-20181115193945516</p>
+<p>实际上，这个关系可以很容易定义如下：
+$$
+s = F ( \hat { s } ) = \frac { \Omega _ { p } \hat { \Omega } _ { p } } { \hat { s } }
+$$</p>
+</div>
+<div class="section" id="id7">
+<h4>低通变换到带通<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h4>
+<p>低通变换到带通的谱变换为：
+$$
+s = F ( \hat { s } ) = \Omega _ { p } \frac { \hat { s } ^ { 2 } + \hat { \Omega } _ { o } ^ { 2 } } { \hat { s } \left( \hat { \Omega } _ { p 2 } - \hat { \Omega } _ { p 1 } \right) }
+$$</p>
+</div>
+<div class="section" id="id8">
+<h4>低通变换到带阻<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h4>
+<p>低通变换到带阻的谱变换为：
+$$
+s = F ( \hat { s } ) = \Omega _ { s } \frac { \hat { s } \left( \hat { \Omega } _ { s 2 } - \hat { \Omega } _ { s 1 } \right) } { \hat { s } ^ { 2 } + \hat { \Omega } _ { O } ^ { 2 } }
+$$</p>
+</div>
+</div>
+<div class="section" id="i">
+<h3>例子：设计切比雪夫I型高通滤波器<a class="headerlink" href="#i" title="永久链接至标题">¶</a></h3>
+<p>设计切比雪夫I型高通滤波器，指标为</p>
+<ul class="simple">
+<li><p>通带边界频率$F_p=700Hz$</p></li>
+<li><p>阻带边界频率$F_s=500Hz$</p></li>
+<li><p>通带波纹$\alpha_p=1dB$</p></li>
+<li><p>阻带最小衰减$\alpha_s=32dB$</p></li>
+<li><p>采样频率$F_T=2000Hz$</p></li>
+</ul>
+<p>设计流程：</p>
+<ol class="simple">
+<li><p>计算归一化角频率：
+$$
+\begin{aligned} \omega _ { p } &amp; = \frac { 2 \pi F _ { p } } { F _ { T } } = 0.7 \pi \ \omega _ { s } &amp; = \frac { 2 \pi F _ { s } } { F _ { T } } = 0.5 \pi \end{aligned}
+$$</p></li>
+<li><p>频率变换：双线性变换
+$$
+\begin{array} { l } { \hat { \Omega } _ { p } = \tan \left( \omega _ { p } / 2 \right) = 1.9626 } \ { \hat { \Omega } _ { s } = \tan \left( \omega _ { s } / 2 \right) = 1.0 } \end{array}
+$$</p></li>
+<li><p>设计低通滤波器，并通过连续谱变换，将低通滤波器变为高通滤波器
+$$
+\Omega _ { p } = 2 \Rightarrow \Omega _ { s } = \frac { \Omega _ { p } \hat { \Omega } _ { p } } { \hat { \Omega } _ { s } } = 3.9352
+$$</p></li>
+<li><p>双线性逆变换：将模拟滤波器转换为数字滤波器</p></li>
+</ol>
+<p><img alt="assets/image-20181115195159446-2282719.png" src="assets/image-20181115195159446-2282719.png" />image-20181115195159446</p>
+<p><img alt="assets/image-20181115195209868-2282729.png" src="assets/image-20181115195209868-2282729.png" />image-20181115195209868</p>
+</div>
+<div class="section" id="id9">
+<h3>离散时间谱变换<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h3>
+<p>而对于离散时间谱变换来说，实际上就是将双线性逆变换之后得到的数字低通滤波器，跟刚刚的连续时间谱变换方式一样，将低通部分转换为待设计滤波器的通带部分，高通部分转换为待设计滤波器的阻带部分。
+$$
+G _ { L P } ( z ) \frac { z = F ( \hat { z } ) } { \hat { z } = F ^ { - 1 } ( z ) } G _ { D } ( \hat { z } )
+$$
+变换函数$z=F(\hat{z})$必须满足</p>
+<ul class="simple">
+<li><p>保证频率响应不变：单位圆映射到单位圆（但是改变位置）</p></li>
+<li><p>保证稳定性：单位圆内映射到单位圆内</p></li>
+</ul>
+<p>$$
+| F ( \hat { z } ) | \left{ \begin{array} { l } { &gt; 1 , } &amp; { | z | &gt; 1 } \ { = 1 , } &amp; { | z | = 1 } \ { &lt; 1 , } &amp; { | z | &lt; 1 } \end{array} \right. \Longrightarrow \frac{1}{F(\hat{z})}是稳定的全通函数
+$$</p>
+<p>可以发现，实际上要设计的谱变换函数的倒数满足全通函数性质，因此分子和分母多项式是镜像对称的。</p>
+<div class="section" id="id10">
+<h4>低通转换到低通<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h4>
+<p>定义变换为：
+$$
+z ^ { - 1 } = \frac { 1 } { F ( \hat { z } ) } = \frac { 1 - \alpha \hat { z } } { \hat { z } - \alpha }
+$$
+可以推导出
+$$
+\hat { z } = e ^ { j \hat { \omega } } \Rightarrow z ^ { - 1 } = e ^ { - j \omega } = \frac { 1 - \alpha e ^ { j \hat { \omega } } } { e ^ { j \hat { \omega } } - \alpha }\Rightarrow \tan \left( \frac { \omega } { 2 } \right) = \frac { 1 + \alpha } { 1 - \alpha } \tan \left( \frac { \hat { \omega } } { 2 } \right) \
+\Rightarrow \tan \left( \frac { \omega _ { c } } { 2 } \right) = \frac { 1 + \alpha } { 1 - \alpha } \tan \left( \frac { \hat { \omega } _ { c } } { 2 } \right) \Rightarrow \alpha = \frac { \sin \left( \frac { \omega _ { c } - \hat { \omega } _ { c } } { 2 } \right) } { \sin \left( \frac { \omega _ { c } + \hat { \omega } _ { c } } { 2 } \right) }
+$$
+<img alt="assets/image-20181115201343473-2284023.png" src="assets/image-20181115201343473-2284023.png" />image-20181115201343473</p>
+<p>因此可以发现，</p>
+<ul class="simple">
+<li><p>当$\alpha&gt;0$时，高频部分扩展（低频部分压缩），也就是说通带缩减了；</p></li>
+<li><p>当$\alpha&lt;0$时，低频部分扩展（高频部分压缩），也就是说通带增大了。</p></li>
+</ul>
+</div>
+<div class="section" id="id11">
+<h4>低通转换到高通<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h4>
+<p>同样的，定义变换为
+$$
+z ^ { - 1 } = \frac { 1 } { F ( \hat { z } ) } = - \frac { 1 - \alpha \hat { z } } { \hat { z } - \alpha }
+$$
+可以推导出
+$$
+\hat { z } = e ^ { j \hat { \omega } } \Rightarrow z ^ { - 1 } = e ^ { - j \omega } = - \frac { 1 - \alpha e ^ { j \hat { \omega } } } { e ^ { j \hat { \omega } } - \alpha } \Rightarrow \tan \left( \frac { \omega } { 2 } \right) = \frac { 1 + \alpha } { 1 - \alpha } \cot \left( \frac { \hat { \omega } } { 2 } \right) \
+\Rightarrow \tan \left( \frac { \omega _ { c } } { 2 } \right) = \frac { 1 + \alpha } { 1 - \alpha } \cot \left( \frac { \hat { \omega } _ { c } } { 2 } \right) \Rightarrow \alpha = - \frac { \cos \left( \frac { \omega _ { c } + \hat { \omega } _ { c } } { 2 } \right) } { \cos \left( \frac { \omega _ { c } - \hat { \omega } _ { c } } { 2 } \right) }
+$$
+<img alt="assets/image-20181115201613017-2284173.png" src="assets/image-20181115201613017-2284173.png" />image-20181115201613017</p>
+<p>因此可以发现，这个变换的作用是将高频和低频部分对调，并且</p>
+<ul class="simple">
+<li><p>当$\alpha&gt;0$时，高频部分扩展（低频部分压缩）；</p></li>
+<li><p>当$\alpha&lt;0$时，低频部分扩展（高频部分压缩）。</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="id12">
+<h2>附录：模拟滤波器的设计方法<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h2>
+<p>模拟IIR滤波器的类型：</p>
+<ol class="simple">
+<li><p>巴特沃兹</p></li>
+<li><p>切比雪夫I</p></li>
+<li><p>切比雪夫II</p></li>
+<li><p>椭圆</p></li>
+</ol>
+<p>上述几种滤波器通带和阻带的特性。</p>
+<img src="assets/image-20181115192343993-2281024.png" width=450px><div class="section" id="butterworth">
+<h3>Butterworth<a class="headerlink" href="#butterworth" title="永久链接至标题">¶</a></h3>
+<ol class="simple">
+<li><p>首先确定滤波器阶数$N$：</p></li>
+</ol>
+<p><img alt="assets/image-20181115192516105-2281116.png" src="assets/image-20181115192516105-2281116.png" />image-201811151925161052. 然后通过查表或者Matlab工具箱得到传输函数：
+$$
+H _ { a } ( s ) = \frac { 1 } { B _ { N } \left( s / \Omega _ { c } \right) }
+$$
+<img src="assets/image-20181115192615939-2281176.png" width=450px></p>
+<p>其他几种模拟滤波器的设计方法参见课件PPT。</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Lei Yu
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

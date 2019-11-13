@@ -1,0 +1,408 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>零相位响应滤波器 &mdash; DSP_Course  文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/proof.js"></script>
+        <script type="text/javascript" src="_static/translations.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"extensions": ["tex2jax.js"], "jax": ["input/TeX", "output/HTML-CSS"], "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEscapes": true}, "HTML-CSS": {"fonts": ["TeX"]}, "TeX": {"equationNumbers": {"autoNumber": "AMS"}}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/proof.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> DSP_Course
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">讲义（建设中）</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ch1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch2.html">2. 时域中的离散时间信号和系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch3.html">3. 离散时间傅里叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch4.html">4. 离散傅里叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch5.html">5. Z变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch6.html">6. 变换域中的离散时间系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch7.html">7. 滤波器设计</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch8.html">8. 滤波器实现</a></li>
+</ul>
+<p class="caption"><span class="caption-text">课后习题</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch1.html">1. 作业要求</a></li>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch2.html">2. 时域中的离散时间信号和系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch3.html">3. 离散时间傅立叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch4.html">4. 离散傅立叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch5.html">5. z变换</a></li>
+</ul>
+<p class="caption"><span class="caption-text">实验内容 (Python)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c2.html">2. 离散时间信号与系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c3.html">3. 离散时间傅里叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c4.html">4. 离散傅里叶变换</a></li>
+</ul>
+<p class="caption"><span class="caption-text">实验内容（Matlab）</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/ch1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/ch2.html">2. 离散时间信号</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/convolution_correlation.html">3. 卷积和相关</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/auto_focus.html">4. 基于傅里叶变换的自动对焦算法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/sampling_nonbandLim.html">5. 非带限信号的采样与重建</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/vuvuzela/vuvuzela_denoising.html">6. 如何消除Vuvuzela?</a></li>
+</ul>
+<p class="caption"><span class="caption-text">附录</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="appendix/index_principles.html">定理证明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix/index_history.html">小小历史</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DSP_Course</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>零相位响应滤波器</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/DSP_零相位滤波器.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="id1">
+<h1>零相位响应滤波器<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>[TOC]</p>
+<p>零相位响应滤波器，顾名思义，系统的相位响应
+$$
+\theta(\omega) = 0, \forall w
+$$
+传输函数$H(e^{j\omega})$
+$$
+H(e^{j\omega})=|H(e^{j\omega})|e^{j\theta(\omega)} = |H(e^{j\omega})|
+$$
+<strong>所以零相位传输函数为实数，且非负。</strong></p>
+<div class="section" id="id2">
+<h2>零相位传输函数的形式<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>实系统零相位传输函数可以分解为如下形式
+$$
+F(z)=H(z)H(z^{-1}) \label{eq:3}
+$$</p>
+<blockquote>
+<div><p>Proof:</p>
+<p>计算$F(z)$的频率响应
+$$
+\begin{split}
+F(e^{j\omega}) &amp; = F(z)\vert_{z=e^{j\omega}} \
+&amp; = H(z)H(z^{-1})\vert_{z=e^{j\omega}} =H(e^{j\omega})H(e^{-j\omega})\
+&amp; = |H(e^{j\omega})|^2 \geq 0
+\end{split}
+$$
+EOP.</p>
+</div></blockquote>
+<div class="section" id="id3">
+<h3>例子：简单零相位响应滤波器<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<p>$$
+F(z) = (1+az^{-1})(az+1)=az+(1+a^2)+az^{-1}
+$$</p>
+<img src="assets/image-20181110214702112.png" width=450px><p>幅度响应为</p>
+<p><img alt="assets/image-20181110215000076.png" src="assets/image-20181110215000076.png" />image-20181110215000076</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>零相位传输函数的零极点分布<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>根据零相位传输函数的形式$\eqref{eq:3}$，很容易（与全通函数类似）可以证明零相位传输函数的零点和零点关于单位圆镜像对称，极点和极点关于单位圆镜像对称。</p>
+<img src="assets/image-20181110215520861.png" width=450px></div>
+<div class="section" id="fir">
+<h2>FIR零相位响应滤波器<a class="headerlink" href="#fir" title="永久链接至标题">¶</a></h2>
+<p>因为零相位传输函数具有如下形式：
+$$
+F(z)=H(z)H(z^{-1})
+$$
+对于FIR系统来说，我们可以令
+$$
+H(z)=1+a_1z^{-1}+\cdots+a_Nz^{-N}
+$$
+那么
+$$
+G(z) \triangleq H(z^{-1})=1+a_1z+\cdots a_Nz^{N}
+$$
+时域上来看，$H$和$G$两个系统的冲激响应序列，分别为
+$$
+h[n]={1,a_1,a_2,…,a_N}, n=0,1,…,N \
+g[n]={a_N,a_{N-1},…,a_1,1},n=-N,-N+1,…,0
+$$
+很显然，$h[n]=g[-n]$</p>
+<p>另外，$F(z)$的时域冲激响应序列为
+$$
+f[n]=h[n]\circledast g[n] \Rightarrow \
+f[-n]=h[-n]\circledast g[-n]=h[n]\circledast g[n]=f[n]
+$$
+也就是说$f[n]=f[-n]$，冲激响应序列为关于0时刻对称的序列；那么变换到Z域，FIR零相位传输函数必然满足如下形式
+$$
+F(z)=\sum_{l=0}^M b_l(z^l+z^{-l})
+$$
+很显然，该系统为非因果系统。</p>
+</div>
+<div class="section" id="id5">
+<h2>零相位滤波器的非实时处理<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<p><img alt="assets/image-20181110222051362.png" src="assets/image-20181110222051362.png" />image-20181110222051362</p>
+<p>因为零相位滤波器是非因果系统，无法实时处理。因此，一般我们采用非实时方式来实现零相位滤波器，例如上图所示。</p>
+<p>我们可以将每个节点的Z变换写出来
+$$
+\begin{split}
+V(z)&amp;=H(z)X(z) \
+U(z)&amp;=V(z^{-1}) \
+W(z)&amp;=H(z)U(z) \
+Y(z)&amp;=W(z^{-1})
+\end{split}
+$$
+通过递归计算，可以得到输入输出之间的关系
+$$
+Y(z)=\underbrace{H(z)H(z^{-1})}_{F(z)}X(z)
+$$
+$F(z)$为零相位滤波器。</p>
+</div>
+<div class="section" id="id6">
+<h2>如何设计零相位滤波器<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
+<p>因为零相位系统是非因果的，往往被用来对信号做离线处理。<strong>设计满足某种幅度响应的零相位系统$F(z)$，实际上就是设计某个$H(z)$，使其幅度响应满足需求，然后按照上一节的非实时处理方法来实现零相位系统$F(z)$。</strong></p>
+<p>具体的设计步骤如下：</p>
+<ol class="simple">
+<li><p>根据需求得到系统的幅度响应
+$$
+|H(e^{j\omega})|^2
+$$</p></li>
+<li><p>替换$\omega=\frac{1}{j}\ln z$，或者$\cos \omega = \frac{z+z^{-1}}{2}$,得到
+$$
+H(z)H(z^{-1})=|H(e^{j\omega})|^2\vert_{\omega=\frac{1}{j}\ln z}
+$$</p></li>
+<li><p>选择一半的零点和极点实现$H(z)$，从而得到零相位传输函数
+$$
+F(z)=H(z)H(z^{-1})
+$$</p></li>
+</ol>
+<div class="section" id="id7">
+<h3>例子：设计幅度谱满足如下形式的零相位滤波器<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<p>$$
+|H(e^{j\omega})|^2 = \frac{4(1.09+0.6\cos \omega)(1.16-0.8\cos \omega)}{(1.04-0.4\cos \omega)(1.25+\cos \omega)}
+$$</p>
+<p>那么将$\cos \omega = (z+z^{-1})/2​$带入到上式中得到
+$$
+\begin{split}
+H(z)H(z^{-1}) &amp;= \frac{4(1.09+0.3(z+z^{-1}))(1.16-0.4(z+z^{-1}))}{(1.04-0.2(z+z^{-1}))(1.25+0.5(z+z^{-1}))} \
+&amp;=\frac{4(1+0.3z^{-1})(1+0.3z)(1-0.4z^{-1})(1-0.4z)}{(1-0.2z^{-1})(1-0.2z)(1+0.5z^{-1})(1+0.5z)}
+\end{split}
+$$
+那么，该传输函数具有与$H(e^{j\omega})$相同的幅度谱，且</p>
+<ol class="simple">
+<li><p>极点：$z={0.2,5,-0.5,-2}$</p></li>
+<li><p>零点：$z={-0.3,-10/3,0.4,2.5}$</p></li>
+</ol>
+<p>首先，挑选稳定的极点，即$z={0.2,-0.5}$</p>
+<p>其次，挑选一半的零点（==一对镜像对称的零点只能挑选一次==），这时有四种组合：
+$$
+z={-0.3,0.4}, \mbox{ or } z={-0.3,2.5} \mbox{ or } z={-10/3,0.4} \mbox{ or } z={-10/3,2.5}
+$$
+那么可以得到四种不同的传输函数$H(z)$，
+$$
+\begin{split}
+H(z) = \frac{2(1+0.3z^{-1})(1-0.4z^{-1})}{(1-0.2z^{-1})(1+0.5z^{-1})}\quad  &amp; H(z) = \frac{2(1+0.3z^{-1})(0.4-z^{-1})}{(1-0.2z^{-1})(1+0.5z^{-1})} \
+H(z) = \frac{2(0.3+z^{-1})(1-0.4z^{-1})}{(1-0.2z^{-1})(1+0.5z^{-1})} \quad &amp; H(z) = \frac{2(0.3+z^{-1})(0.4-z^{-1})}{(1-0.2z^{-1})(1+0.5z^{-1})}
+\end{split}
+$$
+但是，这四种不同的传输函数$H(z)$，最终根据上一节非实时处理方法实现的零相位系统$F(z)$是一样的。</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>总结<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li><p>零相位滤波器的相位响应为0；</p></li>
+<li><p>零相位滤波器的传输函数可以分解为一对镜像对称的有理多项式乘积；</p></li>
+<li><p>零相位传输函数的零极点分布：零点与零点镜像对称；极点与极点镜像对称；</p></li>
+<li><p>FIR零相位滤波器的冲激响应序列是关于时刻0对称的；</p></li>
+<li><p>设计零相位滤波器的方法。</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Lei Yu
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

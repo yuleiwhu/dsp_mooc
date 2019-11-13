@@ -1,0 +1,853 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2.1. 时域中的离散时间信号 &mdash; DSP_Course  文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/proof.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"extensions": ["tex2jax.js"], "jax": ["input/TeX", "output/HTML-CSS"], "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEscapes": true}, "HTML-CSS": {"fonts": ["TeX"]}, "TeX": {"equationNumbers": {"autoNumber": "AMS"}}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/proof.css" type="text/css" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="2.2. 时域中的离散时间系统" href="dt_systems.html" />
+    <link rel="prev" title="2. 离散时间信号与系统" href="ex_c2.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> DSP_Course
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">讲义（建设中）</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ch1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ch2.html">2. 时域中的离散时间信号和系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ch3.html">3. 离散时间傅里叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ch4.html">4. 离散傅里叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ch5.html">5. Z变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ch6.html">6. 变换域中的离散时间系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ch7.html">7. 滤波器设计</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ch8.html">8. 滤波器实现</a></li>
+</ul>
+<p class="caption"><span class="caption-text">课后习题</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../homework/ch1.html">1. 作业要求</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../homework/ch2.html">2. 时域中的离散时间信号和系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../homework/ch3.html">3. 离散时间傅立叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../homework/ch4.html">4. 离散傅立叶变换</a></li>
+</ul>
+<p class="caption"><span class="caption-text">实验内容 (Python)</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="ex_c1.html">1. 引言</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="ex_c2.html">2. 离散时间信号与系统</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2.1. 时域中的离散时间信号</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#相关Python包">相关Python包</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#科学计算包">科学计算包</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#绘图包">绘图包</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#离散时间信号">离散时间信号</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#序列的能量和平均功率">序列的能量和平均功率</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#单位样本序列和单位阶跃序列">单位样本序列和单位阶跃序列</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#指数序列">指数序列</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#正弦序列及其周期性">正弦序列及其周期性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#序列的基本运算">序列的基本运算</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dt_systems.html">2.2. 时域中的离散时间系统</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ex_c3.html">3. 离散时间傅里叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ex_c4.html">4. 离散傅里叶变换</a></li>
+</ul>
+<p class="caption"><span class="caption-text">实验内容（Matlab）</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../matlab_ex/ch1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../matlab_ex/ch2.html">2. 离散时间信号</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../matlab_ex/convolution_correlation.html">3. 卷积和相关</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../matlab_ex/auto_focus.html">4. 基于傅里叶变换的自动对焦算法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../matlab_ex/sampling_nonbandLim.html">5. 非带限信号的采样与重建</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../matlab_ex/vuvuzela/vuvuzela_denoising.html">6. 如何消除Vuvuzela?</a></li>
+</ul>
+<p class="caption"><span class="caption-text">附录</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../appendix/index_principles.html">定理证明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendix/index_history.html">小小历史</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">DSP_Course</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="ex_c2.html">2. 离散时间信号与系统</a> &raquo;</li>
+        
+      <li>2.1. 时域中的离散时间信号</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/experiments/dt_signals.ipynb.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 5ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="时域中的离散时间信号">
+<h1>2.1. 时域中的离散时间信号<a class="headerlink" href="#时域中的离散时间信号" title="永久链接至标题">¶</a></h1>
+<p>数字信号处理是处理一种称之为输入信号的离散时间信号,以产生另一种称之为输出信号的离散时间信号,这种输出信号具有更多人们所需要的性质.在某些应用中,需要使用特定的数字信号处理算法来提取原信号的一些重要性质.通过观察系统对给定输入信号的输出信号,还可以研究离散时间系统的特性.</p>
+<p>因此,我们首先要学会用Python在时域中产生一些基本的离散时间信号,并对这些信号进行一些基本的运算.其次,学会使用基本的Python命令,并将它们应用到简单的数字信号处理问题中.</p>
+<div class="section" id="相关Python包">
+<h2>相关Python包<a class="headerlink" href="#相关Python包" title="永久链接至标题">¶</a></h2>
+<div class="section" id="科学计算包">
+<h3>科学计算包<a class="headerlink" href="#科学计算包" title="永久链接至标题">¶</a></h3>
+<p>科学计算包Numpy作为基础包在后学学习数字信号处理过程中会大量使用,这里通过下面的命令可以加载到程序中.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="绘图包">
+<h3>绘图包<a class="headerlink" href="#绘图包" title="永久链接至标题">¶</a></h3>
+<p>绘图包Matplotlib包含大量的绘图工具,可以完成跟Matlab中plot函数相当的功能,因此后续学习过程中需要可视化最终结果时,会用到这个包中的函数.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="离散时间信号">
+<h2>离散时间信号<a class="headerlink" href="#离散时间信号" title="永久链接至标题">¶</a></h2>
+<p>离散时间信号由样本构成的数字序列来表示.典型的离散时间信号或者序列表示为</p>
+<div class="math notranslate nohighlight">
+\[\{x[n]\}\]</div>
+<p>其中<span class="math notranslate nohighlight">\(x[n]\)</span>为样本值,<span class="math notranslate nohighlight">\(n\)</span>为样本的序号(整数),取值范围为<span class="math notranslate nohighlight">\(- \infty \sim  \infty\)</span>.</p>
+<p>一般,我们为了简便起见,将外面的花括号去掉.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 产生一个样本序列$x[n] = \{1,2,-1,-4\}$</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> <span class="c1"># 定义序号</span>
+<span class="n">xn</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span> <span class="c1"># 定义序列</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">xn</span><span class="p">)</span>   <span class="c1"># 画出序列图形</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">xn</span><span class="p">)</span>      <span class="c1"># 显示序列</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[1, 2, -1, -4]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/experiments_dt_signals_2_1.png" src="../_images/experiments_dt_signals_2_1.png" />
+</div>
+</div>
+<div class="section" id="序列的能量和平均功率">
+<h3>序列的能量和平均功率<a class="headerlink" href="#序列的能量和平均功率" title="永久链接至标题">¶</a></h3>
+<p>序列<span class="math notranslate nohighlight">\(x[n]\)</span>的能量定义为</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{E} = \sum_{n=-\infty}^\infty |x[n]|^2\]</div>
+<p>有限长度序列的能量定义为</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{E}_K = \sum_{n=-K}^K |x[n]|^2\]</div>
+<p>非周期信号<span class="math notranslate nohighlight">\(x[n]\)</span>的平均功率定义为</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{P}_{av} = \lim_{K\to \infty} \frac{1}{2K+1} \mathcal{E}_K = \lim_{K\to \infty} \frac{1}{2K+1} \sum_{n=-K}^K |x[n]|^2\]</div>
+<p>周期信号<span class="math notranslate nohighlight">\( \tilde{x}[n]\)</span>的平均功率为</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{P}_{av} = \frac{1}{N} \sum_{n=0}^{N-1}|\tilde{x}[n]|^2\]</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 计算给定序列的能量</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span> <span class="c1"># 定义序号</span>
+<span class="n">xn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mf">0.2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span>
+<span class="n">E</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">xn</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>   <span class="c1"># 序列的能量</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;信号x[n]的能量为E=</span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">E</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+信号x[n]的能量为E=1.595
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 计算周期正弦序列的平均功率</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># 定义序号</span>
+<span class="n">xn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="mf">0.2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span> <span class="c1"># 周期为5的正弦序列</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">xn</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="mi">5</span>   <span class="c1"># 序列的能量</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;信号x[n]的平均功率为P=</span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">P</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+信号x[n]的平均功率为P=0.500
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="单位样本序列和单位阶跃序列">
+<h3>单位样本序列和单位阶跃序列<a class="headerlink" href="#单位样本序列和单位阶跃序列" title="永久链接至标题">¶</a></h3>
+<p>单位样本序列(或者离散时间沖激或单位沖激),用<span class="math notranslate nohighlight">\( \delta[n]\)</span>来表示,其定义为</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\delta[n] =
+\begin{cases}
+1, &amp; \quad n=0 \\
+0, &amp; \quad n\neq 0
+\end{cases}\end{split}\]</div>
+<p>单位阶跃序列用<span class="math notranslate nohighlight">\( \mu[n]\)</span>来表示,定义为</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mu[n] =
+\begin{cases}
+1, &amp; \quad n\geq 0 \\
+0, &amp; \quad n&lt; 0
+\end{cases}\end{split}\]</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">hn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">]),</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]),</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">20</span><span class="p">])),</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="c1">#,np.zeros([1,20]))</span>
+<span class="n">un</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">]),</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">])),</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">hn</span><span class="o">.</span><span class="n">transpose</span><span class="p">())</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time index n&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Unit Sample Sequence&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.2</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">un</span><span class="o">.</span><span class="n">transpose</span><span class="p">())</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time index n&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Unit Step Sequence&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.2</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/experiments_dt_signals_7_0.png" src="../_images/experiments_dt_signals_7_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="指数序列">
+<h3>指数序列<a class="headerlink" href="#指数序列" title="永久链接至标题">¶</a></h3>
+<p>指数序列定义为</p>
+<div class="math notranslate nohighlight">
+\[x[n] = A \alpha ^n\]</div>
+<p>其中,<span class="math notranslate nohighlight">\(A\)</span>和<span class="math notranslate nohighlight">\( \alpha\)</span>是任意的实数或者复数,表示为</p>
+<div class="math notranslate nohighlight">
+\[\alpha = e^{\sigma_0+j\omega_0} \quad A = |A|e^{j\phi}\]</div>
+<p>所以指数序列还可以改写为</p>
+<div class="math notranslate nohighlight">
+\[x[n] = |A|e^{\sigma_0 n+ j(\omega_0n + \phi)} = |A|e^{\sigma_0n}(\cos(\omega_0n + \phi)+j\sin(\omega_0n + \phi))\]</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 产生一个指数序列:sigma=-0.5,w0=0.15,phi=0.2,|A|=10</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">25</span><span class="p">)</span> <span class="c1"># 定义序号</span>
+<span class="n">w0</span><span class="o">=</span><span class="mf">0.15</span>
+<span class="n">phi</span><span class="o">=</span><span class="mf">0.2</span>
+<span class="n">A</span><span class="o">=</span><span class="mi">10</span>
+<span class="n">sigma</span><span class="o">=-</span><span class="mf">0.5</span>
+<span class="n">en</span> <span class="o">=</span> <span class="n">A</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">sigma</span><span class="o">*</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">n</span><span class="o">*</span><span class="n">w0</span><span class="o">+</span><span class="n">phi</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">121</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">en</span><span class="o">.</span><span class="n">real</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time index n&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Real part of exp. seq.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">122</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">en</span><span class="o">.</span><span class="n">imag</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time index n&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Image part of exp. seq.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/experiments_dt_signals_9_0.png" src="../_images/experiments_dt_signals_9_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="正弦序列及其周期性">
+<h3>正弦序列及其周期性<a class="headerlink" href="#正弦序列及其周期性" title="永久链接至标题">¶</a></h3>
+<p>正弦序列定义为</p>
+<div class="math notranslate nohighlight">
+\[x[n] = |A|\cos(\omega_0n + \phi)\]</div>
+<p>式子中的<span class="math notranslate nohighlight">\(|A|\)</span>,<span class="math notranslate nohighlight">\( \omega_0\)</span>和<span class="math notranslate nohighlight">\( \phi\)</span>分别被称为正弦序列的幅度,角频率和相位.</p>
+<p>若<span class="math notranslate nohighlight">\( \omega_0N\)</span>为<span class="math notranslate nohighlight">\(2 \pi\)</span>的整数倍,当<span class="math notranslate nohighlight">\( \sigma_0=0\)</span>时,复指数序列和正弦序列都是周期序列,此时周期为满足条件的最小的<span class="math notranslate nohighlight">\(N\)</span></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 产生一个周期为12的正弦序列</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">25</span><span class="p">)</span> <span class="c1"># 定义序号</span>
+<span class="n">xn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">n</span><span class="o">/</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">xn</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time index n&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Sinsoid sequence with Periodicity of 12&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/experiments_dt_signals_11_0.png" src="../_images/experiments_dt_signals_11_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="序列的基本运算">
+<h3>序列的基本运算<a class="headerlink" href="#序列的基本运算" title="永久链接至标题">¶</a></h3>
+<p>长度为N的两个序列<span class="math notranslate nohighlight">\(x[n]\)</span>和<span class="math notranslate nohighlight">\(h[n]\)</span>的乘积,产生长度为N的序列<span class="math notranslate nohighlight">\(y[n]\)</span></p>
+<div class="math notranslate nohighlight">
+\[y[n]=x[n] \cdot h[n]\]</div>
+<p>长度为N的两个序列<span class="math notranslate nohighlight">\(x[n]\)</span>和<span class="math notranslate nohighlight">\(h[n]\)</span>的相加,产生长度为N的序列<span class="math notranslate nohighlight">\(y[n]\)</span></p>
+<div class="math notranslate nohighlight">
+\[y[n]=x[n] + h[n]\]</div>
+<p>标量A和长度为N的序列<span class="math notranslate nohighlight">\(x[n]\)</span>相乘,产生长度为N的序列<span class="math notranslate nohighlight">\(y[n]\)</span></p>
+<div class="math notranslate nohighlight">
+\[y[n]=A\cdot x[n]\]</div>
+<p>无限长序列<span class="math notranslate nohighlight">\(x[n]\)</span>通过时间翻转,得到无限长序列<span class="math notranslate nohighlight">\(y[n]\)</span></p>
+<div class="math notranslate nohighlight">
+\[y[n]=x[-n]\]</div>
+<p>无限长序列<span class="math notranslate nohighlight">\(x[n]\)</span>通过时间延迟(超前),得到无限长序列<span class="math notranslate nohighlight">\(y[n]\)</span></p>
+<div class="math notranslate nohighlight">
+\[y[n] = x[n-m]\]</div>
+<p>长度为N的序列<span class="math notranslate nohighlight">\(x[n]\)</span>,可以被长度为M的序列<span class="math notranslate nohighlight">\(g[n]\)</span>扩充,得到长度为<span class="math notranslate nohighlight">\(N+M\)</span>的序列<span class="math notranslate nohighlight">\(y[n]\)</span></p>
+<div class="math notranslate nohighlight">
+\[\{y[n]\} = \{\{x[n]\},\{g[n]\}\}\]</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 循环平移函数</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">41</span><span class="p">)</span>
+<span class="n">y1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">y2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">cshift</span><span class="p">(</span><span class="n">key</span><span class="p">,</span><span class="n">array</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="o">-</span><span class="n">key</span><span class="p">:],</span><span class="n">array</span><span class="p">[:</span><span class="o">-</span><span class="n">key</span><span class="p">])</span>
+
+<span class="c1"># 线性平移</span>
+
+<span class="k">def</span> <span class="nf">lshift</span><span class="p">(</span><span class="n">key</span><span class="p">,</span><span class="n">array</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">key</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">array</span><span class="p">[</span><span class="o">-</span><span class="n">key</span><span class="p">:],</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="o">-</span><span class="n">key</span><span class="p">]))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">key</span><span class="p">]),</span><span class="n">array</span><span class="p">[:</span><span class="o">-</span><span class="n">key</span><span class="p">])</span>
+
+<span class="n">ylr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">flipud</span><span class="p">(</span><span class="n">y1</span><span class="p">)</span>     <span class="c1"># flip left and right</span>
+<span class="n">yls</span> <span class="o">=</span> <span class="n">lshift</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="n">y1</span><span class="p">)</span>    <span class="c1"># left shift</span>
+<span class="n">yrs</span> <span class="o">=</span> <span class="n">lshift</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="n">y1</span><span class="p">)</span>     <span class="c1"># right shift</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">221</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Original&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">222</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Reversal&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">ylr</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">223</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Linear Shift -10&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">yls</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">224</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Linear Shift 10&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">yrs</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/experiments_dt_signals_13_0.png" src="../_images/experiments_dt_signals_13_0.png" />
+</div>
+</div>
+<div class="section" id="例子:-信号平滑">
+<h4>例子: 信号平滑<a class="headerlink" href="#例子:-信号平滑" title="永久链接至标题">¶</a></h4>
+<p>数字信号处理应用的一个常见的例子就是从被加性噪声污染的信号中移除噪声.假定信号<span class="math notranslate nohighlight">\(s[n]\)</span>被噪声<span class="math notranslate nohighlight">\(d[n]\)</span>污染,得到了一个含有噪声的信号</p>
+<div class="math notranslate nohighlight">
+\[x[n] = s[n] +d[n]\]</div>
+<p>我们的目的是对<span class="math notranslate nohighlight">\(x[n]\)</span>进行计算,产生一个合理的逼近<span class="math notranslate nohighlight">\(s[n]\)</span>的信号<span class="math notranslate nohighlight">\(y[n]\)</span>.因此,对时刻<span class="math notranslate nohighlight">\(n\)</span>的样本附近的样本求平均,产生输出信号是一种简单有效的方法,例如三点滑动平均</p>
+<div class="math notranslate nohighlight">
+\[y[n] = \frac{1}{3}(x[n-1]+x[n]+x[n+1])\]</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># 通过滑动平均平滑信号</span>
+<span class="n">R</span> <span class="o">=</span> <span class="mi">51</span>
+<span class="n">d</span> <span class="o">=</span> <span class="o">.</span><span class="mi">8</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,[</span><span class="n">R</span><span class="p">,])</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">R</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="o">*</span><span class="p">(</span><span class="mf">0.9</span><span class="o">**</span><span class="n">n</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">s</span><span class="o">+</span><span class="n">d</span>
+
+<span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">2</span><span class="p">,]),</span><span class="n">x</span><span class="p">),</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">1</span><span class="p">,]),</span><span class="n">x</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">1</span><span class="p">,])),</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">x</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="mi">2</span><span class="p">,])),</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="c1"># Average</span>
+<span class="n">y1</span> <span class="o">=</span> <span class="p">(</span><span class="n">x1</span><span class="o">+</span><span class="n">x2</span><span class="o">+</span><span class="n">x3</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">y1</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># 绘制结果</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">211</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="s1">&#39;r-&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;d[n]&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">s</span><span class="p">,</span><span class="s1">&#39;g--&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;s[n]&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="s1">&#39;b-&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;x[n]&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">9</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">212</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="s1">&#39;r-&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;y[n]&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">s</span><span class="p">,</span><span class="s1">&#39;g--&#39;</span><span class="p">,</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;s[n]&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">9</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Time index (n)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Amplitude&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/experiments_dt_signals_15_0.png" src="../_images/experiments_dt_signals_15_0.png" />
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="dt_systems.html" class="btn btn-neutral float-right" title="2.2. 时域中的离散时间系统" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ex_c2.html" class="btn btn-neutral float-left" title="2. 离散时间信号与系统" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Lei Yu
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

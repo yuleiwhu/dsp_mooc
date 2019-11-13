@@ -1,0 +1,396 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>FIR 数字滤波器设计 &mdash; DSP_Course  文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/proof.js"></script>
+        <script type="text/javascript" src="_static/translations.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"extensions": ["tex2jax.js"], "jax": ["input/TeX", "output/HTML-CSS"], "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEscapes": true}, "HTML-CSS": {"fonts": ["TeX"]}, "TeX": {"equationNumbers": {"autoNumber": "AMS"}}})</script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/proof.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> DSP_Course
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">讲义（建设中）</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ch1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch2.html">2. 时域中的离散时间信号和系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch3.html">3. 离散时间傅里叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch4.html">4. 离散傅里叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch5.html">5. Z变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch6.html">6. 变换域中的离散时间系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch7.html">7. 滤波器设计</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ch8.html">8. 滤波器实现</a></li>
+</ul>
+<p class="caption"><span class="caption-text">课后习题</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch1.html">1. 作业要求</a></li>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch2.html">2. 时域中的离散时间信号和系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch3.html">3. 离散时间傅立叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch4.html">4. 离散傅立叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="homework/ch5.html">5. z变换</a></li>
+</ul>
+<p class="caption"><span class="caption-text">实验内容 (Python)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c2.html">2. 离散时间信号与系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c3.html">3. 离散时间傅里叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="experiments/ex_c4.html">4. 离散傅里叶变换</a></li>
+</ul>
+<p class="caption"><span class="caption-text">实验内容（Matlab）</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/ch1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/ch2.html">2. 离散时间信号</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/convolution_correlation.html">3. 卷积和相关</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/auto_focus.html">4. 基于傅里叶变换的自动对焦算法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/sampling_nonbandLim.html">5. 非带限信号的采样与重建</a></li>
+<li class="toctree-l1"><a class="reference internal" href="matlab_ex/vuvuzela/vuvuzela_denoising.html">6. 如何消除Vuvuzela?</a></li>
+</ul>
+<p class="caption"><span class="caption-text">附录</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="appendix/index_principles.html">定理证明</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix/index_history.html">小小历史</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DSP_Course</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>FIR 数字滤波器设计</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/DSP_FIR滤波器设计.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="fir">
+<h1>FIR 数字滤波器设计<a class="headerlink" href="#fir" title="永久链接至标题">¶</a></h1>
+<p>[TOC]</p>
+<div class="section" id="id1">
+<h2>什么是FIR滤波器？<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>FIR(Finite Impulse Response)，即有限冲激响应滤波器。因此，N阶FIR滤波器的一般形式可以写成如下公式：
+$$
+H(z) = \sum_{i=0}^{N}h[n]z^{-n}
+$$
+其中，$h[n]$为滤波器的冲激响应系数。设计FIR滤波器，实际上就是要根据给定滤波器指标，设计这些冲激响应系数$h[n]$。一般的，FIR滤波器的设计方法可以有如下两种：</p>
+<ol class="simple">
+<li><p>窗函数方法</p></li>
+<li><p>计算机辅助设计方法</p></li>
+</ol>
+<p><img alt="assets/image-20181119193100475-2627060.png" src="assets/image-20181119193100475-2627060.png" />image-20181119193100475</p>
+<p>另外，根据输入和输出信号的统计特性，我们还可以设计最佳滤波器，当然这一部分内容属于《现代数字信号处理》课程的范畴，大家有兴趣的话可以参考研究生课程《现代信号与信息处理》。</p>
+</div>
+<div class="section" id="firiir">
+<h2>FIR滤波器与IIR滤波器的比较<a class="headerlink" href="#firiir" title="永久链接至标题">¶</a></h2>
+<p>在具体讲解FIR滤波器设计方法之前，有必要横向比较一下FIR和IIR两种类型滤波器，这样便于我们在实际应用中，根据需求选择哪一种类型。两种类别滤波的比较可以用下面这个表格来展示：</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th></th>
+<th align="left">FIR滤波器</th>
+<th>IIR滤波器</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>零极点</td>
+<td align="left">没有反馈（只有零点）</td>
+<td>有反馈（既有零点也有极点）</td>
+</tr>
+<tr>
+<td>稳定性</td>
+<td align="left">肯定稳定</td>
+<td>可能会不稳定</td>
+</tr>
+<tr>
+<td>相位</td>
+<td align="left">很容易设计线性相位滤波器（对称）</td>
+<td>很难控制相位响应</td>
+</tr>
+<tr>
+<td>阶数</td>
+<td align="left">一般阶数比较高（20-2000）</td>
+<td>阶数一般要小于FIR滤波器的1/10，即（4-20）</td>
+</tr>
+<tr>
+<td>与连续时间滤波器的关系</td>
+<td align="left">与连续时间滤波器没有关联</td>
+<td>都可以找到连续模拟滤波器的原型（Butterworth、Chebychef等等）</td>
+</tr>
+</tbody>
+</table><p>从上表可以发现，FIR滤波器的优点是：</p>
+<ol class="simple">
+<li><p>绝对BIBO稳定</p></li>
+<li><p>容易设计线性相位滤波器</p></li>
+</ol>
+<p>当然，相对于IIR滤波器，也有很明显的缺点：</p>
+<ol class="simple">
+<li><p>阶数很高，所以计算复杂度高</p></li>
+<li><p>设计相对复杂，不能从模拟滤波器直接映射过来</p></li>
+</ol>
+<p>因此，在实际应用中，我们需要根据需求，来选择到底是使用FIR滤波器还是IIR滤波器。</p>
+</div>
+<div class="section" id="id2">
+<h2>FIR 滤波器设计方法：窗函数法<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id3">
+<h3>窗函数法的理论依据<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<p>已知待设计滤波器的频率响应$H_d(e^{j\omega})$，设计时域序列$h_t[n]$，使其频率响应$H_t(e^{j\omega})$与待设计滤波器频率响应之间的误差最小：
+$$
+\begin{split}
+h_t[n] &amp;= \arg\min_{h_t}\left{ \phi(h) = \frac{1}{2\pi}\int_{-\infty}^\infty|H_d(e^{j\omega})-H_t(e^{j\omega})|^2d\omega\right}
+\end{split}
+$$
+其中，$H_t(e^{j\omega})=\sum_{n=-\infty}^\infty h_t[n]e^{-j\omega n}$</p>
+<p>根据Parseval定理，可以知道
+$$
+\phi(h_t) = \sum_{n=-\infty}^{\infty}|h_d[n]-h_t[n]|^2 = \sum_{n=-M}^{M}|h_d[n]-h_t[n]|^2+\sum_{|n|&gt;M} |h_d[n]|^2
+$$
+上式第二项为跟$h_t$无关的量，因此只有当第一项中，$h_t[n]=h_d[n]$的时候，$\phi$取最小值，即
+$$
+h_t[n]=h_d[n],\quad \quad -M\leq n \leq M
+$$
+这里的$h_d[n]$为待设计滤波器的频率响应$H_d(e^{j\omega})$的逆离散时间傅里叶变换，即
+$$
+h_d[n] = \frac{1}{2\pi}\int_{-\pi}^{\pi}H_d(e^{j\omega})e^{j\omega n}d\omega
+$$
+因此，此时的最佳估计为
+$$
+h _ { t } [ n ] = \left{ \begin{array} { l l } { \mbox{IDTFT} \left{ H _ { d } \left( e ^ { j \omega } \right) \right} } &amp; { -M \leq n \leq M } \ { 0 , } &amp; { \text { otherwise } } \end{array} \right.
+$$
+或者写成
+$$
+h_t[n] = h_d[n]\cdot w_R[n]，\quad w _ { R } [ n ] = \left{ \begin{array} { l l } { 1 , } &amp; { - M \leq n \leq M } \ { 0 , } &amp; { \text { otherwise } } \end{array} \right.
+$$
+上式实际上是对待设计滤波器频率响应的冲激响应序列进行了截断，也就等效于在时域乘以一个矩形窗函数$w_R[n]$。</p>
+<p><img alt="assets/image-20181119200219174-2628939.png" src="assets/image-20181119200219174-2628939.png" />image-20181119200219174</p>
+<p>另外，为了使得设计的滤波器为因果的，还需要将上式的冲激响应序列向右平移M个单位，使得$h_t[n]=0,\forall n&lt;0$，等效于在频率乘以一个$e^{-j\omega M}$，改变相位响应，但是不会改变幅度响应。</p>
+<p><img alt="assets/image-20181119195512464-2628512.png" src="assets/image-20181119195512464-2628512.png" />image-20181119195512464</p>
+</div>
+<div class="section" id="id4">
+<h3>基于窗函数的FIR低通滤波器设计<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p>我们已经学过，理想低通滤波器的频率响应为
+$$
+H _ { L P } \left( e ^ { j \omega } \right) = \left{ \begin{array} { l l } { 1 } &amp; { | \omega | &lt; \omega _ { c } } \ { 0 } &amp; { \omega _ { c } &lt; | \omega | &lt; \pi } \end{array} \right.
+$$
+幅度谱为</p>
+<p><img alt="assets/image-20181119195725162-2628645.png" src="assets/image-20181119195725162-2628645.png" />image-20181119195725162</p>
+<p>且冲激响应序列为双边无限长的Sinc函数序列
+$$
+h _ { L P } [ n ] = \frac { \sin \omega _ { c } n } { \pi n }
+$$
+<img alt="assets/image-20181119195813897-2628693.png" src="assets/image-20181119195813897-2628693.png" />image-20181119195813897</p>
+<p>因此，根据理想低通滤波器设计的2M阶FIR低通数字滤波器就是对上面这个无限长Sinc函数序列的截断
+$$
+\hat { h } _ { L P } [ n ] = \left{ \begin{array} { l l } { \frac { \sin \omega _ { c } ( n - M ) } { \pi ( n - M ) } } &amp; { 0 \leq n \leq 2 M } \ { 0 } &amp; { \text { otherwise } } \end{array} \right.
+$$
+<img alt="assets/image-20181119195925423-2628765.png" src="assets/image-20181119195925423-2628765.png" />image-20181119195925423</p>
+<p>同时，可以得到该冲激响应序列的频率响应：</p>
+<p><img alt="assets/image-20181119200011280-2628811.png" src="assets/image-20181119200011280-2628811.png" />image-20181119200011280</p>
+<p>利用对理想低通滤波器的冲激响应进行截断（或者窗函数）来设计实际的低通滤波器。但是，同时也会发现，通过截断设计的滤波器的频率响应始终在通带和阻带都存在很大的振荡，贴别是在通带到阻带的过渡带边缘会出现很强的过冲。在滤波器设计当中，这种振荡或者过冲肯定不是我们所希望的，那么我们能不能减少或者消除这些振荡或者过冲呢？</p>
+<ol class="simple">
+<li><p>增大截断的长度$N$？</p></li>
+<li><p>改变窗函数$w_R[n]$？</p></li>
+<li><p>理想低通变成其他类型的低通函数？</p></li>
+</ol>
+<p><strong>NOTE：请思考上面三个问题？</strong></p>
+</div>
+<div class="section" id="id5">
+<h3><!--吉布斯效应--><a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<!--我们先来试试看第一种方法，增大截断的长度$N$，即$M$增大。不难发现，当我 们增大--></div>
+</div>
+<div class="section" id="id6">
+<h2><!--FIR滤波器设计方法：计算机辅助设计--><a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
+</div>
+<div class="section" id="id7">
+<h2><!--最佳滤波器设计方法--><a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Lei Yu
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

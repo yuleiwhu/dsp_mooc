@@ -1,0 +1,399 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Gibbs效应 &mdash; DSP_Course  文档</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/proof.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"extensions": ["tex2jax.js"], "jax": ["input/TeX", "output/HTML-CSS"], "tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]], "processEscapes": true}, "HTML-CSS": {"fonts": ["TeX"]}, "TeX": {"equationNumbers": {"autoNumber": "AMS"}}})</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/proof.css" type="text/css" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="prev" title="小小历史" href="index_history.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> DSP_Course
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">讲义（建设中）</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../ch1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ch2.html">2. 时域中的离散时间信号和系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ch3.html">3. 离散时间傅里叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ch4.html">4. 离散傅里叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ch5.html">5. Z变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ch6.html">6. 变换域中的离散时间系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ch7.html">7. 滤波器设计</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ch8.html">8. 滤波器实现</a></li>
+</ul>
+<p class="caption"><span class="caption-text">课后习题</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../homework/ch1.html">1. 作业要求</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../homework/ch2.html">2. 时域中的离散时间信号和系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../homework/ch3.html">3. 离散时间傅立叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../homework/ch4.html">4. 离散傅立叶变换</a></li>
+</ul>
+<p class="caption"><span class="caption-text">实验内容 (Python)</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../experiments/ex_c1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../experiments/ex_c2.html">2. 离散时间信号与系统</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../experiments/ex_c3.html">3. 离散时间傅里叶变换</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../experiments/ex_c4.html">4. 离散傅里叶变换</a></li>
+</ul>
+<p class="caption"><span class="caption-text">实验内容（Matlab）</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../matlab_ex/ch1.html">1. 引言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../matlab_ex/ch2.html">2. 离散时间信号</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../matlab_ex/convolution_correlation.html">3. 卷积和相关</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../matlab_ex/auto_focus.html">4. 基于傅里叶变换的自动对焦算法</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../matlab_ex/sampling_nonbandLim.html">5. 非带限信号的采样与重建</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../matlab_ex/vuvuzela/vuvuzela_denoising.html">6. 如何消除Vuvuzela?</a></li>
+</ul>
+<p class="caption"><span class="caption-text">附录</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index_principles.html">定理证明</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index_history.html">小小历史</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Gibbs效应</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">吉布斯现象</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">历史</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Gibbs现象带来的影响：振荡</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">DSP_Course</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index_history.html">小小历史</a> &raquo;</li>
+        
+      <li>Gibbs效应</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/appendix/gibbs.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="gibbs">
+<h1>Gibbs效应<a class="headerlink" href="#gibbs" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id1">
+<h2>吉布斯现象<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<blockquote>
+<div><p>In <a class="reference external" href="https://en.wikipedia.org/wiki/Mathematics">mathematics</a>, the <strong>Gibbs phenomenon,</strong> discovered by <a class="reference external" href="https://en.wikipedia.org/wiki/Henry_Wilbraham">Henry Wilbraham</a> (<a class="reference external" href="https://en.wikipedia.org/wiki/Gibbs_phenomenon#CITEREFWilbraham1848">1848</a>)[<a class="reference external" href="https://en.wikipedia.org/wiki/Gibbs_phenomenon#cite_note-Hewitt_1979_129%E2%80%93160-1">1]</a> and rediscovered by <a class="reference external" href="https://en.wikipedia.org/wiki/Willard_Gibbs">J. Willard Gibbs</a> (<a class="reference external" href="https://en.wikipedia.org/wiki/Gibbs_phenomenon#CITEREFGibbs1899">1899</a>),[<a class="reference external" href="https://en.wikipedia.org/wiki/Gibbs_phenomenon#cite_note-dimarogonas-2">2]</a> is the peculiar manner in which the <a class="reference external" href="https://en.wikipedia.org/wiki/Fourier_series">Fourier series</a> of a <a class="reference external" href="https://en.wikipedia.org/wiki/Piecewise">piecewise</a> continuously differentiable <a class="reference external" href="https://en.wikipedia.org/wiki/Periodic_function">periodic function</a> behaves at a <a class="reference external" href="https://en.wikipedia.org/wiki/Jump_discontinuity">jump discontinuity</a>. The <em>n</em>th <a class="reference external" href="https://en.wikipedia.org/wiki/Partial_sum">partial sum</a> of the Fourier series has large oscillations near the jump, which might increase the maximum of the partial sum above that of the function itself. The overshoot does not die out as <em>n</em> increases, but approaches a finite limit.[<a class="reference external" href="https://en.wikipedia.org/wiki/Gibbs_phenomenon#cite_note-Carslaw-3">3]</a></p>
+</div></blockquote>
+<p>简单的说，也就是利用<a class="reference external" href="DSP_%E7%A6%BB%E6%95%A3%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2"><strong>傅里叶级数</strong></a>描述分段连续可微周期函数的时候，会在间断点处出现很大的一个振荡，并且这个振荡并不会随着级数的阶数增加而减小，而是趋于一个恒定的值。</p>
+<p><img alt="../_images/gibbs.png" src="../_images/gibbs.png" /></p>
+<p>上面三幅图，分别是10、50、250阶傅里叶级数叠加得到波形图，可以发现，随着阶数的增加，振荡始终存在。</p>
+</div>
+<div class="section" id="id2">
+<h2>历史<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<blockquote>
+<div><p>The Gibbs phenomenon was first noticed and analyzed by <a class="reference external" href="https://en.wikipedia.org/wiki/Henry_Wilbraham">Henry Wilbraham</a> in a 1848 paper.[<a class="reference external" href="https://en.wikipedia.org/wiki/Gibbs_phenomenon#cite_note-5">5]</a> The paper <strong>attracted little attention</strong> until 1914 when it was mentioned in <a class="reference external" href="https://en.wikipedia.org/wiki/Heinrich_Burkhardt">Heinrich Burkhardt</a>’s review of mathematical analysis in <a class="reference external" href="https://en.wikipedia.org/wiki/Klein%27s_encyclopedia">Klein’s encyclopedia</a>.[<a class="reference external" href="https://en.wikipedia.org/wiki/Gibbs_phenomenon#cite_note-6">6]</a> <strong>In 1898, <a class="reference external" href="https://en.wikipedia.org/wiki/Albert_A._Michelson">Albert A. Michelson</a> developed a device that</strong> could compute and re-synthesize the Fourier series.[<a class="reference external" href="https://en.wikipedia.org/wiki/Gibbs_phenomenon#cite_note-7">7]</a>[<a class="reference external" href="https://en.wikipedia.org/wiki/Gibbs_phenomenon#cite_note-8">8]</a> A widespread myth says that when the Fourier coefficients for a square wave were input to the machine, the graph would oscillate at the discontinuities, and that because it was a physical device subject to manufacturing flaws, Michelson was convinced that the overshoot was caused by errors in the machine. In fact the graphs produced by the machine were not good enough to exhibit the Gibbs phenomenon clearly, and Michelson may not have noticed it as he made no mention of this effect in his paper (<a class="reference external" href="https://en.wikipedia.org/wiki/Gibbs_phenomenon#CITEREFMichelsonStratton1898">Michelson &amp; Stratton 1898</a>) about his machine or his later letters to <em>Nature</em>.[<a class="reference external" href="https://en.wikipedia.org/wiki/Gibbs_phenomenon#cite_note-Hewitt_1979_129%E2%80%93160-1">1]</a> Inspired by some correspondence in <em>Nature</em> between Michelson and Love about the convergence of the Fourier series of the square wave function, <strong>in 1898 <a class="reference external" href="https://en.wikipedia.org/wiki/Willard_Gibbs">J. Willard Gibbs</a> published a short note in which he considered what today would be called a <a class="reference external" href="https://en.wikipedia.org/wiki/Sawtooth_wave">sawtooth wave</a> and pointed out the important distinction between the limit of the graphs of the partial sums of the Fourier series, and the graph of the function that is the limit of those partial sums.</strong> In his first letter Gibbs failed to notice the Gibbs phenomenon, and the limit that he described for the graphs of the partial sums was inaccurate. <strong>In 1899 he published a correction in which he described the overshoot at the point of discontinuity (<em>Nature</em>: April 27, 1899, p. 606)</strong>. In 1906, <a class="reference external" href="https://en.wikipedia.org/wiki/Maxime_B%C3%B4cher">Maxime Bôcher</a> gave a detailed mathematical analysis of that overshoot, coining the term “Gibbs phenomenon”[<a class="reference external" href="https://en.wikipedia.org/wiki/Gibbs_phenomenon#cite_note-9">9]</a> and bringing the term into widespread use.</p>
+<p>After the existence of <a class="reference external" href="https://en.wikipedia.org/wiki/Henry_Wilbraham">Henry Wilbraham</a>’s paper became widely known, in 1925 <a class="reference external" href="https://en.wikipedia.org/wiki/Horatio_Scott_Carslaw">Horatio Scott Carslaw</a> remarked “We may still call this property of Fourier’s series (and certain other series) Gibbs’s phenomenon; but we must no longer claim that the property was first discovered by Gibbs.”</p>
+</div></blockquote>
+<p>为了不影响大家对Gibbs效应这个小小历史的理解，这里我仍然把他的发现，以及中间乌龙，最后被Gibbs解释的过程，从英文原版复制在这里。并且，为了帮助理解，将上述历史可以梳理成下表：</p>
+<table border="1" class="docutils">
+<thead>
+<tr>
+<th align="center">时间</th>
+<th align="center">人物</th>
+<th align="left">贡献</th>
+<th>相关论文</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">1848</td>
+<td align="center">Henry Wilbraham</td>
+<td align="left"><strong>首次</strong>发现了吉布斯现象</td>
+<td>Wilbraham, Henry (1848) <a href="https://www.google.com/books?id=JrQ4AAAAMAAJ&amp;pg=PA198#v=onepage&amp;q&amp;f=false">"On a certain periodic function,"</a> <em>The Cambridge and Dublin Mathematical Journal</em>, <strong>3</strong> : 198–201.</td>
+</tr>
+<tr>
+<td align="center">1898</td>
+<td align="center">Albert A. Michelson</td>
+<td align="left">发明了一个可以计算和合成傅里叶级数的装置</td>
+<td>Michelson, A. A.; Stratton, S. W. (1898), "A new harmonic analyser", Philosophical Magazine, 5 (45): 85–91</td>
+</tr>
+<tr>
+<td align="center">1898以前</td>
+<td align="center">大多数科研人员</td>
+<td align="left">认为Gibbs是因为设备精度问题导致的</td>
+<td>Michelson没有深究，也就认为是这样（错失了吉布斯现象的冠名权），甚至在论文发表的时候，"无意间"回避了这个问题。</td>
+</tr>
+<tr>
+<td align="center">1898</td>
+<td align="center">J. Willard Gibbs</td>
+<td align="left">部分傅里叶级数存在过冲，但是部分傅里叶级数的极限不存在过冲（<strong>真绕</strong>）</td>
+<td>Gibbs, J. Willard (1898), "Fourier's Series", Nature, 59 (1522): 200</td>
+</tr>
+<tr>
+<td align="center">1899</td>
+<td align="center">J. Willard Gibbs</td>
+<td align="left">准确解释了不连续点处的过冲问题</td>
+<td>Gibbs, J. Willard (1899), "Fourier's Series", Nature, 59 (1539): 606</td>
+</tr>
+<tr>
+<td align="center">1906</td>
+<td align="center">M. Bocher</td>
+<td align="left">完整的证明了Gibbs现象，并且给这个现象起了个名字：Gibbs Phenomenon</td>
+<td>M. Bocher, Introduction to the theory of Fourier series, Ann. Math., 7 (1906), 81–152.</td>
+</tr>
+<tr>
+<td align="center">1914</td>
+<td align="center">Heinrich Burhardt</td>
+<td align="left">将Gibbs现象收录到德国数学百科Klein's encyclopedia</td>
+<td><a href="http://gdz.sub.uni-goettingen.de/pdfcache/PPN360506208/PPN360506208___LOG_0158.pdf"><em>Encyklopädie der Mathematischen Wissenschaften mit Einschluss ihrer Anwendungen</em></a> (PDF). Vol II T. 1 H 1. Wiesbaden: Vieweg+Teubner Verlag. 1914. p. 1049.</td>
+</tr>
+</tbody>
+</table><p>让我们来瞻仰一下人生赢家：<strong>Gibbs大人</strong>的第一篇(1898)论文的开篇：</p>
+<blockquote>
+<div><p>I SHOULD like to add a few words concerning the subject of Prof. Michelson’s letter in NATURE of October 6. In the only reply which I have seen (NATURE, October 13), the point of view of Prof. Michelson is hardly considered.</p>
+<p>​			- J. Willard Gibbs</p>
+</div></blockquote>
+<p>再看看Gibbs大人的第二篇（1899）论文的开篇：</p>
+<blockquote>
+<div><p>I SHOULD like to correct a careless error which I made (NATURE, December 29, 1898) in describing the limiting form of the family of curves represented by the equation as a zigzag line consisting of alternate inclined and vertical portions. The inclined portions were correctly given, but the vertical portions, which are bisected by the axis of X, extend beyond the points where they meet the inclined portions, their total lengths being expressed by four times the definite integral .</p>
+<p>​			- J. Willard Gibbs</p>
+</div></blockquote>
+<p>同时，也为首次发现吉布斯现象的Henry Wilbraham教授和发明了谐波分析器（下图，Michelson谐波分析器还有很详细的<a class="reference external" href="http://www.engineerguy.com/fourier/pdfs/albert-michelsons-harmonic-analyzer.pdf">说明</a>）的Albert Michelson教授表示感谢。不过，值得一提的是，Michelson教授以“发明光学干涉仪并使用其进行光谱学和基本度量学研究”而成为美国第一个<a class="reference external" href="https://zh.wikipedia.org/wiki/%E8%AF%BA%E8%B4%9D%E5%B0%94%E7%89%A9%E7%90%86%E5%AD%A6%E5%A5%96">诺贝尔物理学奖</a>获得者。</p>
+<p><img alt="../_images/image-20181114145914370-2178754.png" src="../_images/image-20181114145914370-2178754.png" /></p>
+<p>讲到这里，大家也许会有所疑问，Gibbs现象到底是怎么产生的？我们能不能消除吉布斯现象呢？那么在解释原理之前，我们先看看Gibbs现象会带来什么问题？从而了解我们要分析Gibbs现象的必要性。</p>
+</div>
+<div class="section" id="id3">
+<h2>Gibbs现象带来的影响：振荡<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>在信号处理中，吉布斯现象通常被认为是处理带来的干扰，需要被去除掉。比如，过冲或者由于振荡产生的振铃效应。另外，在滤波器设计中，由于窗函数引入导致的间断点问题，也会引发Gibbs现象，从而引起通带和阻带的振荡。</p>
+<p><img alt="../_images/image-20181114162837485-2184117.png" src="../_images/image-20181114162837485-2184117.png" /></p>
+<p>另外，在MRI成像（一种非侵入式医学成像方法）中，对于邻接区域存在跳变的地方，其频谱分布在整个频域；但是MRI只能采集有限个频率分量，即等效于在频域加了个窗产生了不连续点，这样反变换到时域中，就出现了类似滤波器设计的问题。只不过这里是频域有间断点，滤波器设计是时域有间断点。</p>
+<p><img alt="../_images/image-20181114163709558-2184629.png" src="../_images/image-20181114163709558-2184629.png" /></p>
+<p>所以说，分析Gibbs产生的原理，以及研究消除Gibbs现象的方法，是很有必要的。</p>
+<!-- ## 吉布斯现象产生的原因：间断点的问题
+
+本节将出现非常多的数学公式，阅读前清醒大脑。
+
+### 不连续点的数学描述
+
+定义函数$f:\mathbb{R}\to \mathbb{R}$，为分段连续可微函数，同时周期为$L>0$。假设$x_0$为间断点，那么令$f(x_0^-)$为该点的左极限，$f(x_0^+)$的右极限，那么存在$a \neq 0$，使得
+$$
+f(x_0^+)-f(x_0^-) = a \neq 0
+$$
+
+### 不连续点位置的傅里叶级数
+
+对于正整数$N\geq 1$，$N$阶傅里叶级数定义如下：
+$$
+S _ { N } f ( x ) : = \sum _ { - N \leq n \leq N } \hat { f } ( n ) e ^ { \frac { 2 i \pi n x } { L } }
+$$
+其中$\hat { f } ( n ) : = \frac { 1 } { L } \int _ { 0 } ^ { L } f ( x ) e ^ { - 2 i \pi n x / L } d x$。
+
+那么对于间断点右侧附近$x=x_0+L/(2N)$处，
+$$
+S _ { N } f \left( x _ { 0 } + \frac { L } { 2 N } \right) =  \sum _ { - N \leq n \leq N } \hat { f } ( n )_+ e ^ { \frac { 2 i \pi n (x_0+L/(2N)) } { L } }
+$$
+其中
+$$
+\hat { f } ( n )_+ : = \frac { 1 } { L } \int _ { 0 } ^ { L } f ( x+L/(2N) ) e ^ { - 2 i \pi n x / L } d x \\
+=\frac { 1 } { L } \int _ { 0 } ^ { L } f ( x+L/(2N) ) e ^ { - 2 i \pi n (x+L/(2N)) / L } e ^ {  i \pi n/N }d x  \\
+= e ^ {  i \pi n/N }\hat{f}(n)
+$$
+带入上式，可以得到
+$$
+S _ { N } f \left( x _ { 0 } + \frac { L } { 2 N } \right) =  \sum _ { - N \leq n \leq N } e ^ {  i \pi n/N }\hat{f}(n) e ^ { \frac { 2 i \pi n (x_0+L/(2N)) } { L } } = \sum _ { - N \leq n \leq N } \hat{f}(n) e ^ { \frac { 2 i \pi n (x_0+L/N) } { L } }
+$$
+
+## 消除Gibbs现象的方法 --></div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="index_history.html" class="btn btn-neutral float-left" title="小小历史" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Lei Yu
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

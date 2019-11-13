@@ -1,0 +1,291 @@
+# IIR 数字滤波器设计
+
+[TOC]
+
+IIR数字滤波器的基本设计思路可以参照下图：
+
+
+
+![image-20181113011114250](assets/image-20181113011114250-2042674.png)
+
+IIR数字滤波器设计可以分解为三个步骤：
+
+1. 选择滤波器类型，根据通带或者阻带的波纹条件；
+2. 根据数字滤波器指标，通过某种变换（例如双线性变换）将数字指标转换成模拟滤波器指标；
+3. 设计模拟滤波器的传输函数；
+4. 根据上述变换的反变换，将模拟滤波器转换成数字滤波器。
+
+## 例子：设计IIR滤波器
+
+> 设计满足下列指标的IIR数字滤波器：
+>
+> 1. 低通滤波器
+> 2. 通带波纹1dB
+> 3. 通带截止频率$\omega_p=0.4\pi$
+> 4. 阻带最小衰减$\geq 40dB$
+> 5. 阻带截止频率$\omega_s=0.5\pi$，且阻带随着频率增加衰减增加
+
+1. 首先，根据通带和阻带波纹条件，选择滤波器类型：指标5中阻带衰减随着频率增加而增大，所以要求使用的滤波器满足阻带无震荡，所以必须选择Chebyshev I型滤波器。
+
+2. 其次，根据双线性变换，将数字指标转换成模拟指标
+
+   - 频率指标
+
+   $$
+   \begin{split}
+   				\Omega_p &=\tan \frac{\omega_p}{2} = \tan 0.2\pi  = 0.7265 rad/sec\\
+   				\Omega_s &= \tan \frac{\omega_s}{2} = \tan 0.25 \pi =1.0 rad/sec
+   			\end{split}
+   $$
+
+   - 幅度指标
+     $$
+     \begin{split}
+     				&\mbox{1dB通带波纹}\\
+     				&\Rightarrow \frac{1}{\sqrt{1+\varepsilon^2}} = 10^{-1/20} = 0.8913 \Rightarrow \varepsilon = 0.5078 \\
+     				&\mbox{40dB阻带衰减}\\
+     				&\Rightarrow \frac{1}{A}=10^{-40/20}=0.01 \Rightarrow A = 100
+     			\end{split}
+     $$
+
+   - 最小阶数
+     $$
+     N \geq \frac{\cosh^{-1}\left(\frac{\sqrt{A^2-1}}{\varepsilon}\right)}{\cosh^{-1}\left(\frac{\Omega_s}{\Omega_p}\right)} = 7.09 \Rightarrow N = 8
+     $$
+
+3. 设计ChebyshevI型模拟滤波器
+
+4. 通过双线性变换，将模拟滤波器转换成数字滤波器
+
+   ```matlab
+   N=8;
+   wp=0.7265;
+   pbripple = 1.0;
+   [ B,A]=cheby1(N,pbripple,wp,'s'); % 设计Chebyshev滤波器
+   [ b,a ] = bilinear(B,A,.5); %双线性变换
+   ```
+
+   ![image-20181113012647404](assets/image-20181113012647404-2043607.png)
+
+## 双线性变换
+
+可以发现，IIR数字滤波器的设计，实际上是通过模拟的IIR滤波器设计来近似的，关键的点在于找到一个合适的从数字（或者准确的说离散）到模拟（或者连续）的变换。针对连续情况，通过Laplace变换，将连续系统的冲激响应变换到S域；S平面的虚轴对应系统的频率响应；对于因果稳定的连续系统，其极点都在S平面的左半平面。而对于离散系统来说，则通过Z变换，将离散时间系统的冲激响应变换的Z域；Z平面的单位圆对应系统的频率响应；对于因果稳定的离散时间系统，其极点都在Z平面的单位圆内。
+
+综上所述，我们需要定义一个从离散时间到连续时间的变换，即Z域到S域的变换，$s=F(z)$，满足如下两个条件：
+
+1. s-域中的虚轴对应z-域中的单位圆：保证变换前后的频率响应分布不变；
+2. s-域中的左半平面对应z-域中的单位圆内：保证变换前后系统的稳定性不变。
+
+![image-20181113021213644](assets/image-20181113021213644-2046333.png)
+
+那么，我们可以定义**双线性变换**
+$$
+s = F(z)=\frac { 2 } { T } \left( \frac { 1 - z ^ { - 1 } } { 1 + z ^ { - 1 } } \right)
+$$
+其逆变换为：
+$$
+z=F^{-1}(z) = \frac { 1 + \frac { T } { 2 } s } { 1 - \frac { T } { 2 } s }
+$$
+很容易，我们可以验证双线性变换满足刚刚所述的两个条件，因为令$s=\sigma_0+j\Omega_0$
+$$
+| z | ^ { 2 } = \frac { \left( 1 + \frac { T } { 2 } \sigma _ { 0 } \right) ^ { 2 } + \left( \frac { T } { 2 } \Omega _ { 0 } \right) ^ { 2 } } { \left( 1 - \frac { T } { 2 } \sigma _ { 0 } \right) ^ { 2 } + \left( \frac { T } { 2 } \Omega _ { 0 } \right) ^ { 2 } } \left\{ \begin{array} { c c } { < 1 } & { \sigma _ { 0 } < 0 } \\ { = 1 } & { \sigma _ { 0 } = 0 } \\ { > 1 } & { \sigma _ { 0 } > 0 } \end{array} \right.
+$$
+
+- $\sigma_0<0$表示位于s平面的左半部分，此时，$z$平面上对应的点在单位圆内；
+- $\sigma_0=0$表示位于s平面的虚轴上，此时，z平面上对应的点在单位圆上。
+
+如果将s平面上各个区域的点用不同颜色标识，对应到z平面上，点的分布就如下图所示。
+
+![image-20181113021744677](assets/image-20181113021744677-2046664.png)
+
+同时，s平面上的虚轴$s=j\Omega$于z平面上单位圆$z=e^{j\omega}$的关系如下
+$$
+j \Omega = \frac { 2 } { T } \left( \frac { 1 - e ^ { - j \omega } } { 1 + e ^ { - j \omega } } \right) = j \frac { 2 } { T } \tan ( \omega / 2 )
+$$
+双线性变换两边（连续频率$\Omega$和离散频率$\omega$）之间的关系为
+$$
+\begin{array} { l } { \Omega = \frac { 2 } { T } \tan \left( \frac { \omega } { 2 } \right) } \\ { \omega = 2 \arctan \left( \frac { \Omega T } { 2 } \right) } \end{array}
+$$
+很显然，双线性变换是一个非线性变换，上述频率之间的关系，表示双线性变换将范围在$(-\infty,\infty)$的连续频率$\Omega$压缩映射到范围在$(-\pi,\pi)$的离散频率$\omega$上，因此会引起频率畸变。
+
+![image-20181113022237313](assets/image-20181113022237313-2046957.png)
+
+## 利用双线性变换进行IIR数字滤波器设计
+
+![image-20181113022602047](assets/image-20181113022602047-2047162.png)
+
+再来回顾一下IIR数字滤波器设计的基本流程：
+
+1. 选择滤波器类型；
+2. 双线性变换将数字指标转换成模拟滤波器指标；
+3. 设计模拟滤波器的传输函数；
+4. 根据上述变换的反变换，将模拟滤波器转换成数字滤波器。
+
+同时，可以通过回顾例子1，进一步理解设计流程。
+
+## 通过Matlab的滤波器设计工具箱
+
+![image-20181115192903579](assets/image-20181115192903579-2281343.png)
+
+
+
+
+
+## 通过谱变换设计高通、带通、带阻滤波器的方法
+
+![image-20181115193002287](assets/image-20181115193002287-2281402.png)
+
+1. 双线性变换将数字指标转换成模拟指标
+2. 设计模拟低通滤波器
+3. 两种方法选择：
+   1. 先**连续时间谱变换**，将低通变为高通（或者带通、带阻）模拟滤波器，然后双线性变换将模拟滤波器变成数字滤波器
+   2. 先双线性变换，将模拟转数字，然后通过**离散时间谱变换**，将低通变高通（带通或者带阻）
+
+所以，这个问题的关键在于，如何确定连续时间谱变换，或者离散时间谱变换？
+
+### 连续时间谱变换
+
+简单来说，连续时间谱变换实际上就是找到一个连续域的变换$s=F(\hat{s})$，将已经设计好的低通滤波器的低频部分变为想要设计的滤波器的通带部分，高通部分变为想要设计滤波器的阻带部分。
+$$
+H _ { L P } ( s ) \frac { s = F ( \hat { s } ) } { \hat { s } = F ^ { - 1 } ( s ) } H _ { D } ( \hat { s } )
+$$
+
+#### 低通变换到高通
+
+将$\Omega$的低通部分变换到$\hat{\Omega}$的高通部分，可以通过下面的图像来描述。
+
+![image-20181115193945516](assets/image-20181115193945516-2281985.png)
+
+实际上，这个关系可以很容易定义如下：
+$$
+s = F ( \hat { s } ) = \frac { \Omega _ { p } \hat { \Omega } _ { p } } { \hat { s } }
+$$
+
+#### 低通变换到带通
+
+低通变换到带通的谱变换为：
+$$
+s = F ( \hat { s } ) = \Omega _ { p } \frac { \hat { s } ^ { 2 } + \hat { \Omega } _ { o } ^ { 2 } } { \hat { s } \left( \hat { \Omega } _ { p 2 } - \hat { \Omega } _ { p 1 } \right) }
+$$
+
+#### 低通变换到带阻
+
+低通变换到带阻的谱变换为：
+$$
+s = F ( \hat { s } ) = \Omega _ { s } \frac { \hat { s } \left( \hat { \Omega } _ { s 2 } - \hat { \Omega } _ { s 1 } \right) } { \hat { s } ^ { 2 } + \hat { \Omega } _ { O } ^ { 2 } }
+$$
+
+### 例子：设计切比雪夫I型高通滤波器
+
+设计切比雪夫I型高通滤波器，指标为
+
+- 通带边界频率$F_p=700Hz$
+- 阻带边界频率$F_s=500Hz$
+- 通带波纹$\alpha_p=1dB$
+- 阻带最小衰减$\alpha_s=32dB$
+- 采样频率$F_T=2000Hz$
+
+设计流程：
+
+1. 计算归一化角频率：
+   $$
+   \begin{aligned} \omega _ { p } & = \frac { 2 \pi F _ { p } } { F _ { T } } = 0.7 \pi \\ \omega _ { s } & = \frac { 2 \pi F _ { s } } { F _ { T } } = 0.5 \pi \end{aligned}
+   $$
+
+2. 频率变换：双线性变换
+   $$
+   \begin{array} { l } { \hat { \Omega } _ { p } = \tan \left( \omega _ { p } / 2 \right) = 1.9626 } \\ { \hat { \Omega } _ { s } = \tan \left( \omega _ { s } / 2 \right) = 1.0 } \end{array}
+   $$
+
+3. 设计低通滤波器，并通过连续谱变换，将低通滤波器变为高通滤波器
+   $$
+   \Omega _ { p } = 2 \Rightarrow \Omega _ { s } = \frac { \Omega _ { p } \hat { \Omega } _ { p } } { \hat { \Omega } _ { s } } = 3.9352
+   $$
+
+4. 双线性逆变换：将模拟滤波器转换为数字滤波器
+
+![image-20181115195159446](assets/image-20181115195159446-2282719.png)
+
+![image-20181115195209868](assets/image-20181115195209868-2282729.png)
+
+### 离散时间谱变换
+
+而对于离散时间谱变换来说，实际上就是将双线性逆变换之后得到的数字低通滤波器，跟刚刚的连续时间谱变换方式一样，将低通部分转换为待设计滤波器的通带部分，高通部分转换为待设计滤波器的阻带部分。
+$$
+G _ { L P } ( z ) \frac { z = F ( \hat { z } ) } { \hat { z } = F ^ { - 1 } ( z ) } G _ { D } ( \hat { z } )
+$$
+变换函数$z=F(\hat{z})$必须满足
+
+- 保证频率响应不变：单位圆映射到单位圆（但是改变位置）
+- 保证稳定性：单位圆内映射到单位圆内
+
+$$
+| F ( \hat { z } ) | \left\{ \begin{array} { l } { > 1 , } & { | z | > 1 } \\ { = 1 , } & { | z | = 1 } \\ { < 1 , } & { | z | < 1 } \end{array} \right. \Longrightarrow \frac{1}{F(\hat{z})}是稳定的全通函数
+$$
+
+可以发现，实际上要设计的谱变换函数的倒数满足全通函数性质，因此分子和分母多项式是镜像对称的。
+
+#### 低通转换到低通
+
+定义变换为：
+$$
+z ^ { - 1 } = \frac { 1 } { F ( \hat { z } ) } = \frac { 1 - \alpha \hat { z } } { \hat { z } - \alpha }
+$$
+可以推导出
+$$
+\hat { z } = e ^ { j \hat { \omega } } \Rightarrow z ^ { - 1 } = e ^ { - j \omega } = \frac { 1 - \alpha e ^ { j \hat { \omega } } } { e ^ { j \hat { \omega } } - \alpha }\Rightarrow \tan \left( \frac { \omega } { 2 } \right) = \frac { 1 + \alpha } { 1 - \alpha } \tan \left( \frac { \hat { \omega } } { 2 } \right) \\
+\Rightarrow \tan \left( \frac { \omega _ { c } } { 2 } \right) = \frac { 1 + \alpha } { 1 - \alpha } \tan \left( \frac { \hat { \omega } _ { c } } { 2 } \right) \Rightarrow \alpha = \frac { \sin \left( \frac { \omega _ { c } - \hat { \omega } _ { c } } { 2 } \right) } { \sin \left( \frac { \omega _ { c } + \hat { \omega } _ { c } } { 2 } \right) }
+$$
+![image-20181115201343473](assets/image-20181115201343473-2284023.png)
+
+因此可以发现，
+
+- 当$\alpha>0$时，高频部分扩展（低频部分压缩），也就是说通带缩减了；
+- 当$\alpha<0$时，低频部分扩展（高频部分压缩），也就是说通带增大了。
+
+#### 低通转换到高通
+
+同样的，定义变换为
+$$
+z ^ { - 1 } = \frac { 1 } { F ( \hat { z } ) } = - \frac { 1 - \alpha \hat { z } } { \hat { z } - \alpha }
+$$
+可以推导出
+$$
+\hat { z } = e ^ { j \hat { \omega } } \Rightarrow z ^ { - 1 } = e ^ { - j \omega } = - \frac { 1 - \alpha e ^ { j \hat { \omega } } } { e ^ { j \hat { \omega } } - \alpha } \Rightarrow \tan \left( \frac { \omega } { 2 } \right) = \frac { 1 + \alpha } { 1 - \alpha } \cot \left( \frac { \hat { \omega } } { 2 } \right) \\
+\Rightarrow \tan \left( \frac { \omega _ { c } } { 2 } \right) = \frac { 1 + \alpha } { 1 - \alpha } \cot \left( \frac { \hat { \omega } _ { c } } { 2 } \right) \Rightarrow \alpha = - \frac { \cos \left( \frac { \omega _ { c } + \hat { \omega } _ { c } } { 2 } \right) } { \cos \left( \frac { \omega _ { c } - \hat { \omega } _ { c } } { 2 } \right) }
+$$
+![image-20181115201613017](assets/image-20181115201613017-2284173.png)
+
+因此可以发现，这个变换的作用是将高频和低频部分对调，并且
+
+- 当$\alpha>0$时，高频部分扩展（低频部分压缩）；
+
+- 当$\alpha<0$时，低频部分扩展（高频部分压缩）。
+
+## 附录：模拟滤波器的设计方法
+
+模拟IIR滤波器的类型：
+
+1. 巴特沃兹
+2. 切比雪夫I
+3. 切比雪夫II
+4. 椭圆
+
+上述几种滤波器通带和阻带的特性。
+
+<img src="assets/image-20181115192343993-2281024.png" width=450px>
+
+### Butterworth
+
+1. 首先确定滤波器阶数$N$：
+
+![image-20181115192516105](assets/image-20181115192516105-2281116.png)2. 然后通过查表或者Matlab工具箱得到传输函数：
+$$
+H _ { a } ( s ) = \frac { 1 } { B _ { N } \left( s / \Omega _ { c } \right) }
+$$
+<img src="assets/image-20181115192615939-2281176.png" width=450px>
+
+其他几种模拟滤波器的设计方法参见课件PPT。
+
+
+
